@@ -5,17 +5,18 @@
         <div class="card-header hstack gap-2">
             <span><strong>Visualizar usuário</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
-                <a href="{{ route('users.index') }}" class="btn btn-outline-info btn-sm me-1" data-toggle="tooltip" data-placement="top" title="listar"><i class="bi bi-card-list"></i>
+                <a href="{{ route('users.index') }}" class="btn btn-outline-info btn-sm me-1" data-toggle="tooltip"
+                    data-placement="top" title="listar"><i class="bi bi-card-list"></i>
                 </a>
-                <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-outline-warning btn-sm me-1" data-toggle="tooltip" data-placement="top" title="editar"><i class="bi bi-pencil-square"></i>
+                <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-outline-warning btn-sm me-1"
+                    data-toggle="tooltip" data-placement="top" title="editar"><i class="bi bi-pencil-square"></i>
                 </a>
-                <form method="POST" action="{{ route('users.destroy', ['user' => $user->id]) }}"
-                    class="d-inline">
+                <form method="POST" action="{{ route('users.destroy', ['user' => $user->id]) }}" class="d-inline">
                     @csrf
                     @method('delete')
-                    <button type="submit"
-                        onclick="return confirm('Tem certeza que deseja apagar este registro?')"
-                        class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="apagar"><i class="bi bi-eraser"></i>
+                    <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')"
+                        class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="apagar"><i
+                            class="bi bi-eraser"></i>
                     </button>
                 </form>
             </span>
@@ -62,13 +63,25 @@
                     </h2>
                     <div id="docs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <dt class="col-sm-3">CPF:</dt>
-                            <dd class="col-sm-9">{{ $docs->cpf }}</dd>
-                            CPF,
-                            PIS/PASEP,
-                            Título de eleitor,
-                            CNH,
-                            Dados bancários,
+                            @if ($docs)
+                                <dt class="col-sm-3">CPF:</dt>
+                                <dd class="col-sm-9">{{ $docs->cpf }}</dd>
+
+                                <dt class="col-sm-3">PIS / PASEP:</dt>
+                                <dd class="col-sm-9">{{ $docs->pis_pasep }}</dd>
+
+                                <dt class="col-sm-3">Título de eleitor:</dt>
+                                <dd class="col-sm-9">{{ $docs->titulo_eleitor }}</dd>
+
+                                <dt class="col-sm-3">CNH:</dt>
+                                <dd class="col-sm-9">{{ $docs->cnh }}</dd>
+
+                                <dt class="col-sm-3">Data de cadastro:</dt>
+                                <dd class="col-sm-9"> {{ \Carbon\Carbon::parse($docs->created_at)->format('d/m/Y H:i') }}
+                                </dd>
+
+                                <dt class="col-sm-3">Data de atualização:</dt>
+                                <dd class="col-sm-9"> {{ \Carbon\Carbon::parse($docs->updated_at)->format('d/m/Y H:i') }}</dd>
                         </div>
                     </div>
                 </div>{{-- documentos pessoais --}}
