@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- estilo --}}
+    <link rel="stylesheet" href="css/edit.css">
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/tooltip.css">
+    <style>
+        .accordion {
+            --bs-accordion-active-bg: rgb(173, 247, 173);
+            --bs-accordion-active-color: black;
+            --bs-accordion-border-color:rgb(173, 247, 173); 
+            --bs-accordion-btn-focus-box-shadow:rgb(173, 247, 173);
+        }
+    </style>
+    
+    <title>Meka Engenharia</title>
+</head>
+
+<body>
+    {{-- menu superior --}}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Meka</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
+                            aria-expanded="false">Usuários</button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('users.index') }}">Listar usuários</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
+                            aria-expanded="false">Almoxarifado</button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item form-control-sm" href="#">Listar usuários</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-end">
+                <a class="btn btn-outline-light me-2 btn-sm" href="{{ route('logout') }}" role="button">Logout</a>
+                {{-- <button type="button" class="btn btn-outline-light me-2 btn-sm">Logout</button> --}}
+            </div>
+        </div>
+    </nav>
+    {{-- menu superior --}}
+    {{-- conteúdo --}}
+    <div class="container">
+        @yield('content')
+    </div>
+    {{-- conteúdo --}}
+    
+    <script src="js/maskvalid.js"></script>
+    <script src="js/popper.min.js"></script>
+      
+</body>
+
+</html>

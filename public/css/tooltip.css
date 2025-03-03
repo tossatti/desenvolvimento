@@ -1,0 +1,300 @@
+/* TOOLTIP ESQUERDA*/
+[tooltip-left] {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[tooltip-left]:before,
+[tooltip-left]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[tooltip-left]:before {
+    position: absolute;
+    bottom: 150%;
+    right: -5px;
+    margin-bottom: -5px;
+    padding: 7px;
+    width: 160px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #000;
+    background-color: hsla(0, 3%, 7%, 0.9);
+    color: #fff;
+    content: attr(tooltip-left);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[tooltip-left]:after {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -5px;
+    margin-bottom: -10px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[tooltip-left]:hover:before,
+[tooltip-left]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+
+
+/* TOOLTIP  DIREITA*/
+[tooltip-right] {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[tooltip-right]:before,
+[tooltip-right]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[tooltip-right]:before {
+    position: absolute;
+    bottom: 150%;
+    left: 15px;
+    margin-bottom: -10px;
+    padding: 7px;
+    width: 160px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #000;
+    background-color: hsla(0, 3%, 7%, 0.9);
+    color: #fff;
+    content: attr(tooltip-right);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[tooltip-right]:after {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -5px;
+    margin-bottom: -15px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[tooltip-right]:hover:before,
+[tooltip-right]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+/* TOOLTIP  DIREITA ABAIXO*/
+[tooltip-right-down] {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[tooltip-right-down]:before,
+[tooltip-right-down]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[tooltip-right-down]:before {
+    position: absolute;
+    bottom: -100%;
+    left: 15px;
+    margin-bottom: -10px;
+    padding: 7px;
+    width: 160px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #000;
+    background-color: hsla(0, 3%, 7%, 0.9);
+    color: #fff;
+    content: attr(tooltip-right-down);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+/* Show tooltip content on hover */
+[tooltip-right-down]:hover:before,
+[tooltip-right-down]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+
+
+
+/* TOOLTIP  BAIXO*/
+[tooltip-down] {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[tooltip-down]:before,
+[tooltip-down]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[tooltip-down]:before {
+    position: absolute;
+    bottom: -30%;
+    left: -160px;
+    margin-bottom: -10px;
+    padding: 7px;
+    width: 160px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #000;
+    background-color: hsla(0, 3%, 7%, 0.9);
+    color: #fff;
+    content: attr(tooltip-down);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+/* Show tooltip content on hover */
+[tooltip-down]:hover:before,
+[tooltip-down]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+
+/* TOOLTIP ESQUERDA*/
+[tooltip-menu-ajuda] {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[tooltip-menu-ajuda]:before,
+[tooltip-menu-ajuda]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+[tooltip-menu-ajuda]:before {
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    right: -5px;
+    margin-bottom: -5px;
+    padding: 1vw;
+    width: 20vw;
+    height: auto;
+    /* altura ajustável */
+    max-width: 100vh;
+    /* largura máxima */
+    max-height: 100vh;
+    /* altura máxima */
+    overflow-y: auto;
+    /* scroll automático quando necessário */
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    color: #000;
+    content: attr(tooltip-menu-ajuda);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+    border: 1px solid #87cefa;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[tooltip-menu-ajuda]:after {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    margin-bottom: -10px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid #87cefa;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+}
+
+
+/* Show tooltip content on hover */
+[tooltip-menu-ajuda]:hover:before,
+[tooltip-menu-ajuda]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+}
+
+@media only screen and (max-width: 480px) {
+    [tooltip-menu-ajuda]:before {
+        width: 90vw;
+    }
+}
