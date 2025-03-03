@@ -58,13 +58,17 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //recuperar os dados do BD
+        $docs = (User::find($user->id)->documentos()->get())->first();
+        if(!$docs){
+          echo 'nada' ;
+        }else{
+            dd($docs->cpf);
+        }
+            
         
-        // $docs = User::find($user->id)->documentos()->get();
-        $docs = User::find($user->id)->documentos()->get();
-        // dd($docs, $user);
-       
         //retornar para a view
         return view('users.edit', ['user' => $user, 'docs' => $docs]);
+       
     }
 
     public function update(UserRequest $request, User $user)

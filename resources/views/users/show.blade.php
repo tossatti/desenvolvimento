@@ -63,25 +63,24 @@
                     </h2>
                     <div id="docs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            @if ($docs)
-                                <dt class="col-sm-3">CPF:</dt>
-                                <dd class="col-sm-9">{{ $docs->cpf }}</dd>
+                            <dt class="col-sm-3">CPF:</dt>
+                            <dd class="col-sm-9">{{ $docs->cpf }}</dd>
 
-                                <dt class="col-sm-3">PIS / PASEP:</dt>
-                                <dd class="col-sm-9">{{ $docs->pis_pasep }}</dd>
+                            <dt class="col-sm-3">PIS / PASEP:</dt>
+                            <dd class="col-sm-9">{{ $docs->pis_pasep }}</dd>
 
-                                <dt class="col-sm-3">Título de eleitor:</dt>
-                                <dd class="col-sm-9">{{ $docs->titulo_eleitor }}</dd>
+                            <dt class="col-sm-3">Título de eleitor:</dt>
+                            <dd class="col-sm-9">{{ $docs->titulo_eleitor }}</dd>
 
-                                <dt class="col-sm-3">CNH:</dt>
-                                <dd class="col-sm-9">{{ $docs->cnh }}</dd>
+                            <dt class="col-sm-3">CNH:</dt>
+                            <dd class="col-sm-9">{{ $docs->cnh }}</dd>
 
-                                <dt class="col-sm-3">Data de cadastro:</dt>
-                                <dd class="col-sm-9"> {{ \Carbon\Carbon::parse($docs->created_at)->format('d/m/Y H:i') }}
-                                </dd>
+                            <dt class="col-sm-3">Data de cadastro:</dt>
+                            <dd class="col-sm-9"> {{ \Carbon\Carbon::parse($docs->created_at)->format('d/m/Y H:i') }}
+                            </dd>
 
-                                <dt class="col-sm-3">Data de atualização:</dt>
-                                <dd class="col-sm-9"> {{ \Carbon\Carbon::parse($docs->updated_at)->format('d/m/Y H:i') }}</dd>
+                            <dt class="col-sm-3">Data de atualização:</dt>
+                            <dd class="col-sm-9"> {{ \Carbon\Carbon::parse($docs->updated_at)->format('d/m/Y H:i') }}</dd>
                         </div>
                     </div>
                 </div>{{-- documentos pessoais --}}
