@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Models\User;
 
-class PersonalDocument extends Model
+class Adress extends Model
 {
     //** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-
 
     /**
      * The attributes that are mass assignable.
@@ -19,12 +18,15 @@ class PersonalDocument extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'cpf',
-        'pis_pasep',
-        'titulo_eleitor',
-        'cnh',
-        'ctps',
         'user_id',
+        'endereco',
+        'numero',
+        'complemento',
+        'bairro',
+        'cidade',
+        'estado',
+        'cep',
+        'telefone'
     ];
 
     /**

@@ -25,7 +25,8 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.($userId ? $userId->id : null),
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            // 'password' => $this->isMethod('PUT') ? 'sometimes|min:6' : 'required|min:6',
         ];
     }
 

@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use App\Models\User;
 
-class PersonalDocument extends Model
+class Contrato extends Model
 {
     //** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-
 
     /**
      * The attributes that are mass assignable.
@@ -19,12 +17,19 @@ class PersonalDocument extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'cpf',
-        'pis_pasep',
-        'titulo_eleitor',
-        'cnh',
-        'ctps',
         'user_id',
+        'tipoContrato',
+        'lotacao',
+        'equipe',
+        'funcao',
+        'remuneracao',
+        'cbo',
+        'situacao',
+        'disponibilidade',
+        'aso',
+        'admissao',
+        'termino',
+        'observacao',
     ];
 
     /**

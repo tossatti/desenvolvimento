@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('pis_pasep');
             $table->string('titulo_eleitor');
             $table->string('cnh');
+            $table->string('ctps');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

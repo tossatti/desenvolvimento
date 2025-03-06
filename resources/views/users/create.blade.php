@@ -79,6 +79,11 @@
                                         <input type="text" class="form-control" id="cnh" name="cnh"
                                             placeholder="Título de eleitor" value="{{ old('cnh') }}">
                                     </div>
+                                    <div class="col-md-6">
+                                        <label for="ctps" class="form-label">Carteira de trabalho</label>
+                                        <input type="text" class="form-control" id="ctps" name="ctps"
+                                            placeholder="Carteira de trabalho" value="{{ old('ctps') }}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +123,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="numeroConta" class="form-label">Nº da contar</label>
+                                        <label for="numeroConta" class="form-label">Nº da conta</label>
                                         <input type="text" class="form-control" id="numeroConta" name="numeroConta"
                                             placeholder="Nº da conta" value="{{ old('numeroConta') }}">
                                     </div>
@@ -193,7 +198,7 @@
                                     <div class="col-md-6">
                                         <label for="telefone" class="form-label">Nº de telefone</label>
                                         <input type="text" class="form-control" id="telefone" name="telefone"
-                                            placeholder="Nº de telefone" value="{{ old('cep') }}">
+                                            placeholder="Nº de telefone" value="{{ old('telefone') }}">
                                     </div>
                                 </div>
                             </div>
@@ -287,7 +292,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="cbo" class="form-label">CBO</label>
-                                        <input type="text" class="form-control" id="cbo" name="cbo"
+                                        <input type="text" class="form-control money" id="cbo" name="cbo"
                                             placeholder="CBO" value="{{ old('cbo') }}">
                                     </div>
                                     <div class="col-md-4">

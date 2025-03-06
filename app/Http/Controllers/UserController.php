@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Adress;
+use App\Models\BancAcount;
+use App\Models\Contrato;
 use App\Models\PersonalDocument;
 use App\Models\User;
 
@@ -11,17 +14,28 @@ class UserController extends Controller
     public function index()
     {
         //recuperar os dados do BD
-        $users = User::orderByDesc('id')->get();
+        $users = User::orderBy('id')->get();
         // $users = User::with('documentos')->get();
-        
+
         //Retornar para a view
         return view('users.index', ['users' => $users]);
     }
 
     public function show(User $user)
     {
+        // recuperar informações do banco de dados
+        $docs = (User::find($user->id)->documentos()->get())->first();
+        $adress = (User::find($user->id)->adress()->get())->first();
+        $banco = (User::find($user->id)->bancario()->get())->first();
+        $contrato = (User::find($user->id)->contrato()->get())->first();
         //retornar para a view
-        return view('users.show', ['user' => $user]);
+        return view('users.show', [
+            'user' => $user,
+            'docs' => $docs,
+            'adress' => $adress,
+            'banco' => $banco,
+            'contrato' => $contrato,
+        ]);
     }
 
     public function create()
@@ -35,54 +49,159 @@ class UserController extends Controller
         //validar formulário
         $request->validated();
         //cadastrar usuário
+        // dados pessoais
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
         ]);
 
+        // documentos pessoais
         PersonalDocument::create([
+            'user_id' => $user->id,
             'cpf' => $request->cpf,
             'pis_pasep' => $request->pis,
             'titulo_eleitor' => $request->titulo,
-            'cnh' => $request->cnh, 
-            'user_id' => $user->id,
+            'cnh' => $request->cnh,
+            'ctps' => $request->ctps,
+
         ]);
 
-        
+        // dados bancários
+        BancAcount::create([
+            'user_id' => $user->id,
+            'banco' => $request->banco,
+            'agencia' => $request->agencia,
+            'tipoconta' => $request->tipoconta,
+            'numeroConta' => $request->numeroConta,
+            'tipopix' => $request->tipopix,
+            'pix' => $request->pix,
+        ]);
+
+        // endereço
+        Adress::create([
+            'user_id' => $user->id,
+            'endereco' => $request->endereco,
+            'numero' => $request->numero,
+            'complemento' => $request->complemento,
+            'bairro' => $request->bairro,
+            'cidade' => $request->cidade,
+            'estado' => $request->estado,
+            'cep' => $request->cep,
+            'telefone' => $request->telefone,
+        ]);
+
+        // contrato
+        Contrato::create([
+            'user_id' => $user->id,
+            'tipoContrato' => $request->tipoContrato,
+            'lotacao' => $request->lotacao,
+            'equipe' => $request->equipe,
+            'funcao' => $request->funcao,
+            'remuneracao' => $request->remuneracao,
+            'cbo' => $request->cbo,
+            'situacao' => $request->situacao,
+            'disponibilidade' => $request->disponibilidade,
+            'aso' => $request->aso,
+            'admissao' => $request->admissao,
+            'termino' => $request->termino,
+            'observacao' => $request->observacao,
+        ]);
+
         // redirecionar para a view
-        return redirect()->route('users.index')->with('success', 'Usuário cadastrado com sucesso!');
-        
+        return redirect()->route('users.index')->with('success', 'Colaborador cadastrado com sucesso!');
     }
 
     public function edit(User $user)
     {
         //recuperar os dados do BD
         $docs = (User::find($user->id)->documentos()->get())->first();
-        if(!$docs){
-          echo 'nada' ;
-        }else{
-            dd($docs->cpf);
-        }
-            
-        
+        $adress = (User::find($user->id)->adress()->get())->first();
+        $banco = (User::find($user->id)->bancario()->get())->first();
+        $contrato = (User::find($user->id)->contrato()->get())->first();
+
         //retornar para a view
-        return view('users.edit', ['user' => $user, 'docs' => $docs]);
-       
+        return view('users.edit', [
+            'user' => $user,
+            'docs' => $docs,
+            'adress' => $adress,
+            'banco' => $banco,
+            'contrato' => $contrato,
+        ]);
     }
 
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, User $user, PersonalDocument $docs)
     {
+
         //validar o formulário
         $request->validated();
+        // recupera informaçoes do banco de dados
+        $docs = (User::find($user->id)->documentos()->get())->first();
+        $adress = (User::find($user->id)->adress()->get())->first();
+        $banco = (User::find($user->id)->bancario()->get())->first();
+        $contrato = (User::find($user->id)->contrato()->get())->first();
+
         //editar dados no BD
+        // dados do usuário
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
         ]);
+
+        // atualiza informações no banco de dados
+        // documentos pessoais 
+        $docs->update([
+            'cpf' => $request->cpf,
+            'pis_pasep' => $request->pis,
+            'titulo_eleitor' => $request->titulo,
+            'cnh' => $request->cnh,
+            'ctps' => $request->ctps,
+        ]);
+
+        // dados bancários
+        $banco->update([
+            'banco' => $request->banco,
+            'agencia' => $request->agencia,
+            'tipoconta' => $request->tipoconta,
+            'numeroConta' => $request->numeroConta,
+            'tipopix' => $request->tipopix,
+            'pix' => $request->pix,
+        ]);
+
+        // endereço
+        $adress->update([
+            'endereco' => $request->endereco,
+            'numero' => $request->numero,
+            'complemento' => $request->complemento,
+            'bairro' => $request->bairro,
+            'cidade' => $request->cidade,
+            'estado' => $request->estado,
+            'cep' => $request->cep,
+            'telefone' => $request->telefone,
+        ]);
+
+        // Contrato
+        $contrato->update([
+            'tipoContrato' => $request->tipoContrato,
+            'lotacao' => $request->lotacao,
+            'equipe' => $request->equipe,
+            'funcao' => $request->funcao,
+            'remuneracao' => $request->remuneracao,
+            'cbo' => $request->cbo,
+            'situacao' => $request->situacao,
+            'disponibilidade' => $request->disponibilidade,
+            'aso' => $request->aso,
+            'admissao' => $request->admissao,
+            'termino' => $request->termino,
+            'observacao' => $request->observacao,
+        ]);
+
+
+
+
         // redirecionar para a view
-        return redirect()->route('users.show', ['user' => $user->id])->with('success', 'Usuário editado com sucesso!');
+        return redirect()->route('users.show', ['user' => $user->id])->with('success', 'Colaborador editado com sucesso!');
     }
 
     public function destroy(User $user)
@@ -90,7 +209,6 @@ class UserController extends Controller
         //apagar usuário do BD
         $user->delete();
         // redirecionar para a view
-        return redirect()->route('users.index')->with('success', 'Usuário apagado com sucesso!');
+        return redirect()->route('users.index')->with('success', 'Colaborador apagado com sucesso!');
     }
-
 }

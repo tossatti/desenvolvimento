@@ -14,11 +14,11 @@
         .accordion {
             --bs-accordion-active-bg: rgb(173, 247, 173);
             --bs-accordion-active-color: black;
-            --bs-accordion-border-color:rgb(173, 247, 173); 
-            --bs-accordion-btn-focus-box-shadow:rgb(173, 247, 173);
+            --bs-accordion-border-color: rgb(173, 247, 173);
+            --bs-accordion-btn-focus-box-shadow: rgb(173, 247, 173);
         }
     </style>
-    
+
     <title>Meka Engenharia</title>
 </head>
 
@@ -36,16 +36,16 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
-                            aria-expanded="false">Usuários</button>
+                            aria-expanded="false">Colaboradores</button>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('users.index') }}">Listar usuários</a></li>
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('users.index') }}">Listar Colaboradores</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
-                            aria-expanded="false">Almoxarifado</button>
+                            aria-expanded="false">Logística</button>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item form-control-sm" href="#">Listar usuários</a></li>
                         </ul>
@@ -64,10 +64,20 @@
         @yield('content')
     </div>
     {{-- conteúdo --}}
-    
+
     <script src="js/maskvalid.js"></script>
     <script src="js/popper.min.js"></script>
-      
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('.money').mask('#.##0,00', {
+                    reverse: true
+                });
+            });
+        </script>
+    @endpush --}}
+
 </body>
 
 </html>
