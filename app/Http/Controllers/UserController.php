@@ -15,7 +15,6 @@ class UserController extends Controller
     {
         //recuperar os dados do BD
         $users = User::orderBy('id')->get();
-        // $users = User::with('documentos')->get();
 
         //Retornar para a view
         return view('users.index', ['users' => $users]);

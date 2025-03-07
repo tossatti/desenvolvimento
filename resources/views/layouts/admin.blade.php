@@ -36,9 +36,13 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
-                            aria-expanded="false">Colaboradores</button>
+                            aria-expanded="false">Administração</button>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('users.index') }}">Listar Colaboradores</a></li>
+                            <li><a class="dropdown-item form-control-sm disabled" href="">Clientes</a></li>
+                            <li><a class="dropdown-item form-control-sm"
+                                    href="{{ route('users.index') }}">Colaboradores</a></li>
+                            <li><a class="dropdown-item form-control-sm disabled" href="">Contratos</a></li>
+                            <li><a class="dropdown-item form-control-sm disabled" href="">Fornecedores</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -47,7 +51,44 @@
                         <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
                             aria-expanded="false">Logística</button>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item form-control-sm" href="#">Listar usuários</a></li>
+                            <li><a class="dropdown-item form-control-sm"
+                                    href="{{ route('almoxarifado.index') }}">Almoxarifado</a></li>
+                            <li><a class="dropdown-item form-control-sm disabled" href="">Controle veicular</a>
+                            </li>
+                            <li><a class="dropdown-item form-control-sm disabled" href="">Frota</a></li>
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('insumos.index') }}">Insumos</a>
+                            </li>
+                            <li><a class="dropdown-item form-control-sm disabled"
+                                    href="#">Manutenção</a></li>
+                            <li><a class="dropdown-item form-control-sm disabled" href="#">Patrimônio</a></li>
+                            <li>
+                                <hr class="dropdown-divider form-control-sm">
+                            </li>
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('grupoInsumo.index') }}">Grupos de insumos</a></li>
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('subgrupoInsumo.index') }}">Subgrupos de insumos</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-dark dropdown-toggle btn-sm disabled" data-bs-toggle="dropdown"
+                            aria-expanded="false">Obras</button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item form-control-sm" href="#">Planejamento mensal</a></li>
+                            <li><a class="dropdown-item form-control-sm" href="#">Serviços</a></li>
+                            <li><a class="dropdown-item form-control-sm" href="#">Solicitações</a></li>
+                            {{-- <li><a class="dropdown-item form-control-sm" href="{{ route('insumos.index') }}">Insumos</a></li> --}}
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-dark dropdown-toggle btn-sm disabled" data-bs-toggle="dropdown"
+                            aria-expanded="false">Tarefas</button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item form-control-sm" href="#">Pendentes</a></li>
+                            <li><a class="dropdown-item form-control-sm" href="#">Concluídas</a></li>
                         </ul>
                     </li>
                 </ul>
