@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, GrupoInsumoController, InsumoController, SubgrupoInsumoController};
+use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, GrupoInsumoController, InsumoController, MekaController, SubgrupoInsumoController};
 use Illuminate\Support\Facades\Route;
 
 // rotas públicas
@@ -18,6 +18,10 @@ Route::group(['middleware' => 'auth'], function () {
     //logout
     Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
     
+    // início
+    Route::get('/meka', [MekaController::class, 'index'])->name('meka.index');
+
+
     // Colaboradores
     Route::get('/index-user', [UserController::class, 'index'])->name('users.index');
     Route::get('/create-user', [UserController::class, 'create'])->name('users.create');

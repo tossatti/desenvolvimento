@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -29,7 +28,7 @@ class LoginController extends Controller
             $user = Auth::user();
             $user = User::find($user->id);
             // redirecionar usuário
-            return redirect()->route('users.index');
+            return redirect()->route('meka.index');
         }
     }
 

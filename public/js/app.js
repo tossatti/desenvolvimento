@@ -1,6 +1,5 @@
 //importar o ARQUIVO bootstrap
 import './bootstrap'; // Importa o axios e outras configurações do Laravel
-import * as bootstrap from 'bootstrap'; // Importa todas as funcionalidades do Bootstrap
 
 // apresentar e ocultar senha
 window.togglePassword = function (fieldId, toggleIcon) {
