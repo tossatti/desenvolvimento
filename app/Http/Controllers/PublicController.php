@@ -11,4 +11,28 @@ class PublicController extends Controller
         //Retornar para a view
         return view('public.index');
     }
+
+    public function quemsomos()
+    {
+        //Retornar para a view
+        return view('public.quemsomos');
+    }
+
+    public function servicos()
+    {
+        //Retornar para a view
+        return view('public.servicos');
+    }
+
+    public function projetos()
+    {
+        //Retornar para a view
+        return view('public.projetos');
+    }
+
+    public function contatos()
+    {
+        //Retornar para a view
+        return view('public.contatos');
+    }
 }

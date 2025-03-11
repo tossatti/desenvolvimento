@@ -3,7 +3,7 @@
 @section('public')
     <x-alert />
     {{-- carrocel auto --}}
-    <div class="container mb-4">
+    <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8 ">

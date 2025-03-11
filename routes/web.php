@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 // rotas públicas
 Route::get('/', [PublicController::class, 'index'])->name('public.index');
+Route::get('/quemsomos', [PublicController::class, 'quemsomos'])->name('public.quemsomos');
+Route::get('/servicos', [PublicController::class, 'servicos'])->name('public.servicos');
+Route::get('/projetos', [PublicController::class, 'projetos'])->name('public.projetos');
+Route::get('/contatos', [PublicController::class, 'contatos'])->name('public.contatos');
+
 
 // login
 Route::get('/login', [LoginController::class, 'login'])->name('login');
