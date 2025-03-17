@@ -44,8 +44,8 @@
                                     href="{{ route('users.index') }}">Colaboradores</a></li>
                             <li><a class="dropdown-item form-control-sm disabled" href="">Contratos</a></li>
                             <li><a class="dropdown-item form-control-sm disabled" href="">Fornecedores</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('users.import') }}">Importar dados</a></li>
+                            {{-- <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('users.import') }}">Importar dados</a></li> --}}
                         </ul>
                     </li>
                 </ul>
