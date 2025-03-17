@@ -3,7 +3,7 @@
 @section('content')
     <div class="card border-light mt-4 mb-4 shadow">
         <div class="card-header hstack gap-2">
-            <span><strong>Cadastrar usuário</strong></span>
+            <span><strong>Cadastrar colaborador</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('users.index') }}" class="btn btn-outline-danger btn-sm me-1" data-toggle="tooltip"
                     data-placement="top" title="cancelar"><i class="bi bi-x-square"></i></a>
@@ -61,7 +61,7 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label for="cpf" class="form-label">CPF</label>
-                                        <input type="text" class="form-control" id="cpf" name="cpf"
+                                        <input type="text" class="form-control cpf" id="cpf" name="cpf"
                                             placeholder="CPF" value="{{ old('cpf') }}">
                                     </div>
                                     <div class="col-md-6">
@@ -80,7 +80,7 @@
                                             placeholder="Título de eleitor" value="{{ old('cnh') }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="ctps" class="form-label">Carteira de trabalho</label>
+                                        <label for="ctps" class="form-label">Carteira de trabalho antiga</label>
                                         <input type="text" class="form-control" id="ctps" name="ctps"
                                             placeholder="Carteira de trabalho" value="{{ old('ctps') }}">
                                     </div>
@@ -197,7 +197,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="telefone" class="form-label">Nº de telefone</label>
-                                        <input type="text" class="form-control" id="telefone" name="telefone"
+                                        <input type="text" class="form-control telefone" id="telefone" name="telefone"
                                             placeholder="Nº de telefone" value="{{ old('telefone') }}">
                                     </div>
                                 </div>
@@ -287,8 +287,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="remuneracao" class="form-label">Remuneração</label>
-                                        <input type="text" class="form-control" id="remuneracao" name="remuneracao"
-                                            placeholder="Remuneração" value="{{ old('remuneracao') }}">
+                                        <input type="text" class="form-control valor-input" id="remuneracao" name="remuneracao"
+                                            placeholder="R$ 0,00" value="{{ old('remuneracao') }}">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="cbo" class="form-label">CBO</label>

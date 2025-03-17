@@ -5,7 +5,7 @@
         {{-- cabeçalho --}}
         <div class="card-header hstack gap-2">
             <span>
-                <H5><strong>Editar usuário</strong></H5>
+                <H5><strong>Editar dados do colaborador</strong></H5>
             </span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('users.index') }}" class="btn btn-outline-info btn-sm me-1" data-toggle="tooltip"
@@ -38,12 +38,12 @@
                                     <div class="col-md-12">
                                         <label for="name" class="form-label">Nome</label>
                                         <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Nome completo" value="{{ old('name', $user->name) }}">
+                                            placeholder="Nome completo" value="{{ old('name') ? old('name') : $user->name }}">
                                     </div>
                                     <div class="col-md-7">
                                         <label for="email" class="form-label">E-mail</label>
                                         <input type="email" class="form-control" id="email" name="email"
-                                            placeholder="Insira um e-mail válido" value="{{ old('email', $user->email) }}">
+                                            placeholder="Insira um e-mail válido" value="{{ old('email') ? old('email') : $user->email }}">
                                     </div>
                                     <div class="col-md-5">
                                         <label for="password" class="form-label">Senha</label>
@@ -71,27 +71,27 @@
                                     <div class="col-md-6">
                                         <label for="cpf" class="form-label">CPF</label>
                                         <input type="text" class="form-control" id="cpf" name="cpf"
-                                            placeholder="CPF" value="{{ $docs->cpf, old('cpf')}}">
+                                            placeholder="CPF" value="{{ old('cpf') ? old('cpf') : $docs->cpf }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="pis" class="form-label">PIS/PASEP</label>
                                         <input type="text" class="form-control" id="pis" name="pis"
-                                            placeholder="PIS/PASEP" value="{{ $docs->pis_pasep, old('pis') }}">
+                                            placeholder="PIS/PASEP" value="{{ old('pis') ? old('pis') : $docs->pis }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="titulo" class="form-label">Título de eleitor</label>
                                         <input type="text" class="form-control" id="titulo" name="titulo"
-                                            placeholder="Título de eleitor" value="{{ $docs->titulo_eleitor, old('titulo') }}">
+                                            placeholder="Título de eleitor" value="{{ old('titulo') ? old('titulo') : $docs->titulo }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="cnh" class="form-label">CNH</label>
                                         <input type="text" class="form-control" id="cnh" name="cnh"
-                                            placeholder="Título de eleitor" value="{{ $docs->cnh, old('cnh') }}">
+                                            placeholder="Título de eleitor" value="{{ old('picnhs') ? old('cnh') : $docs->cnh }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="ctps" class="form-label">Carteira de trabalho</label>
                                         <input type="text" class="form-control" id="ctps" name="ctps"
-                                            placeholder="Carteira de trabalho" value="{{ $docs->ctps, old('ctps') }}">
+                                            placeholder="Carteira de trabalho" value="{{ old('ctps') ? old('ctps') : $docs->ctps }}">
                                     </div>
                                 </div>
                             </div>
@@ -114,12 +114,12 @@
                                     <div class="col-md-6">
                                         <label for="banco" class="form-label">Banco</label>
                                         <input type="text" class="form-control" id="banco" name="banco"
-                                            placeholder="Banco" value="{{ $banco->banco , old('banco') }}">
+                                            placeholder="Banco" value="{{ old('banco') ? old('banco') : $banco->banco }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="agencia" class="form-label">Agência</label>
                                         <input type="text" class="form-control" id="agencia" name="agencia"
-                                            placeholder="Agência" value="{{ $banco->agencia , old('agencia') }}">
+                                            placeholder="Agência" value="{{ old('agencia') ? old('agencia') : $banco->agencia }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="tipoconta" class="form-label">Tipo de conta</label>
@@ -133,7 +133,7 @@
                                     <div class="col-md-6">
                                         <label for="numeroConta" class="form-label">Nº da conta</label>
                                         <input type="text" class="form-control" id="numeroConta" name="numeroConta"
-                                            placeholder="Nº da conta" value="{{ $banco->numeroConta , old('numeroConta') }}">
+                                            placeholder="Nº da conta" value="{{ old('numeroConta') ? old('numeroConta') : $banco->numeroConta }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="tipopix" class="form-label">Tipo de chave pix</label>
@@ -147,7 +147,7 @@
                                     <div class="col-md-6">
                                         <label for="pix" class="form-label">Chave pix</label>
                                         <input type="text" class="form-control" id="pix" name="pix"
-                                            placeholder="Chave pix" value="{{ $banco->pix , old('pix') }}">
+                                            placeholder="Chave pix" value="{{ old('pix') ? old('pix') : $banco->pix }}">
                                     </div>
                                 </div>
                             </div>
@@ -170,42 +170,42 @@
                                     <div class="col-md-9">
                                         <label for="endereco" class="form-label">Endereço</label>
                                         <input type="text" class="form-control" id="endereco" name="endereco"
-                                            placeholder="Nome da Rua/Avenida ..." value="{{ $adress->endereco, old('endereco') }}">
+                                            placeholder="Nome da Rua/Avenida ..." value="{{ old('endereco') ? old('endereco') : $adress->endereco }} ">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="numero" class="form-label">Nº</label>
                                         <input type="text" class="form-control" id="numero"
-                                            name="numero" placeholder="Nº" value="{{ $adress->numero, old('numero') }}">
+                                            name="numero" placeholder="Nº" value="{{ old('numero') ? old('numero') : $adress->numero }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="complemento" class="form-label">Complemento</label>
                                         <input type="text" class="form-control" id="complemento" name="complemento"
-                                            placeholder="Complemento" value="{{ $adress->complemento, old('complemento') }}">
+                                            placeholder="Complemento" value="{{ old('complemento') ? old('complemento') : $adress->complemento }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="bairro" class="form-label">Bairro</label>
                                         <input type="text" class="form-control" id="bairro" name="bairro"
-                                            placeholder="Bairro" value="{{ $adress->bairro, old('bairro') }}">
+                                            placeholder="Bairro" value="{{ old('bairro') ? old('bairro') : $adress->bairro }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="cidade" class="form-label">Cidade</label>
                                         <input type="text" class="form-control" id="cidade" name="cidade"
-                                            placeholder="Cidade" value="{{ $adress->cidade, old('cidade') }}">
+                                            placeholder="Cidade" value="{{ old('cidade') ? old('cidade') : $adress->cidade }}">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="estado" class="form-label">Estado</label>
                                         <input type="text" class="form-control" id="estado" name="estado"
-                                            placeholder="Estado" value="{{ $adress->estado, old('estado') }}">
+                                            placeholder="Estado" value="{{ old('estado') ? old('estado') : $adress->estado }}">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="cep" class="form-label">CEP</label>
                                         <input type="text" class="form-control" id="cep" name="cep"
-                                            placeholder="CEP" value="{{ $adress->cep, old('cep') }}">
+                                            placeholder="CEP" value="{{ old('cep') ? old('cep') : $adress->cep }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="telefone" class="form-label">Nº de telefone</label>
                                         <input type="text" class="form-control" id="telefone" name="telefone"
-                                            placeholder="Nº de telefone" value="{{ $adress->telefone, old('cep') }}">
+                                            placeholder="Nº de telefone" value="{{ old('telefone') ? old('telefone') : $adress->telefone }}">
                                     </div>
                                 </div>
                             </div>
@@ -239,7 +239,7 @@
                                     <div class="col-md-4">
                                         <label for="lotacao" class="form-label">Lotação</label>
                                         <input type="text" class="form-control" id="lotacao" name="lotacao"
-                                            placeholder="Lotação" value="{{ $contrato->lotacao, old('lotacao') }}">
+                                            placeholder="Lotação" value="{{ old('lotacao') ? old('lotacao') : $contrato->lotacao }}">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="equipe" class="form-label">Equipe</label>
@@ -291,13 +291,13 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="remuneracao" class="form-label">Remuneração</label>
-                                        <input type="text" class="form-control" id="remuneracao" name="remuneracao"
-                                            placeholder="Remuneração" value="{{ $contrato->remuneracao, old('remuneracao') }}">
+                                        <input type="text" class="form-control valor-input" id="remuneracao" name="remuneracao"
+                                            placeholder="R$ 0,00" value="{{ old('remuneracao') ? old('remuneracao') : $contrato->remuneracao }}">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="cbo" class="form-label">CBO</label>
                                         <input type="text" class="form-control" id="cbo" name="cbo"
-                                            placeholder="CBO" value="{{ $contrato->cbo, old('cbo') }}">
+                                            placeholder="CBO" value="{{ old('cbo') ? old('cbo') : $contrato->cbo}}">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="situacao" class="form-label">Situação</label>
@@ -325,23 +325,23 @@
                                     <div class="col-md-4">
                                         <label for="aso" class="form-label">ASO</label>
                                         <input type="date" class="form-control" id="aso" name="aso"
-                                            placeholder="ASO" value="{{ $contrato->aso , old('aso') }}">
+                                            placeholder="ASO" value="{{ old('aso') ? old('aso') : $contrato->aso }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="admissao" class="form-label">Admissão</label>
                                         <input type="date" class="form-control" id="admissao" name="admissao"
-                                            placeholder="Data de admissão" value="{{ $contrato->admissao , old('admissao') }}">
+                                            placeholder="Data de admissão" value="{{ old('admissao') ? old('admissao') : $contrato->admissao }}">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="termino" class="form-label">Término do contrato</label>
                                         <input type="date" class="form-control" id="termino" name="termino"
-                                            placeholder="Término do contrato" value="{{ $contrato->termino, old('termino') }}">
+                                            placeholder="Término do contrato" value="{{ old('termino') ? old('termino') : $contrato->termino }}">
                                     </div>
                                     <div class="col-md-12">
                                         <label for="observacao" class="form-label">Observação</label>
                                         <input type="text" class="form-control" id="observacao" name="observacao"
-                                            placeholder="Observação" value="{{ $contrato->observacao, old('observacao') }}">
+                                            placeholder="Observação" value="{{ old('observacao') ? old('observacao') : $contrato->observacao }}">
                                     </div>
                                 </div>
                             </div>

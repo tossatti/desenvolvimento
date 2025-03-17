@@ -10,6 +10,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/tooltip.css">
+    <script src="{{ asset('css/app.css') }}"></script>
     <style>
         .accordion {
             --bs-accordion-active-bg: rgb(173, 247, 173);
@@ -43,6 +44,8 @@
                                     href="{{ route('users.index') }}">Colaboradores</a></li>
                             <li><a class="dropdown-item form-control-sm disabled" href="">Contratos</a></li>
                             <li><a class="dropdown-item form-control-sm disabled" href="">Fornecedores</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('users.import') }}">Importar dados</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -58,12 +61,9 @@
                             <li><a class="dropdown-item form-control-sm disabled" href="">Frota</a></li>
                             <li><a class="dropdown-item form-control-sm" href="{{ route('insumos.index') }}">Insumos</a>
                             </li>
-                            <li><a class="dropdown-item form-control-sm disabled"
-                                    href="#">Manutenção</a></li>
+                            <li><a class="dropdown-item form-control-sm disabled" href="#">Manutenção</a></li>
                             <li><a class="dropdown-item form-control-sm disabled" href="#">Patrimônio</a></li>
-                            <li>
-                                <hr class="dropdown-divider form-control-sm">
-                            </li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item form-control-sm" href="{{ route('grupoInsumo.index') }}">Grupos de insumos</a></li>
                             <li><a class="dropdown-item form-control-sm" href="{{ route('subgrupoInsumo.index') }}">Subgrupos de insumos</a></li>
 
@@ -106,18 +106,7 @@
     </div>
     {{-- conteúdo --}}
 
-    <script src="js/maskvalid.js"></script>
-    <script src="js/popper.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('.money').mask('#.##0,00', {
-                    reverse: true
-                });
-            });
-        </script>
-    @endpush --}}
+    
 
 </body>
 

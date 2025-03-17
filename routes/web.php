@@ -10,6 +10,22 @@ Route::get('/servicos', [PublicController::class, 'servicos'])->name('public.ser
 Route::get('/projetos', [PublicController::class, 'projetos'])->name('public.projetos');
 Route::get('/contatos', [PublicController::class, 'contatos'])->name('public.contatos');
 
+// // Colaboradores
+// Colaboradores
+Route::get('/index-user', [UserController::class, 'index'])->name('users.index');
+Route::get('/create-user', [UserController::class, 'create'])->name('users.create');
+Route::post('/store-user', [UserController::class, 'store'])->name('users.store');
+Route::get('/show-user/{user}', [UserController::class, 'show'])->name('users.show');
+Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/update-user/{user}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/import-user', [UserController::class, 'import'])->name('users.import');
+Route::post('/importdata-user', [UserController::class, 'importdata'])->name('users.importdata');
+Route::post('/importdocdata-user', [UserController::class, 'importdocdata'])->name('users.importdocdata');
+Route::post('/importbancdata-user', [UserController::class, 'importbancdata'])->name('users.importbancdata');
+Route::post('/importadressdata-user', [UserController::class, 'importadressdata'])->name('users.importadressdata');
+Route::post('/importcontratosdata-user', [UserController::class, 'importcontratosdata'])->name('users.importcontratosdata');
+Route::post('/importesocialdata-user', [UserController::class, 'importesocialdata'])->name('users.importesocialdata');
 
 // login
 Route::get('/login', [LoginController::class, 'login'])->name('login');
@@ -26,15 +42,21 @@ Route::group(['middleware' => 'auth'], function () {
     // início
     Route::get('/meka', [MekaController::class, 'index'])->name('meka.index');
 
-
     // Colaboradores
-    Route::get('/index-user', [UserController::class, 'index'])->name('users.index');
-    Route::get('/create-user', [UserController::class, 'create'])->name('users.create');
-    Route::post('/store-user', [UserController::class, 'store'])->name('users.store');
-    Route::get('/show-user/{user}', [UserController::class, 'show'])->name('users.show');
-    Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/update-user/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    // Route::get('/index-user', [UserController::class, 'index'])->name('users.index');
+    // Route::get('/create-user', [UserController::class, 'create'])->name('users.create');
+    // Route::post('/store-user', [UserController::class, 'store'])->name('users.store');
+    // Route::get('/show-user/{user}', [UserController::class, 'show'])->name('users.show');
+    // Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('users.edit');
+    // Route::put('/update-user/{user}', [UserController::class, 'update'])->name('users.update');
+    // Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    // Route::get('/import-user', [UserController::class, 'import'])->name('users.import');
+    // Route::post('/importdata-user', [UserController::class, 'importdata'])->name('users.importdata');
+    // Route::post('/importdocdata-user', [UserController::class, 'importdocdata'])->name('users.importdocdata');
+    // Route::post('/importbancdata-user', [UserController::class, 'importbancdata'])->name('users.importbancdata');
+    // Route::post('/importadressdata-user', [UserController::class, 'importadressdata'])->name('users.importadressdata');
+    // Route::post('/importcontratosdata-user', [UserController::class, 'importcontratosdata'])->name('users.importcontratosdata');
+    // Route::post('/importesocialdata-user', [UserController::class, 'importesocialdata'])->name('users.importesocialdata');
     
     // Almoxarifado
     Route::get('/almoxarifado', [AlmoxarifadoController::class, 'index'])->name('almoxarifado.index');

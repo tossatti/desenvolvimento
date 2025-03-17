@@ -3,7 +3,7 @@
 @section('content')
     <div class="card border-light mt-4 mb-4 shadow">
         <div class="card-header hstack gap-2">
-            <span><strong>Listar usuários</strong></span>
+            <span><strong>Listar colaboradores</strong></span>
             <span class="ms-auto">
                 <a href="{{ route('users.create') }}" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="cadastrar"><i class="bi bi-plus-square"></i>
                 </a>
@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <x-alert />
-            <table class="table">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Nome</th>

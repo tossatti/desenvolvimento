@@ -1,1 +1,5 @@
 
+.valor-input {
+    text-align: right; /* Alinha o texto à direita */
+    padding-right: 10px; /* Adiciona um pequeno padding à direita */
+}

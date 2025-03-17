@@ -4,7 +4,7 @@
     <div class="card border-light mt-4 mb-4 shadow">
         {{-- cabeçalho --}}
         <div class="card-header hstack gap-2">
-            <span><strong>Visualizar usuário</strong></span>
+            <span><strong>Visualizar dados do colaborador</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('users.index') }}" class="btn btn-outline-info btn-sm me-1" data-toggle="tooltip"
                     data-placement="top" title="listar"><i class="bi bi-card-list"></i>
@@ -69,19 +69,19 @@
                             <dl class="row">
 
                                 <dt class="col-sm-1">CPF:</dt>
-                                <dd class="col-sm-2">{{ $docs->cpf }}</dd>
+                                <dd id="cpf" class="col-sm-2">{{ $docs->cpf }}</dd>
 
                                 <dt class="col-sm-2">PIS / PASEP:</dt>
-                                <dd class="col-sm-2">{{ $docs->pis_pasep }}</dd>
+                                <dd id="pis" class="col-sm-2">{{ $docs->pis_pasep }}</dd>
 
                                 <dt class="col-sm-2">Título de eleitor:</dt>
-                                <dd class="col-sm-3">{{ $docs->titulo_eleitor }}</dd>
+                                <dd id="titulo" class="col-sm-3">{{ $docs->titulo_eleitor }}</dd>
 
                                 <dt class="col-sm-1">CNH:</dt>
-                                <dd class="col-sm-2">{{ $docs->cnh }}</dd>
+                                <dd id="cnh" class="col-sm-2">{{ $docs->cnh }}</dd>
 
                                 <dt class="col-sm-3">CTPS:</dt>
-                                <dd class="col-sm-6">{{ $docs->ctps }}</dd>
+                                <dd id="ctps" class="col-sm-6">{{ $docs->ctps }}</dd>
 
                                 <dt class="col-sm-3">Data de cadastro:</dt>
                                 <dd class="col-sm-3"> {{ \Carbon\Carbon::parse($docs->created_at)->format('d/m/Y H:i') }}
@@ -165,10 +165,10 @@
                                 <dd class="col-sm-1">{{ $adress->estado }}</dd>
 
                                 <dt class="col-sm-3">CEP:</dt>
-                                <dd class="col-sm-3">{{ $adress->cep }}</dd>
+                                <dd id="cep" class="col-sm-3">{{ $adress->cep }}</dd>
 
                                 <dt class="col-sm-3">Telefone:</dt>
-                                <dd class="col-sm-3">{{ $adress->telefone }}</dd>
+                                <dd id="telefone" class="col-sm-3">{{ $adress->telefone }}</dd>
 
                                 <dt class="col-sm-3">Data de cadastro:</dt>
                                 <dd class="col-sm-3">
@@ -207,7 +207,7 @@
                                 <dd class="col-sm-2">{{ $contrato->funcao }}</dd>
 
                                 <dt class="col-sm-2">Remuneração:</dt>
-                                <dd class="col-sm-2">{{ $contrato->remuneracao }}</dd>
+                                <dd class="col-sm-2">{{ 'R$ '. number_format($contrato->remuneracao, 2, ',', '.') }}</dd>
 
                                 <dt class="col-sm-2">CBO:</dt>
                                 <dd class="col-sm-2">{{ $contrato->cbo }}</dd>
@@ -250,15 +250,27 @@
                     <div id="esocial" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <dl class="row">
+                                <dt class="col-sm-2">Matrícula:</dt>
+                                <dd class="col-sm-4"></dd>
 
+                                <dt class="col-sm-2">Agentes nocivos:</dt>
+                                <dd class="col-sm-4"></dd>
+
+                                <dt class="col-sm-3">Exames admissionais:</dt>
+                                <dd class="col-sm-3"></dd>
+
+                                <dt class="col-sm-3">Exames periódicos:</dt>
+                                <dd class="col-sm-3"></dd>
+
+                                <dt class="col-sm-3">Mudança de função:</dt>
+                                <dd class="col-sm-3"></dd>
+
+                                <dt class="col-sm-3">Retorno ao trabalho:</dt>
+                                <dd class="col-sm-3"></dd>
+
+                                <dt class="col-sm-3">Exames demissionais:</dt>
+                                <dd class="col-sm-3"></dd>
                             </dl>
-                            matrícula,
-                            agentes nocivos,
-                            recibos de exames admissionais,
-                            recibos de exames perioódicos,
-                            recibos de exames mudança de função,
-                            retorno ao trabalho,
-                            demissional
                         </div>
                     </div>
                 </div>

@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\Models\Adress;
-use App\Models\BancAcount;
-use App\Models\Contrato;
-use App\Models\PersonalDocument;
-use App\Models\User;
+use App\Models\{Adress, BancAcount, Contrato, ESocial, PersonalDocument, User};
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
     public function index()
     {
         //recuperar os dados do BD
-        $users = User::orderBy('id')->get();
+        $users = User::orderBy('name')->get();
 
         //Retornar para a view
         return view('users.index', ['users' => $users]);
@@ -45,8 +44,14 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        //validar formulário
-        $request->validated();
+        // //validar formulário
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+        ]);
+
         //cadastrar usuário
         // dados pessoais
         $user = User::create([
@@ -58,11 +63,12 @@ class UserController extends Controller
         // documentos pessoais
         PersonalDocument::create([
             'user_id' => $user->id,
-            'cpf' => $request->cpf,
-            'pis_pasep' => $request->pis,
-            'titulo_eleitor' => $request->titulo,
-            'cnh' => $request->cnh,
-            'ctps' => $request->ctps,
+            // 'cpf' => $request->cpf,
+            'cpf' => preg_replace('/[^0-9]/', '', $request->cpf),
+            'pis_pasep' => preg_replace('/[^0-9]/', '', $request->pis),
+            'titulo_eleitor' => preg_replace('/[^0-9]/', '', $request->titulo),
+            'cnh' => preg_replace('/[^0-9]/', '', $request->cnh),
+            'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
 
         ]);
 
@@ -107,6 +113,18 @@ class UserController extends Controller
             'observacao' => $request->observacao,
         ]);
 
+        // e-social
+        ESocial::create([
+            'user_id' => $user->id,
+            'matricula' => $request->matricula,
+            'nocivos' => $request->nocivos,
+            'admissional' => $request->admissionais,
+            'periodicos' => $request->periodicos,
+            'mudanca' => $request->mudanca,
+            'retorno' => $request->retorno,
+            'demissional' => $request->demissional,
+        ]);
+
         // redirecionar para a view
         return redirect()->route('users.index')->with('success', 'Colaborador cadastrado com sucesso!');
     }
@@ -132,30 +150,49 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user, PersonalDocument $docs)
     {
 
-        //validar o formulário
-        $request->validated();
+        // //validar o formulário
+
         // recupera informaçoes do banco de dados
         $docs = (User::find($user->id)->documentos()->get())->first();
         $adress = (User::find($user->id)->adress()->get())->first();
         $banco = (User::find($user->id)->bancario()->get())->first();
         $contrato = (User::find($user->id)->contrato()->get())->first();
+        $esocial = (User::find($user->id)->esocial()->get())->first();
 
         //editar dados no BD
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'password' => 'nullable|string|min:6',
+        ]);
         // dados do usuário
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            // 'password' => $request->password,
         ]);
+
+        // Atualiza a senha apenas se ela foi fornecida
+        if ($request->filled('password')) {
+            $user->update([
+                'password' => bcrypt($request->password), // Criptografa a nova senha
+            ]);
+        }
 
         // atualiza informações no banco de dados
         // documentos pessoais 
         $docs->update([
-            'cpf' => $request->cpf,
-            'pis_pasep' => $request->pis,
-            'titulo_eleitor' => $request->titulo,
-            'cnh' => $request->cnh,
-            'ctps' => $request->ctps,
+            // 'cpf' => $request->cpf,
+            // 'pis_pasep' => $request->pis,
+            // 'titulo_eleitor' => $request->titulo,
+            // 'cnh' => $request->cnh,
+            // 'ctps' => $request->ctps,
+            'cpf' => preg_replace('/[^0-9]/', '', $request->cpf),
+            'pis_pasep' => preg_replace('/[^0-9]/', '', $request->pis),
+            'titulo_eleitor' => preg_replace('/[^0-9]/', '', $request->titulo),
+            'cnh' => preg_replace('/[^0-9]/', '', $request->cnh),
+            'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
         ]);
 
         // dados bancários
@@ -186,7 +223,7 @@ class UserController extends Controller
             'lotacao' => $request->lotacao,
             'equipe' => $request->equipe,
             'funcao' => $request->funcao,
-            'remuneracao' => $request->remuneracao,
+            'remuneracao' => str_replace(',', '.', str_replace('.', '', trim(preg_replace('/\s+/u', ' ', str_replace('R$', '', $request->remuneracao))))),
             'cbo' => $request->cbo,
             'situacao' => $request->situacao,
             'disponibilidade' => $request->disponibilidade,
@@ -196,8 +233,16 @@ class UserController extends Controller
             'observacao' => $request->observacao,
         ]);
 
-
-
+        // e-social
+        $esocial->update([
+            'matricula' => $request->matricula,
+            'nocivos' => $request->nocivos,
+            'admissional' => $request->admissionais,
+            'periodicos' => $request->periodicos,
+            'mudanca' => $request->mudanca,
+            'retorno' => $request->retorno,
+            'demissional' => $request->demissional,
+        ]);
 
         // redirecionar para a view
         return redirect()->route('users.show', ['user' => $user->id])->with('success', 'Colaborador editado com sucesso!');
@@ -209,5 +254,325 @@ class UserController extends Controller
         $user->delete();
         // redirecionar para a view
         return redirect()->route('users.index')->with('success', 'Colaborador apagado com sucesso!');
+    }
+
+    public function import()
+    {
+        //Retornar para a view
+        return view('users.import');
+    }
+
+    public function importdata(Request $request)
+    {
+        //recuperar os dados do BD
+        $users = User::orderBy('name')->get();
+
+        // validar o arquivo
+        $request->validate([
+            'file' => 'required|mimes:csv,txt|max:2048',
+
+        ], [
+            'file.required' => 'É necessário escolher um arquivo para importar.',
+            'file.mimes' => 'Arquivo inválido. Necessário enviar um arquivo .csv.',
+            'file.max' => 'Tamanho do arquivo excede o :max MB',
+        ]);
+
+        // criar array com colunas do banco de dados
+        $headers = ['name', 'email', 'password'];
+
+        // receber os dados do arquivo
+        $dataFile = array_map('str_getcsv', file($request->file('file')));
+
+        //emails já registrados
+        $emailAlredyRegistered = false;
+
+        // percorrer as linhas do array
+        foreach ($dataFile as $keyData => $row) {
+            // converter a linha em array
+            $values = explode(';', $row[0]);
+
+            // percorrer as colunas do cabeçalho
+            foreach ($headers as $key => $header) {
+
+                // atribuir os valores
+                $arrayValues[$keyData][$header] = $values[$key];
+
+                // verificar e-mail
+                if ($header == 'email') {
+                    // verificar se já cadastrado
+                    if (User::where('email', $arrayValues[$keyData]['email'])->first()) {
+                        // listar já cadastrados
+                        $emailAlredyRegistered .= $arrayValues[$keyData]['email'] . ",";
+                    }
+                }
+
+                // criptografar a senha
+                if ($header == "password") {
+                    $arrayValues[$keyData][$header] = Hash::make($arrayValues[$keyData]['password'], ['rounds' => 12]);
+                    // // senha randômica
+                    // $arrayValues[$keyData][$header] = Hash::make(Str::random(6), ['rounds' => 12]);
+                }
+            }
+        }
+
+        // Caso e-mail já tenha sido cadastrado, retornar com mensagem e não salvar no banco de dados
+        if ($emailAlredyRegistered) {
+            return back()->with('error', 'Dados não importados. Existem e-mails já cadastrados: ' . $emailAlredyRegistered);
+        }
+        // dd($arrayValues);
+        // cadastrar os registros no banco de dados
+        User::insert($arrayValues);
+        //Retornar para a view
+        return view('users.index', ['users' => $users]);
+    }
+
+    public function importdocdata(Request $request)
+    {
+        //recuperar os dados do BD
+        $users = User::orderBy('name')->get();
+
+        // validar o arquivo
+        $request->validate([
+            'doc' => 'required|mimes:csv,txt|max:2048',
+
+        ], [
+            'doc.required' => 'É necessário escolher um arquivo para importar.',
+            'doc.mimes' => 'Arquivo inválido. Necessário enviar um arquivo .csv.',
+            'doc.max' => 'Tamanho do arquivo excede o :max MB',
+        ]);
+
+        // criar array com colunas do banco de dados
+        $headers = ['user_id', 'cpf'];
+
+        // receber os dados do arquivo
+        $dataFile = array_map('str_getcsv', file($request->file('doc')));
+
+        //emails já registrados
+        $cpfAlredyRegistered = false;
+
+        // percorrer as linhas do array
+        foreach ($dataFile as $keyData => $row) {
+            // converter a linha em array
+            $values = explode(';', $row[0]);
+
+            // percorrer as colunas do cabeçalho
+            foreach ($headers as $key => $header) {
+
+                // verificar e-mail
+                if ($header == 'cpf') {
+                    // verificar se já cadastrado
+                    if (PersonalDocument::where('cpf', $values[$key])->first()) {
+                        // listar já cadastrados
+                        $cpfAlredyRegistered .= $values[$key] . ",";
+                    }
+                }
+                // atribuir os valores
+                $arrayValues[$keyData][$header] = $values[$key];
+            }
+        }
+
+        // Caso e-mail já tenha sido cadastrado, retornar com mensagem e não salvar no banco de dados
+        if ($cpfAlredyRegistered) {
+            return back()->with('error', 'Dados não importados. CPF já cadastrado: ' . $cpfAlredyRegistered);
+        }
+        // dd($arrayValues);
+        // cadastrar os registros no banco de dados
+        PersonalDocument::insert($arrayValues);
+        //Retornar para a view
+        return view('users.index', ['users' => $users]);
+    }
+
+    public function importbancdata(Request $request)
+    {
+        //recuperar os dados do BD
+        $users = User::orderBy('name')->get();
+
+        // validar o arquivo
+        $request->validate([
+            'banc' => 'required|mimes:csv,txt|max:2048',
+
+        ], [
+            'banc.required' => 'É necessário escolher um arquivo para importar.',
+            'banc.mimes' => 'Arquivo inválido. Necessário enviar um arquivo .csv.',
+            'banc.max' => 'Tamanho do arquivo excede o :max MB',
+        ]);
+
+        // criar array com colunas do banco de dados
+        $headers = ['user_id', 'banco', 'agencia', 'tipoconta', 'numeroConta', 'tipopix', 'pix'];
+
+        // receber os dados do arquivo
+        $dataFile = array_map('str_getcsv', file($request->file('banc')));
+
+        //emails já registrados
+        $pixAlredyRegistered = false;
+
+        // percorrer as linhas do array
+        foreach ($dataFile as $keyData => $row) {
+            // converter a linha em array
+            $values = explode(';', $row[0]);
+
+            // percorrer as colunas do cabeçalho
+            foreach ($headers as $key => $header) {
+
+                // verificar e-mail
+                if ($header == 'pix') {
+                    // verificar se já cadastrado
+                    if (BancAcount::where('pix', $values[$key])->first()) {
+                        // listar já cadastrados
+                        $pixAlredyRegistered .= $values[$key] . ",";
+                    }
+                }
+                // atribuir os valores
+                $arrayValues[$keyData][$header] = $values[$key];
+            }
+        }
+
+        // Caso e-mail já tenha sido cadastrado, retornar com mensagem e não salvar no banco de dados
+        if ($pixAlredyRegistered) {
+            return back()->with('error', 'Dados não importados. Pix já cadastrado: ' . $pixAlredyRegistered);
+        }
+        // dd($arrayValues);
+        // cadastrar os registros no banco de dados
+        BancAcount::insert($arrayValues);
+        //Retornar para a view
+        return view('users.index', ['users' => $users]);
+    }
+
+    public function importadressdata(Request $request)
+    {
+        //recuperar os dados do BD
+        $users = User::orderBy('name')->get();
+
+        // validar o arquivo
+        $request->validate([
+            'adress' => 'required|mimes:csv,txt|max:2048',
+
+        ], [
+            'adress.required' => 'É necessário escolher um arquivo para importar.',
+            'adress.mimes' => 'Arquivo inválido. Necessário enviar um arquivo .csv.',
+            'adress.max' => 'Tamanho do arquivo excede o :max MB',
+        ]);
+
+        // criar array com colunas do banco de dados
+        $headers = ['user_id', 'endereco'];
+
+        // receber os dados do arquivo
+        $dataFile = array_map('str_getcsv', file($request->file('adress')));
+
+        //emails já registrados
+        $telefoneAlredyRegistered = false;
+
+        // percorrer as linhas do array
+        foreach ($dataFile as $keyData => $row) {
+            // converter a linha em array
+            $values = explode(';', $row[0]);
+
+            // percorrer as colunas do cabeçalho
+            foreach ($headers as $key => $header) {
+
+                // verificar e-mail
+                if ($header == 'telefone') {
+                    // verificar se já cadastrado
+                    if (BancAcount::where('telefone', $values[$key])->first()) {
+                        // listar já cadastrados
+                        $telefoneAlredyRegistered .= $values[$key] . ",";
+                    }
+                }
+                // atribuir os valores
+                $arrayValues[$keyData][$header] = $values[$key];
+            }
+        }
+
+        // Caso e-mail já tenha sido cadastrado, retornar com mensagem e não salvar no banco de dados
+        if ($telefoneAlredyRegistered) {
+            return back()->with('error', 'Dados não importados. Telefone já cadastrado: ' . $telefoneAlredyRegistered);
+        }
+        // dd($arrayValues);
+        // cadastrar os registros no banco de dados
+        Adress::insert($arrayValues);
+        //Retornar para a view
+        return view('users.index', ['users' => $users]);
+    }
+
+    public function importcontratosdata(Request $request)
+    {
+        //recuperar os dados do BD
+        $users = User::orderBy('name')->get();
+
+        // validar o arquivo
+        $request->validate([
+            'contrato' => 'required|mimes:csv,txt|max:2048',
+
+        ], [
+            'contrato.required' => 'É necessário escolher um arquivo para importar.',
+            'contrato.mimes' => 'Arquivo inválido. Necessário enviar um arquivo .csv.',
+            'contrato.max' => 'Tamanho do arquivo excede o :max MB',
+        ]);
+
+        // criar array com colunas do banco de dados
+        $headers = ['user_id', 'tipoContrato'];
+
+        // receber os dados do arquivo
+        $dataFile = array_map('str_getcsv', file($request->file('contrato')));
+
+
+        // percorrer as linhas do array
+        foreach ($dataFile as $keyData => $row) {
+            // converter a linha em array
+            $values = explode(';', $row[0]);
+
+            // percorrer as colunas do cabeçalho
+            foreach ($headers as $key => $header) {
+
+                // atribuir os valores
+                $arrayValues[$keyData][$header] = $values[$key];
+            }
+        }
+        // dd($arrayValues);
+        // cadastrar os registros no banco de dados
+        Contrato::insert($arrayValues);
+        //Retornar para a view
+        return view('users.index', ['users' => $users])->with('success', 'Dados de contratos importados com sucesso');
+    }
+
+    public function importesocialdata(Request $request)
+    {
+        //recuperar os dados do BD
+        $users = User::orderBy('name')->get();
+
+        // validar o arquivo
+        $request->validate([
+            'esocial' => 'required|mimes:csv,txt|max:2048',
+
+        ], [
+            'esocial.required' => 'É necessário escolher um arquivo para importar.',
+            'esocial.mimes' => 'Arquivo inválido. Necessário enviar um arquivo .csv.',
+            'esocial.max' => 'Tamanho do arquivo excede o :max MB',
+        ]);
+
+        // criar array com colunas do banco de dados
+        $headers = ['user_id', 'matricula', 'nocivos', 'admissional', 'periodicos', 'mudanca', 'retorno', 'demissional'];
+
+        // receber os dados do arquivo
+        $dataFile = array_map('str_getcsv', file($request->file('esocial')));
+
+
+        // percorrer as linhas do array
+        foreach ($dataFile as $keyData => $row) {
+            // converter a linha em array
+            $values = explode(';', $row[0]);
+
+            // percorrer as colunas do cabeçalho
+            foreach ($headers as $key => $header) {
+
+                // atribuir os valores
+                $arrayValues[$keyData][$header] = $values[$key];
+            }
+        }
+        // dd($arrayValues);
+        // cadastrar os registros no banco de dados
+        ESocial::insert($arrayValues);
+        //Retornar para a view
+        return view('users.index', ['users' => $users])->with('success', 'Dados de contratos importados com sucesso');
     }
 }
