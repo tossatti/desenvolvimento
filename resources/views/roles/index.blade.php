@@ -3,38 +3,37 @@
 @section('content')
     <div class="card border-light mt-4 mb-4 shadow">
         <div class="card-header hstack gap-2">
-            <span><strong>Grupos de Insumos</strong></span>
+            <span><strong>Funções</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
-                <a href="{{ route('grupoInsumo.create') }}" class="btn btn-outline-success btn-sm" data-toggle="tooltip"
+                <a href="{{ route('roles.create') }}" class="btn btn-outline-success btn-sm" data-toggle="tooltip"
                     data-placement="top" title="cadastrar"><i class="bi bi-plus-square"></i>
                 </a>
             </span>
         </div>
         <div class="card-body">
             {{-- pesquisa --}}
-            <x-search-form action="{{ route('grupoinsumo.search') }}" />
+            <x-search-form action="{{ route('roles.search') }}" />
             {{-- pesquisa --}}
             <x-alert />
             <table class="table">
                 <thead>
                     <tr>
                         <th class="d-inline" scope="col" class="col-9">
-                            <span>Grupo</span>
+                            <span>Funções</span>
                         </th>
                         <th scope="col" class="col-3 text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($grupoInsumos as $grupoInsumo)
+                    @forelse ($roles as $role)
                         <tr>
-                            <td>{{ $grupoInsumo->grupo }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('grupoInsumo.edit', ['grupoInsumo' => $grupoInsumo->id]) }}"
+                            <td class="col-9">{{ $role->funcao }}</td>
+                            <td class="col-3 text-center">
+                                <a href="{{ route('roles.edit', ['role' => $role->id]) }}"
                                     class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top"
                                     title="editar"><i class="bi bi-pencil-square"></i>
                                 </a>
-                                <form method="POST"
-                                    action="{{ route('grupoInsumo.destroy', ['grupoInsumo' => $grupoInsumo->id]) }}"
+                                <form method="POST" action="{{ route('roles.destroy', ['role' => $role->id]) }}"
                                     class="d-inline">
                                     @csrf
                                     @method('delete')
@@ -50,7 +49,7 @@
                     @endforelse
                 </tbody>
             </table>
-            <x-pagination-links :paginator="$grupoInsumos" />
+            <x-pagination-links :paginator="$roles" />
         </div>
     </div>
 @endsection

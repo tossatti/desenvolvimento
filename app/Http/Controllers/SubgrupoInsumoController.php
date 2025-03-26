@@ -13,7 +13,7 @@ class SubgrupoInsumoController extends Controller
     public function index()
     {
         //recuperar os dados do BD
-        $subgrupoInsumos = SubgrupoInsumo::orderBy('id')->get();
+        $subgrupoInsumos = SubgrupoInsumo::orderBy('id')->paginate(30);
 
         //Retornar para a view
         return view('subgrupoInsumo.index', [
@@ -85,4 +85,15 @@ class SubgrupoInsumoController extends Controller
         // redirecionar para a view
         return redirect()->route('subgrupoInsumo.index')->with('success', 'Subgrupo de insumos apagado com sucesso!');
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $subgrupoInsumos = SubgrupoInsumo::where('subgrupo', 'like', "%$search%")
+            ->paginate(30);
+
+        return view('subgrupoinsumo.index', compact('subgrupoInsumos'));
+    }
+
 }

@@ -11,12 +11,15 @@
             </span>
         </div>
         <div class="card-body">
+            {{-- pesquisa --}}
+            <x-search-form action="{{ route('subgrupoinsumos.search') }}" />
+            {{-- pesquisa --}}
             <x-alert />
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Subgrupo</th>
-                        <th scope="col" class="text-center">Ações</th>
+                        <th scope="col" class="col-9">Subgrupo</th>
+                        <th scope="col" class="col-3 text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +43,7 @@
                     @endforelse
                 </tbody>
             </table>
+            <x-pagination-links :paginator="$subgrupoInsumos" />
         </div>
     </div>
 @endsection

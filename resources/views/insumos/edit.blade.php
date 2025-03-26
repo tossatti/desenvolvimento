@@ -30,7 +30,7 @@
                                         <label class="form-label">Grupo</label>
                                         <select class="form-select" name="grupo" id="grupo">
                                             @foreach ($grupos as $grupo)
-                                                <option value="{{ $grupo->grupo, old('grupo') }}">{{ $grupo->grupo }}
+                                                <option value="{{ $grupo->id }}" {{ $grupo->id == $grupo->grupo_id ? 'selected' : '' }}>{{ $grupo->grupo }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -41,7 +41,7 @@
                                         <select class="form-select" name="subgrupo" id="subgrupo">
                                             <option>Selecione</option>
                                             @foreach ($subgrupos as $subgrupo)
-                                                <option value="{{ $subgrupo->subgrupo, old('grupo') }}">
+                                                <option value="{{ $subgrupo->id }}" {{ $subgrupo->id == $insumo->subgrupo_id ? 'selected' : '' }}>
                                                     {{ $subgrupo->subgrupo }}
                                                 </option>
                                             @endforeach
@@ -50,45 +50,45 @@
                                     <div class="col-sm-4 mb-2">
                                         <label class="form-label">Código Sinapi</label>
                                         <input type="text" class="form-control" id="sinapi" name="sinapi"
-                                            placeholder="Código Sinapi" value="{{ old('sinapi') }}">
+                                            placeholder="Código Sinapi" value="{{ old('sinapi', $insumo->sinapi) }}">
                                     </div>
                                     <div class="col-sm-12 mb-2">
                                         <label for="descricao" class="form-label">Descrição do insumo</label>
                                         <input type="text" class="form-control" id="descricao" name="descricao"
-                                            placeholder="Descrição do insumo" value="{{ old('descricao') }}">
+                                            placeholder="Descrição do insumo" value="{{ old('descricao', $insumo->descricao) }}">
                                     </div>
                                     <div class="col-sm-6 mb-2">
                                         <label class="form-label">Referência</label>
                                         <input type="text" class="form-control" id="referencia" name="referencia"
-                                            placeholder="Referência" value="{{ old('referencia') }}">
+                                            placeholder="Referência" value="{{ old('referencia', $insumo->referencia) }}">
                                     </div>
                                     <div class="col-sm-3 mb-2">
                                         <label class="form-label">Unidade</label>
                                         <select class="form-select" name="unidade" id="unidade">
-                                            <option>Selecione</option>
-                                            <option value="{{ 'Caixa', old('unidade') }}">Caixa</option>
-                                            <option value="{{ 'Cento', old('unidade') }}">Cento</option>
-                                            <option value="{{ 'Conjunto', old('unidade') }}">Conjunto</option>
-                                            <option value="{{ 'Dia', old('unidade') }}">Dia</option>
-                                            <option value="{{ 'Hora', old('unidade') }}">Hora</option>
-                                            <option value="{{ 'Jogo', old('unidade') }}">Jogo</option>
-                                            <option value="{{ 'Kg', old('unidade') }}">Kg</option>
-                                            <option value="{{ 'KW/h', old('unidade') }}">KW/h</option>
-                                            <option value="{{ 'Litro(s)', old('unidade') }}">Litro(s)</option>
-                                            <option value="{{ 'Metro(s)', old('unidade') }}">Metro(s)</option>
-                                            <option value="{{ 'm²', old('unidade') }}">m²</option>
-                                            <option value="{{ 'm³', old('unidade') }}">m³</option>
-                                            <option value="{{ 'Mês', old('unidade') }}">Mês</option>
-                                            <option value="{{ 'Par', old('unidade') }}">Par</option>
-                                            <option value="{{ 'Saco', old('unidade') }}">Saco</option>
-                                            <option value="{{ 'Tonelada', old('unidade') }}">Tonelada</option>
-                                            <option value="{{ 'Unidade', old('unidade') }}">Unidade</option>
+                                            <option value="">Selecione</option>
+                                            <option value="Caixa" {{ old('unidade', $insumo->unidade) == 'Caixa' ? 'selected' : '' }}>Caixa</option>
+                                            <option value="Cento" {{ old('unidade', $insumo->unidade) == 'Cento' ? 'selected' : '' }}>Cento</option>
+                                            <option value="Conjunto" {{ old('unidade', $insumo->unidade) == 'Conjunto' ? 'selected' : '' }}>Conjunto</option>
+                                            <option value="Dia" {{ old('unidade', $insumo->unidade) == 'Dia' ? 'selected' : '' }}>Dia</option>
+                                            <option value="Hora" {{ old('unidade', $insumo->unidade) == 'Hora' ? 'selected' : '' }}>Hora</option>
+                                            <option value="Jogo" {{ old('unidade', $insumo->unidade) == 'Jogo' ? 'selected' : '' }}>Jogo</option>
+                                            <option value="Kg" {{ old('unidade', $insumo->unidade) == 'Kg' ? 'selected' : '' }}>Kg</option>
+                                            <option value="KW/h" {{ old('unidade', $insumo->unidade) == 'KW/h' ? 'selected' : '' }}>KW/h</option>
+                                            <option value="Litro(s)" {{ old('unidade', $insumo->unidade) == 'Litro(s)' ? 'selected' : '' }}>Litro(s)</option>
+                                            <option value="Metro(s)" {{ old('unidade', $insumo->unidade) == 'Metro(s)' ? 'selected' : '' }}>Metro(s)</option>
+                                            <option value="m²" {{ old('unidade', $insumo->unidade) == 'm²' ? 'selected' : '' }}>m²</option>
+                                            <option value="m³" {{ old('unidade', $insumo->unidade) == 'm³' ? 'selected' : '' }}>m³</option>
+                                            <option value="Mês" {{ old('unidade', $insumo->unidade) == 'Mês' ? 'selected' : '' }}>Mês</option>
+                                            <option value="Par" {{ old('unidade', $insumo->unidade) == 'Par' ? 'selected' : '' }}>Par</option>
+                                            <option value="Saco" {{ old('unidade', $insumo->unidade) == 'Saco' ? 'selected' : '' }}>Saco</option>
+                                            <option value="Tonelada" {{ old('unidade', $insumo->unidade) == 'Tonelada' ? 'selected' : '' }}>Tonelada</option>
+                                            <option value="Unidade" {{ old('unidade', $insumo->unidade) == 'Unidade' ? 'selected' : '' }}>Unidade</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-3 mb-2">
                                         <label class="form-label">Valor</label>
-                                        <input type="text" class="form-control" id="valor" name="valor"
-                                            placeholder="Valor" value="{{ old('valor') }}">
+                                        <input type="text" class="form-control valor-input" id="valor" name="valor"
+                                            placeholder="Valor" value="{{ old('valor', $insumo->valor) }}">
                                     </div>
                                     {{-- <div class="mb-3">
                                         <label for="imagem" class="form-label">Imagem do insumo</label>
@@ -105,7 +105,7 @@
                 <div class="row g-3">
                     <div class= "col-md-5"></div>
                     <div class="col-md-2 content-center">
-                        <button type="submit" class="btn btn-success btn-sm">Cadastrar</button>
+                        <button type="submit" class="btn btn-warning btn-sm">Editar</button>
                     </div>
                     <div class= "col-md-5"></div>
                 </div>

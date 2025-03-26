@@ -6,8 +6,8 @@
         <div class="card-header hstack gap-2">
             <span><strong>Visualizar insumo</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
-                <a href="{{ route('insumos.index') }}" class="btn btn-outline-info btn-sm me-1" data-toggle="tooltip"
-                    data-placement="top" title="listar"><i class="bi bi-card-list"></i>
+                <a href="{{ route('insumos.index') }}" class="btn btn-outline-primary btn-sm me-1" data-toggle="tooltip"
+                    data-placement="top" title="voltar"><i class="bi bi-arrow-left-square"></i></i></i>
                 </a>
                 <a href="{{ route('insumos.edit', ['insumo' => $insumo->id]) }}" class="btn btn-outline-warning btn-sm me-1"
                     data-toggle="tooltip" data-placement="top" title="editar"><i class="bi bi-pencil-square"></i>
@@ -40,10 +40,10 @@
                             <dl class="row">
 
                                 <dt class="col-sm-3">Grupo:</dt>
-                                <dd class="col-sm-9">{{ $insumo->grupo }}</dd>
+                                <dd class="col-sm-9">{{ $insumo->grupo->grupo }}</dd>
 
                                 <dt class="col-sm-3">Subgrupo:</dt>
-                                <dd class="col-sm-9">{{ $insumo->subgrupo }}</dd>
+                                <dd class="col-sm-9">{{ $insumo->subgrupo->subgrupo }}</dd>
 
                                 <dt class="col-sm-3">Código Meka:</dt>
                                 <dd class="col-sm-9">{{ $insumo->codigo }}</dd>

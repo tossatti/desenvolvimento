@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, GrupoInsumoController, InsumoController, MekaController, SubgrupoInsumoController};
+use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, GrupoInsumoController, InsumoController, MekaController, RoleController, SubgrupoInsumoController};
 use Illuminate\Support\Facades\Route;
 
 // rotas públicas
@@ -9,23 +9,8 @@ Route::get('/quemsomos', [PublicController::class, 'quemsomos'])->name('public.q
 Route::get('/servicos', [PublicController::class, 'servicos'])->name('public.servicos');
 Route::get('/projetos', [PublicController::class, 'projetos'])->name('public.projetos');
 Route::get('/contatos', [PublicController::class, 'contatos'])->name('public.contatos');
-
-// // Colaboradores
-// Colaboradores
-Route::get('/index-user', [UserController::class, 'index'])->name('users.index');
-Route::get('/create-user', [UserController::class, 'create'])->name('users.create');
-Route::post('/store-user', [UserController::class, 'store'])->name('users.store');
-Route::get('/show-user/{user}', [UserController::class, 'show'])->name('users.show');
-Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/update-user/{user}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-Route::get('/import-user', [UserController::class, 'import'])->name('users.import');
-Route::post('/importdata-user', [UserController::class, 'importdata'])->name('users.importdata');
-Route::post('/importdocdata-user', [UserController::class, 'importdocdata'])->name('users.importdocdata');
-Route::post('/importbancdata-user', [UserController::class, 'importbancdata'])->name('users.importbancdata');
-Route::post('/importadressdata-user', [UserController::class, 'importadressdata'])->name('users.importadressdata');
-Route::post('/importcontratosdata-user', [UserController::class, 'importcontratosdata'])->name('users.importcontratosdata');
-Route::post('/importesocialdata-user', [UserController::class, 'importesocialdata'])->name('users.importesocialdata');
+Route::get('/curriculum', [PublicController::class, 'curriculum'])->name('public.curriculum');
+Route::post('/store-curriculum', [PublicController::class, 'store'])->name('public.store');
 
 // login
 Route::get('/login', [LoginController::class, 'login'])->name('login');
@@ -43,20 +28,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/meka', [MekaController::class, 'index'])->name('meka.index');
 
     // Colaboradores
-    // Route::get('/index-user', [UserController::class, 'index'])->name('users.index');
-    // Route::get('/create-user', [UserController::class, 'create'])->name('users.create');
-    // Route::post('/store-user', [UserController::class, 'store'])->name('users.store');
-    // Route::get('/show-user/{user}', [UserController::class, 'show'])->name('users.show');
-    // Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('users.edit');
-    // Route::put('/update-user/{user}', [UserController::class, 'update'])->name('users.update');
-    // Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-    // Route::get('/import-user', [UserController::class, 'import'])->name('users.import');
-    // Route::post('/importdata-user', [UserController::class, 'importdata'])->name('users.importdata');
-    // Route::post('/importdocdata-user', [UserController::class, 'importdocdata'])->name('users.importdocdata');
-    // Route::post('/importbancdata-user', [UserController::class, 'importbancdata'])->name('users.importbancdata');
-    // Route::post('/importadressdata-user', [UserController::class, 'importadressdata'])->name('users.importadressdata');
-    // Route::post('/importcontratosdata-user', [UserController::class, 'importcontratosdata'])->name('users.importcontratosdata');
-    // Route::post('/importesocialdata-user', [UserController::class, 'importesocialdata'])->name('users.importesocialdata');
+    Route::get('/index-user', [UserController::class, 'index'])->name('users.index');
+    Route::get('/create-user', [UserController::class, 'create'])->name('users.create');
+    Route::post('/store-user', [UserController::class, 'store'])->name('users.store');
+    Route::get('/show-user/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/update-user/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/import-user', [UserController::class, 'import'])->name('users.import');
+    Route::post('/importdata-user', [UserController::class, 'importdata'])->name('users.importdata');
+    Route::post('/importdocdata-user', [UserController::class, 'importdocdata'])->name('users.importdocdata');
+    Route::post('/importbancdata-user', [UserController::class, 'importbancdata'])->name('users.importbancdata');
+    Route::post('/importadressdata-user', [UserController::class, 'importadressdata'])->name('users.importadressdata');
+    Route::post('/importcontratosdata-user', [UserController::class, 'importcontratosdata'])->name('users.importcontratosdata');
+    Route::post('/importesocialdata-user', [UserController::class, 'importesocialdata'])->name('users.importesocialdata');
+    Route::get('/search-user', [UserController::class, 'search'])->name('users.search');
     
     // Almoxarifado
     Route::get('/almoxarifado', [AlmoxarifadoController::class, 'index'])->name('almoxarifado.index');
@@ -69,6 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/show-insumos/{insumo}', [InsumoController::class, 'show'])->name('insumos.show');
     Route::put('/update-insumos/{insumo}', [InsumoController::class, 'update'])->name('insumos.update');
     Route::delete('/destroy-insumos/{insumo}', [InsumoController::class, 'destroy'])->name('insumos.destroy');
+    Route::get('/import-insumo', [InsumoController::class, 'import'])->name('insumo.import');
+    Route::post('/importinsumo-insumo', [InsumoController::class, 'importinsumo'])->name('insumo.importinsumo');
+    Route::get('/insumos-search', [InsumoController::class, 'search'])->name('insumos.search');
     
     
     // grupo de insumos
@@ -78,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/edit-grupoinsumos/{grupoInsumo}', [GrupoInsumoController::class, 'edit'])->name('grupoInsumo.edit');
     Route::put('/update-grupoinsumos/{grupoInsumo}', [GrupoInsumoController::class, 'update'])->name('grupoInsumo.update');
     Route::delete('/destroy-grupoinsumos/{grupoInsumo}', [GrupoInsumoController::class, 'destroy'])->name('grupoInsumo.destroy');
+    Route::get('/search-grupoinsumos', [GrupoInsumoController::class, 'search'])->name('grupoinsumo.search');
     
     // subgrupo de insumos
     Route::get('/subgrupoinsumos', [SubgrupoInsumoController::class, 'index'])->name('subgrupoInsumo.index');
@@ -86,6 +76,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/edit-subgrupoinsumos/{subgrupoInsumo}', [SubgrupoInsumoController::class, 'edit'])->name('subgrupoInsumo.edit');
     Route::put('/update-subgrupoinsumos/{subgrupoInsumo}', [SubgrupoInsumoController::class, 'update'])->name('subgrupoInsumo.update');
     Route::delete('/destroy-subgrupoinsumos/{subgrupoInsumo}', [SubgrupoInsumoController::class, 'destroy'])->name('subgrupoInsumo.destroy');
+    Route::get('/search-subgrupoinsumos', [SubgrupoInsumoController::class, 'search'])->name('subgrupoinsumos.search');
+
+    // funções
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/create-roles', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/store-roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/edit-roles/{role}', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('/update-roles/{role}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('/destroy-roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    Route::get('/search-roles', [RoleController::class, 'search'])->name('roles.search');
+
 
 
     

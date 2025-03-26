@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Insumo;
 
 class SubgrupoInsumo extends Model
 {
@@ -20,5 +21,13 @@ class SubgrupoInsumo extends Model
     protected $fillable = [
         'subgrupo',
     ];
+
+    /**
+     * Relacionamento de tabela insumos.
+     */
+    public function insumos()
+    {
+        return $this->hasMany(Insumo::class, 'subgrupo_id');
+    }
 
 }

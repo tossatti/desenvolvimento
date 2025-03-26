@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/edit.css">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/tooltip.css">
     <script src="{{ asset('css/app.css') }}"></script>
     <style>
         .accordion {
@@ -19,10 +18,8 @@
             --bs-accordion-btn-focus-box-shadow: rgb(173, 247, 173);
         }
     </style>
-
     <title>Meka Engenharia</title>
 </head>
-
 <body>
     {{-- menu superior --}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -34,6 +31,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                {{-- administração --}}
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
@@ -44,11 +42,11 @@
                                     href="{{ route('users.index') }}">Colaboradores</a></li>
                             <li><a class="dropdown-item form-control-sm disabled" href="">Contratos</a></li>
                             <li><a class="dropdown-item form-control-sm disabled" href="">Fornecedores</a></li>
-                            {{-- <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('users.import') }}">Importar dados</a></li> --}}
                         </ul>
                     </li>
                 </ul>
+                {{-- administração --}}
+                {{-- Logística --}}
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
@@ -63,13 +61,11 @@
                             </li>
                             <li><a class="dropdown-item form-control-sm disabled" href="#">Manutenção</a></li>
                             <li><a class="dropdown-item form-control-sm disabled" href="#">Patrimônio</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('grupoInsumo.index') }}">Grupos de insumos</a></li>
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('subgrupoInsumo.index') }}">Subgrupos de insumos</a></li>
-
                         </ul>
                     </li>
                 </ul>
+                {{-- Logística --}}
+                {{-- Obras --}}
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button class="btn btn-dark dropdown-toggle btn-sm disabled" data-bs-toggle="dropdown"
@@ -82,6 +78,8 @@
                         </ul>
                     </li>
                 </ul>
+                {{-- Obras --}}
+                {{-- tarefas --}}
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <button class="btn btn-dark dropdown-toggle btn-sm disabled" data-bs-toggle="dropdown"
@@ -92,6 +90,24 @@
                         </ul>
                     </li>
                 </ul>
+                {{-- tarefas --}}
+                {{-- ferramentas --}}
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
+                            aria-expanded="false">Ferramentas</button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            {{-- <li><a class="dropdown-item form-control-sm" href="{{ route('users.import') }}">Importar dados de usuários</a></li> --}}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('grupoInsumo.index') }}">Grupos de insumos</a></li>
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('subgrupoInsumo.index') }}">Subgrupos de insumos</a></li>
+                            {{-- <li><a class="dropdown-item form-control-sm" href="{{ route('insumo.import') }}">Importar dados de insumos</a></li> --}}
+                            <li><hr class="dropdown-divider"></li>  
+                            <li><a class="dropdown-item form-control-sm" href="{{ route('roles.index') }}">Funções</a></li>  
+                        </ul>
+                    </li>
+                </ul>
+                {{-- ferramentas --}}
             </div>
             <div class="text-end">
                 <a class="btn btn-outline-light me-2 btn-sm" href="{{ route('logout') }}" role="button">Logout</a>
@@ -105,9 +121,5 @@
         @yield('content')
     </div>
     {{-- conteúdo --}}
-
-    
-
 </body>
-
 </html>

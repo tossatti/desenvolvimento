@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('almoxarifados', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('insumo_id')->constrained();
-            $table->decimal('estoque', 9, 2);
+            $table->funcao();
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('almoxarifados');
+        Schema::dropIfExists('roles');
     }
 };

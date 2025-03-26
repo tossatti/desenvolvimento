@@ -21,7 +21,7 @@ class Contrato extends Model
         'tipoContrato',
         'lotacao',
         'equipe',
-        'funcao',
+        'role_id',
         'remuneracao',
         'cbo',
         'situacao',
@@ -38,5 +38,10 @@ class Contrato extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
     }
 }

@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Insumo;
 
-class GrupoInsumo extends Model
+class Role extends Model
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -19,16 +18,16 @@ class GrupoInsumo extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'grupo',
+        'funcao',
     ];
 
-    /**
-     * Relacionamento de tabela insumos.
-     */
-    public function insumos()
+    public function role()
     {
-        return $this->hasMany(Insumo::class, 'grupo_id');
+        return $this->hasMany(Contrato::class, 'role_id');
     }
 
-
+    // public function curriculum()
+    // {
+    //     return $this->hasMany(Curriculum::class, 'role_id');
+    // }
 }

@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('insumos', function (Blueprint $table) {
             $table->id();
-            $table->string('grupo', 50);
-            $table->string('subgrupo', 50);
-            $table->string('codigo', 50);
-            $table->string('sinapi', 50);
-            $table->string('descricao', 100);
-            $table->string('referencia', 100);
-            $table->string('unidade', 20);
-            $table->decimal('valor', 9, 2);
-            $table->string('imagem', 255);
+            $table->foreignId('grupo_id')->constrained();
+            $table->foreignId('subgrupo_id')->constrained();
+            $table->string('codigo', 50)->nullable();
+            $table->string('sinapi', 50)->nullable();
+            $table->string('descricao', 100)->nullable();
+            $table->string('referencia', 100)->nullable();
+            $table->string('unidade', 20)->nullable();
+            $table->decimal('valor', 9, 2)->nullable();
+            $table->string('imagem', 255)->nullable();
             $table->timestamps();
         });
     }

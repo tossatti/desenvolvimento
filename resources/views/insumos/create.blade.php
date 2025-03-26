@@ -28,20 +28,22 @@
                                 <div class="row">
                                     <div class="col-sm-4 mb-2">
                                         <label class="form-label">Grupo</label>
-                                        <select class="form-select" name="grupo" id="grupo">
-                                            <option>Selecione</option>
+                                        <select class="form-select" name="grupo_id" id="grupo_id">
+                                            <option value="">Selecione</option>
                                             @foreach ($grupos as $grupo)
-                                                <option value="{{ $grupo->grupo, old('grupo') }}">{{ $grupo->grupo }}
+                                                <option value="{{ $grupo->id }}" {{ old('grupo_id') == $grupo->id ? 'selected' : '' }}>
+                                                    {{ $grupo->grupo }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-sm-4 mb-2">
                                         <label class="form-label">Subgrupo</label>
-                                        <select class="form-select" name="subgrupo" id="subgrupo">
-                                            <option>Selecione</option>
+                                        <select class="form-select" name="subgrupo_id" id="subgrupo_id">
+                                            <option value="">Selecione</option>
                                             @foreach ($subgrupos as $subgrupo)
-                                                <option value="{{ $subgrupo->subgrupo, old('grupo') }}">
+                                                <option value="{{ $subgrupo->id }}"
+                                                    {{ old('subgrupo') == $subgrupo->id ? 'selected' : '' }}>
                                                     {{ $subgrupo->subgrupo }}
                                                 </option>
                                             @endforeach
@@ -66,28 +68,45 @@
                                         <label class="form-label">Unidade</label>
                                         <select class="form-select" name="unidade" id="unidade">
                                             <option>Selecione</option>
-                                            <option value="{{ 'Caixa', old('unidade') }}">Caixa</option>
-                                            <option value="{{ 'Cento', old('unidade') }}">Cento</option>
-                                            <option value="{{ 'Conjunto', old('unidade') }}">Conjunto</option>
-                                            <option value="{{ 'Dia', old('unidade') }}">Dia</option>
-                                            <option value="{{ 'Hora', old('unidade') }}">Hora</option>
-                                            <option value="{{ 'Jogo', old('unidade') }}">Jogo</option>
-                                            <option value="{{ 'Kg', old('unidade') }}">Kg</option>
-                                            <option value="{{ 'KW/h', old('unidade') }}">KW/h</option>
-                                            <option value="{{ 'Litro(s)', old('unidade') }}">Litro(s)</option>
-                                            <option value="{{ 'Metro(s)', old('unidade') }}">Metro(s)</option>
-                                            <option value="{{ 'm²', old('unidade') }}">m²</option>
-                                            <option value="{{ 'm³', old('unidade') }}">m³</option>
-                                            <option value="{{ 'Mês', old('unidade') }}">Mês</option>
-                                            <option value="{{ 'Par', old('unidade') }}">Par</option>
-                                            <option value="{{ 'Saco', old('unidade') }}">Saco</option>
-                                            <option value="{{ 'Tonelada', old('unidade') }}">Tonelada</option>
-                                            <option value="{{ 'Unidade', old('unidade') }}">Unidade</option>
+                                            <option value="Caixa" {{ old('unidade') == 'Caixa' ? 'selected' : '' }}>Caixa
+                                            </option>
+                                            <option value="Cento" {{ old('unidade') == 'Cento' ? 'selected' : '' }}>Cento
+                                            </option>
+                                            <option value="Conjunto" {{ old('unidade') == 'Conjunto' ? 'selected' : '' }}>
+                                                Conjunto</option>
+                                            <option value="Dia" {{ old('unidade') == 'Dia' ? 'selected' : '' }}>Dia
+                                            </option>
+                                            <option value="Hora" {{ old('unidade') == 'Hora' ? 'selected' : '' }}>Hora
+                                            </option>
+                                            <option value="Jogo" {{ old('unidade') == 'Jogo' ? 'selected' : '' }}>Jogo
+                                            </option>
+                                            <option value="Kg" {{ old('unidade') == 'Kg' ? 'selected' : '' }}>Kg
+                                            </option>
+                                            <option value="KW/h" {{ old('unidade') == 'KW/h' ? 'selected' : '' }}>KW/h
+                                            </option>
+                                            <option value="Litro(s)" {{ old('unidade') == 'Litro(s)' ? 'selected' : '' }}>
+                                                Litro(s)</option>
+                                            <option value="Metro(s)" {{ old('unidade') == 'Metro(s)' ? 'selected' : '' }}>
+                                                Metro(s)</option>
+                                            <option value="m²" {{ old('unidade') == 'm²' ? 'selected' : '' }}>m²
+                                            </option>
+                                            <option value="m³" {{ old('unidade') == 'm³' ? 'selected' : '' }}>m³
+                                            </option>
+                                            <option value="Mês" {{ old('unidade') == 'Mês' ? 'selected' : '' }}>Mês
+                                            </option>
+                                            <option value="Par" {{ old('unidade') == 'Par' ? 'selected' : '' }}>Par
+                                            </option>
+                                            <option value="Saco" {{ old('unidade') == 'Saco' ? 'selected' : '' }}>Saco
+                                            </option>
+                                            <option value="Tonelada" {{ old('unidade') == 'Tonelada' ? 'selected' : '' }}>
+                                                Tonelada</option>
+                                            <option value="Unidade" {{ old('unidade') == 'Unidade' ? 'selected' : '' }}>
+                                                Unidade</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-3 mb-2">
                                         <label class="form-label">Valor</label>
-                                        <input type="text" class="form-control" id="valor" name="valor"
+                                        <input type="text" class="form-control valor-input" id="valor" name="valor"
                                             placeholder="Valor" value="{{ old('valor') }}">
                                     </div>
                                     {{-- <div class="mb-3">

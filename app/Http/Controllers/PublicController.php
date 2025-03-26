@@ -35,4 +35,18 @@ class PublicController extends Controller
         //Retornar para a view
         return view('public.contatos');
     }
+
+    public function curriculum()
+    {
+        //Retornar para a view
+        return view('public.curriculum');
+    }
+
+    public function store()
+    {
+        //Retornar para a view
+        return view('public.curriculum');
+    }
+
+
 }

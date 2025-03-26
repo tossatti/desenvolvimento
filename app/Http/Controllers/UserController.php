@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\Models\{Adress, BancAcount, Contrato, ESocial, PersonalDocument, User};
+use App\Models\{Adress, BancAcount, Contrato, ESocial, PersonalDocument, Role, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -12,11 +12,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        //recuperar os dados do BD
-        $users = User::orderBy('name')->get();
+        $perPage = 30; // Defina o número de itens por página
+        $users = User::orderBy('name')->paginate($perPage);
 
-        //Retornar para a view
-        return view('users.index', ['users' => $users]);
+        // Retornar para a view
+        return view('users.index', compact('users'));
     }
 
     public function show(User $user)
@@ -26,6 +26,8 @@ class UserController extends Controller
         $adress = (User::find($user->id)->adress()->get())->first();
         $banco = (User::find($user->id)->bancario()->get())->first();
         $contrato = (User::find($user->id)->contrato()->get())->first();
+        $esocial = (User::find($user->id)->esocial()->get())->first();
+        $roles = (User::find($user->id)->role()->get())->first();
         //retornar para a view
         return view('users.show', [
             'user' => $user,
@@ -33,13 +35,16 @@ class UserController extends Controller
             'adress' => $adress,
             'banco' => $banco,
             'contrato' => $contrato,
+            'esocial' => $esocial,
+            'roles' => $roles,
         ]);
     }
 
     public function create()
     {
+        $roles = Role::all();
         // retorna para a view
-        return view('users.create');
+        return view('users.create', compact('roles'));
     }
 
     public function store(UserRequest $request)
@@ -102,7 +107,7 @@ class UserController extends Controller
             'tipoContrato' => $request->tipoContrato,
             'lotacao' => $request->lotacao,
             'equipe' => $request->equipe,
-            'funcao' => $request->funcao,
+            'role_id' => $request->role_id,
             'remuneracao' => $request->remuneracao,
             'cbo' => $request->cbo,
             'situacao' => $request->situacao,
@@ -131,11 +136,14 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $roles = Role::all();
         //recuperar os dados do BD
         $docs = (User::find($user->id)->documentos()->get())->first();
         $adress = (User::find($user->id)->adress()->get())->first();
         $banco = (User::find($user->id)->bancario()->get())->first();
         $contrato = (User::find($user->id)->contrato()->get())->first();
+        $esocial = (User::find($user->id)->esocial()->get())->first();
+        $funcao = (User::find($user->id)->role()->get())->first();
 
         //retornar para a view
         return view('users.edit', [
@@ -144,6 +152,9 @@ class UserController extends Controller
             'adress' => $adress,
             'banco' => $banco,
             'contrato' => $contrato,
+            'esocial' => $esocial,
+            'roles' => $roles,
+            'funcao' => $funcao,
         ]);
     }
 
@@ -158,6 +169,7 @@ class UserController extends Controller
         $banco = (User::find($user->id)->bancario()->get())->first();
         $contrato = (User::find($user->id)->contrato()->get())->first();
         $esocial = (User::find($user->id)->esocial()->get())->first();
+
 
         //editar dados no BD
 
@@ -222,7 +234,7 @@ class UserController extends Controller
             'tipoContrato' => $request->tipoContrato,
             'lotacao' => $request->lotacao,
             'equipe' => $request->equipe,
-            'funcao' => $request->funcao,
+            'role_id' => $request->role_id,
             'remuneracao' => str_replace(',', '.', str_replace('.', '', trim(preg_replace('/\s+/u', ' ', str_replace('R$', '', $request->remuneracao))))),
             'cbo' => $request->cbo,
             'situacao' => $request->situacao,
@@ -254,6 +266,36 @@ class UserController extends Controller
         $user->delete();
         // redirecionar para a view
         return redirect()->route('users.index')->with('success', 'Colaborador apagado com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $users = User::where('name', 'like', "%$search%")
+            ->orWhere('email', 'like', "%$search%")
+            ->orWhereHas('adress', function ($query) use ($search) {
+                $query->where('endereco', 'like', "%$search%")
+                    ->orWhere('cidade', 'like', "%$search%")
+                    ->orWhere('estado', 'like', "%$search%");
+            })
+            ->orWhereHas('bancario', function ($query) use ($search) {
+                $query->where('banco', 'like', "%$search%")
+                    ->orWhere('agencia', 'like', "%$search%")
+                    ->orWhere('tipoconta', 'like', "%$search%");
+            })
+            ->orWhereHas('contrato', function ($query) use ($search) {
+                $query->where('equipe', 'like', "%$search%")
+                    ->orWhereHas('role', function ($roleQuery) use ($search) {
+                        $roleQuery->where('funcao', 'like', "%$search%");
+                    });
+            })
+            ->orWhereHas('esocial', function ($query) use ($search) {
+                $query->where('matricula', 'like', "%$search%");
+            })
+            ->paginate(30);
+
+        return view('users.index', compact('users'));
     }
 
     public function import()

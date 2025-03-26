@@ -6,8 +6,8 @@
         <div class="card-header hstack gap-2">
             <span><strong>Visualizar dados do colaborador</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
-                <a href="{{ route('users.index') }}" class="btn btn-outline-info btn-sm me-1" data-toggle="tooltip"
-                    data-placement="top" title="listar"><i class="bi bi-card-list"></i>
+                <a href="{{ route('users.index') }}" class="btn btn-outline-primary btn-sm me-1" data-toggle="tooltip"
+                    data-placement="top" title="voltar"><i class="bi bi-arrow-left-square"></i></i></i>
                 </a>
                 <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-outline-warning btn-sm me-1"
                     data-toggle="tooltip" data-placement="top" title="editar"><i class="bi bi-pencil-square"></i>
@@ -46,11 +46,11 @@
                                 <dd class="col-sm-9">{{ $user->email }}</dd>
 
                                 <dt class="col-sm-3">Data de cadastro:</dt>
-                                <dd class="col-sm-3">{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y H:i') }}
+                                <dd class="col-sm-3">{{ \Carbon\Carbon::parse($user->created_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}
                                 </dd>
 
                                 <dt class="col-sm-3">Data de atualização:</dt>
-                                <dd class="col-sm-3">{{ \Carbon\Carbon::parse($user->updated_at)->format('d/m/Y H:i') }}
+                                <dd class="col-sm-3">{{ \Carbon\Carbon::parse($user->updated_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}
                                 </dd>
                             </dl>
                         </div>
@@ -84,11 +84,11 @@
                                 <dd id="ctps" class="col-sm-6">{{ $docs->ctps }}</dd>
 
                                 <dt class="col-sm-3">Data de cadastro:</dt>
-                                <dd class="col-sm-3"> {{ \Carbon\Carbon::parse($docs->created_at)->format('d/m/Y H:i') }}
+                                <dd class="col-sm-3"> {{ \Carbon\Carbon::parse($docs->created_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}
                                 </dd>
 
                                 <dt class="col-sm-3">Data de atualização:</dt>
-                                <dd class="col-sm-3"> {{ \Carbon\Carbon::parse($docs->updated_at)->format('d/m/Y H:i') }}
+                                <dd class="col-sm-3"> {{ \Carbon\Carbon::parse($docs->updated_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}
                                 </dd>
                             </dl>
                         </div>
@@ -124,11 +124,11 @@
                                 <dd class="col-sm-2">{{ $banco->pix }}</dd>
 
                                 <dt class="col-sm-3">Data de cadastro:</dt>
-                                <dd class="col-sm-3"> {{ \Carbon\Carbon::parse($banco->created_at)->format('d/m/Y H:i') }}
+                                <dd class="col-sm-3"> {{ \Carbon\Carbon::parse($banco->created_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}
                                 </dd>
 
                                 <dt class="col-sm-3">Data de atualização:</dt>
-                                <dd class="col-sm-3"> {{ \Carbon\Carbon::parse($banco->updated_at)->format('d/m/Y H:i') }}
+                                <dd class="col-sm-3"> {{ \Carbon\Carbon::parse($banco->updated_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}
                                 </dd>
                             </dl>
                         </div>
@@ -172,12 +172,12 @@
 
                                 <dt class="col-sm-3">Data de cadastro:</dt>
                                 <dd class="col-sm-3">
-                                    {{ \Carbon\Carbon::parse($adress->created_at)->format('d/m/Y H:i') }}
+                                    {{ \Carbon\Carbon::parse($adress->created_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}
                                 </dd>
 
                                 <dt class="col-sm-3">Data de atualização:</dt>
                                 <dd class="col-sm-3">
-                                    {{ \Carbon\Carbon::parse($adress->updated_at)->format('d/m/Y H:i') }}
+                                    {{ \Carbon\Carbon::parse($adress->updated_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}
                                 </dd>
                             </dl>
                         </div>
@@ -204,7 +204,7 @@
                                 <dd class="col-sm-2">{{ $contrato->equipe }}</dd>
 
                                 <dt class="col-sm-2">Função:</dt>
-                                <dd class="col-sm-2">{{ $contrato->funcao }}</dd>
+                                <dd class="col-sm-2">{{ $contrato->role->funcao }}</dd>
 
                                 <dt class="col-sm-2">Remuneração:</dt>
                                 <dd class="col-sm-2">{{ 'R$ '. number_format($contrato->remuneracao, 2, ',', '.') }}</dd>
@@ -219,22 +219,22 @@
                                 <dd class="col-sm-2">{{ $contrato->disponibilidade }}</dd>
 
                                 <dt class="col-sm-2">Admissão:</dt>
-                                <dd class="col-sm-2">{{ \Carbon\Carbon::parse($contrato->admissao)->format('d/m/Y') }}</dd>
+                                <dd class="col-sm-2">{{ \Carbon\Carbon::parse($contrato->admissao)->setTimezone('America/Manaus')->format('d/m/Y') }}</dd>
 
                                 <dt class="col-sm-2">ASO:</dt>
-                                <dd class="col-sm-2">{{ \Carbon\Carbon::parse($contrato->aso)->format('d/m/Y') }}</dd>
+                                <dd class="col-sm-2">{{ \Carbon\Carbon::parse($contrato->aso)->setTimezone('America/Manaus')->format('d/m/Y') }}</dd>
 
                                 <dt class="col-sm-2">Término:</dt>
-                                <dd class="col-sm-6">{{ \Carbon\Carbon::parse($contrato->termino)->format('d/m/Y') }}</dd>
+                                <dd class="col-sm-6">{{ \Carbon\Carbon::parse($contrato->termino)->setTimezone('America/Manaus')->format('d/m/Y') }}</dd>
 
                                 <dt class="col-sm-2">Observação:</dt>
                                 <dd class="col-sm-10">{{ $contrato->observacao }}</dd>
 
                                 <dt class="col-sm-2">Cadastrado em:</dt>
-                                <dd class="col-sm-2">{{ \Carbon\Carbon::parse($contrato->created_at)->format('d/m/Y H:i') }}</dd>
+                                <dd class="col-sm-2">{{ \Carbon\Carbon::parse($contrato->created_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}</dd>
 
                                 <dt class="col-sm-2">Atualizado em:</dt>
-                                <dd class="col-sm-2">{{ \Carbon\Carbon::parse($contrato->updated_at)->format('d/m/Y H:i') }}</dd>
+                                <dd class="col-sm-2">{{ \Carbon\Carbon::parse($contrato->updated_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -251,25 +251,31 @@
                         <div class="accordion-body">
                             <dl class="row">
                                 <dt class="col-sm-2">Matrícula:</dt>
-                                <dd class="col-sm-4"></dd>
+                                <dd class="col-sm-4">{{ $esocial->matricula }}</dd>
 
                                 <dt class="col-sm-2">Agentes nocivos:</dt>
-                                <dd class="col-sm-4"></dd>
+                                <dd class="col-sm-4">{{ $esocial->nocivos }}</dd>
 
                                 <dt class="col-sm-3">Exames admissionais:</dt>
-                                <dd class="col-sm-3"></dd>
+                                <dd class="col-sm-3">{{ $esocial->admissional }}</dd>
 
                                 <dt class="col-sm-3">Exames periódicos:</dt>
-                                <dd class="col-sm-3"></dd>
+                                <dd class="col-sm-3">{{ $esocial->periodicos }}</dd>
 
                                 <dt class="col-sm-3">Mudança de função:</dt>
-                                <dd class="col-sm-3"></dd>
+                                <dd class="col-sm-3">{{ $esocial->mudanca }}</dd>
 
                                 <dt class="col-sm-3">Retorno ao trabalho:</dt>
-                                <dd class="col-sm-3"></dd>
+                                <dd class="col-sm-3">{{ $esocial->retorno }}</dd>
 
                                 <dt class="col-sm-3">Exames demissionais:</dt>
-                                <dd class="col-sm-3"></dd>
+                                <dd class="col-sm-9">{{ $esocial->demissional }}</dd>
+
+                                <dt class="col-sm-3">Cadastrado em:</dt>
+                                <dd class="col-sm-3">{{ \Carbon\Carbon::parse($esocial->created_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}</dd>
+
+                                <dt class="col-sm-3">Atualizado em:</dt>
+                                <dd class="col-sm-3">{{ \Carbon\Carbon::parse($esocial->updated_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}</dd>
                             </dl>
                         </div>
                     </div>

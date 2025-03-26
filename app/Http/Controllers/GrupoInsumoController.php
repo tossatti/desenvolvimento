@@ -14,7 +14,7 @@ class GrupoInsumoController extends Controller
     public function index()
     {
         //recuperar os dados do BD
-        $grupoInsumos = GrupoInsumo::orderBy('id')->get();
+        $grupoInsumos = GrupoInsumo::orderBy('id')->paginate(30);
 
         //Retornar para a view
         return view('grupoInsumo.index', [
@@ -87,5 +87,15 @@ class GrupoInsumoController extends Controller
         $grupoInsumo->delete();
         // redirecionar para a view
         return redirect()->route('grupoInsumo.index')->with('success', 'Grupo de insumos apagado com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $grupoInsumos = GrupoInsumo::where('grupo', 'like', "%$search%")
+            ->paginate(30);
+
+        return view('grupoinsumo.index', compact('grupoInsumos'));
     }
 }

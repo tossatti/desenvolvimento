@@ -77,7 +77,7 @@
                                     <div class="col-md-6">
                                         <label for="cnh" class="form-label">CNH</label>
                                         <input type="text" class="form-control" id="cnh" name="cnh"
-                                            placeholder="Título de eleitor" value="{{ old('cnh') }}">
+                                            placeholder="CNH" value="{{ old('cnh') }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="ctps" class="form-label">Carteira de trabalho antiga</label>
@@ -116,10 +116,13 @@
                                         <label for="tipoconta" class="form-label">Tipo de conta</label>
                                         <select class="form-select form-control" id="tipoconta" name="tipoconta"
                                             aria-label="Default select example">
-                                            <option selected>Selecione</option>
-                                            <option value="{{ 1, old('tipoconta') }} ">Conta Corrente</option>
-                                            <option value="{{ 2, old('tipoconta') }} ">Conta Poupança</option>
-                                            <option value="{{ 3, old('tipoconta') }}">Conta Salário</option>
+                                            <option value="">Selecione</option>
+                                            <option value="1" {{ old('tipoconta') == '1' ? 'selected' : '' }}>Conta
+                                                Corrente</option>
+                                            <option value="2" {{ old('tipoconta') == '2' ? 'selected' : '' }}>Conta
+                                                Poupança</option>
+                                            <option value="3" {{ old('tipoconta') == '3' ? 'selected' : '' }}>Conta
+                                                Salário</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -132,9 +135,12 @@
                                         <select class="form-select form-control" id="tipopix" name="tipopix"
                                             aria-label="Default select example">
                                             <option selected>Selecione</option>
-                                            <option value="{{ 1, old('tipopix') }} ">CPF</option>
-                                            <option value="{{ 2, old('tipopix') }} ">E-mail</option>
-                                            <option value="{{ 3, old('tipopix') }}">Telefone</option>
+                                            <option value="1" {{ old('tipopix') == '1' ? 'selected' : '' }}>CPF
+                                            </option>
+                                            <option value="2" {{ old('tipopix') == '2' ? 'selected' : '' }}>E-mail
+                                            </option>
+                                            <option value="3" {{ old('tipopix') == '3' ? 'selected' : '' }}>Telefone
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -197,8 +203,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="telefone" class="form-label">Nº de telefone</label>
-                                        <input type="text" class="form-control telefone" id="telefone" name="telefone"
-                                            placeholder="Nº de telefone" value="{{ old('telefone') }}">
+                                        <input type="text" class="form-control telefone" id="telefone"
+                                            name="telefone" placeholder="Nº de telefone" value="{{ old('telefone') }}">
                                     </div>
                                 </div>
                             </div>
@@ -223,11 +229,16 @@
                                         <select class="form-select form-control" id="tipoContrato" name="tipoContrato"
                                             aria-label="Default select example">
                                             <option selected>Selecione</option>
-                                            <option value="{{ 1, old('tipoContrato') }} ">Diarista</option>
-                                            <option value=" {{ 2, old('tipoContrato') }} ">Mensalista</option>
-                                            <option value="{{ 3, old('tipoContrato') }}">Prestador de serviço</option>
-                                            <option value="{{ 4, old('tipoContrato') }}">Proprietário</option>
-                                            <option value="{{ 5, old('tipoContrato') }}">Terceirizado</option>
+                                            <option value="1" {{ old('tipoContrato') == '1' ? 'selected' : '' }}>
+                                                Diarista</option>
+                                            <option value="2" {{ old('tipoContrato') == '2' ? 'selected' : '' }}>
+                                                Mensalista</option>
+                                            <option value="3" {{ old('tipoContrato') == '3' ? 'selected' : '' }}>
+                                                Prestador de serviço</option>
+                                            <option value="4" {{ old('tipoContrato') == '4' ? 'selected' : '' }}>
+                                                Proprietário</option>
+                                            <option value="5" {{ old('tipoContrato') == '5' ? 'selected' : '' }}>
+                                                Terceirizado</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
@@ -239,56 +250,50 @@
                                         <label for="equipe" class="form-label">Equipe</label>
                                         <select class="form-select form-control" id="equipe" name="equipe"
                                             aria-label="Default select example">
-                                            <option selected>Selecione</option>
-                                            <option value="{{ 1, old('equipe') }} ">Armação</option>
-                                            <option value="{{ 2, old('equipe') }} ">Carpintaria</option>
-                                            <option value="{{ 3, old('equipe') }}">Civil</option>
-                                            <option value="{{ 4, old('equipe') }}">Elétrica</option>
-                                            <option value="{{ 5, old('equipe') }}">Esquadria</option>
-                                            <option value="{{ 6, old('equipe') }}">Hidráulica</option>
-                                            <option value="{{ 7, old('equipe') }}">Logística</option>
-                                            <option value="{{ 8, old('equipe') }}">Metálica</option>
-                                            <option value="{{ 9, old('equipe') }}">Pintura</option>
-                                            <option value="{{ 10, old('equipe') }}">Piso</option>
-                                            <option value="{{ 11, old('equipe') }}">Revestimento</option>
-                                            <option value="{{ 12, old('equipe') }}">Técnica</option>
+                                            <option value="">Selecione</option>
+                                            <option value="1" {{ old('equipe') == '1' ? 'selected' : '' }}>Armação
+                                            </option>
+                                            <option value="2" {{ old('equipe') == '2' ? 'selected' : '' }}>
+                                                Carpintaria</option>
+                                            <option value="3" {{ old('equipe') == '3' ? 'selected' : '' }}>Civil
+                                            </option>
+                                            <option value="4" {{ old('equipe') == '4' ? 'selected' : '' }}>Elétrica
+                                            </option>
+                                            <option value="5" {{ old('equipe') == '5' ? 'selected' : '' }}>Esquadria
+                                            </option>
+                                            <option value="6" {{ old('equipe') == '6' ? 'selected' : '' }}>Hidráulica
+                                            </option>
+                                            <option value="7" {{ old('equipe') == '7' ? 'selected' : '' }}>Logística
+                                            </option>
+                                            <option value="8" {{ old('equipe') == '8' ? 'selected' : '' }}>Metálica
+                                            </option>
+                                            <option value="9" {{ old('equipe') == '9' ? 'selected' : '' }}>Pintura
+                                            </option>
+                                            <option value="10" {{ old('equipe') == '10' ? 'selected' : '' }}>Piso
+                                            </option>
+                                            <option value="11" {{ old('equipe') == '11' ? 'selected' : '' }}>
+                                                Revestimento</option>
+                                            <option value="12" {{ old('equipe') == '12' ? 'selected' : '' }}>Técnica
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="funcao" class="form-label">Função</label>
-                                        <select class="form-select form-control" id="funcao" name="funcao"
+                                        <label for="role_id " class="form-label">Função</label>
+                                        <select class="form-select form-control" id="role_id " name="role_id "
                                             aria-label="Default select example">
-                                            <option selected>Selecione</option>
-                                            <option value="{{ 1, old('funcao') }} ">Administrador</option>
-                                            <option value="{{ 2, old('funcao') }} ">Ajudante</option>
-                                            <option value="{{ 3, old('funcao') }}">Ajudante de eletricista</option>
-                                            <option value="{{ 4, old('funcao') }}">Armador</option>
-                                            <option value="{{ 5, old('funcao') }}">Arquiteto</option>
-                                            <option value="{{ 6, old('funcao') }}">Auxiliar de limpeza</option>
-                                            <option value="{{ 7, old('funcao') }}">Azulejista</option>
-                                            <option value="{{ 8, old('funcao') }}">Bombeiro hidráulico</option>
-                                            <option value="{{ 9, old('funcao') }}">Carpinteiro</option>
-                                            <option value="{{ 10, old('funcao') }}">Eletricista</option>
-                                            <option value="{{ 11, old('funcao') }}">Encarregado de obras</option>
-                                            <option value="{{ 12, old('funcao') }}">Engenheiro</option>
-                                            <option value="{{ 13, old('funcao') }}">Estagiário</option>
-                                            <option value="{{ 14, old('funcao') }}">Gerente de logística</option>
-                                            <option value="{{ 15, old('funcao') }}">Jardineiro</option>
-                                            <option value="{{ 16, old('funcao') }}">Líder bombeiro</option>
-                                            <option value="{{ 17, old('funcao') }}">Líder operacional</option>
-                                            <option value="{{ 18, old('funcao') }}">Montador de estruturas metálicas
-                                            </option>
-                                            <option value="{{ 19, old('funcao') }}">Operador de máquinas</option>
-                                            <option value="{{ 20, old('funcao') }}">Pedreiro</option>
-                                            <option value="{{ 21, old('funcao') }}">Pintor</option>
-                                            <option value="{{ 22, old('funcao') }}">Técnico de Segurança do trabalho
-                                            </option>
+                                            <option value="">Selecione</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}"
+                                                    {{ old('role_id ') == $role->id ? 'selected' : '' }}>
+                                                    {{ $role->funcao }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="remuneracao" class="form-label">Remuneração</label>
-                                        <input type="text" class="form-control valor-input" id="remuneracao" name="remuneracao"
-                                            placeholder="R$ 0,00" value="{{ old('remuneracao') }}">
+                                        <input type="text" class="form-control valor-input" id="remuneracao"
+                                            name="remuneracao" placeholder="R$ 0,00" value="{{ old('remuneracao') }}">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="cbo" class="form-label">CBO</label>
@@ -299,24 +304,34 @@
                                         <label for="situacao" class="form-label">Situação</label>
                                         <select class="form-select form-control" id="situacao" name="situacao"
                                             aria-label="Default select example">
-                                            <option selected>Selecione</option>
-                                            <option value="{{ 1, old('situacao') }}">Afastado</option>
-                                            <option value="{{ 2, old('situacao') }}">Aviso</option>
-                                            <option value="{{ 3, old('situacao') }}">Contrato de experiência</option>
-                                            <option value="{{ 4, old('situacao') }}">Desligado</option>
-                                            <option value="{{ 5, old('situacao') }}">Efetivo</option>
-                                            <option value="{{ 6, old('situacao') }}">Em contratação</option>
-                                            <option value="{{ 7, old('situacao') }}">Férias</option>
-                                            <option value="{{ 8, old('situacao') }}">Temporário</option>
+                                            <option value="">Selecione</option>
+                                            <option value="1" {{ old('situacao') == '1' ? 'selected' : '' }}>Afastado
+                                            </option>
+                                            <option value="2" {{ old('situacao') == '2' ? 'selected' : '' }}>Aviso
+                                            </option>
+                                            <option value="3" {{ old('situacao') == '3' ? 'selected' : '' }}>Contrato
+                                                de experiência</option>
+                                            <option value="4" {{ old('situacao') == '4' ? 'selected' : '' }}>
+                                                Desligado</option>
+                                            <option value="5" {{ old('situacao') == '5' ? 'selected' : '' }}>Efetivo
+                                            </option>
+                                            <option value="6" {{ old('situacao') == '6' ? 'selected' : '' }}>Em
+                                                contratação</option>
+                                            <option value="7" {{ old('situacao') == '7' ? 'selected' : '' }}>Férias
+                                            </option>
+                                            <option value="8" {{ old('situacao') == '8' ? 'selected' : '' }}>
+                                                Temporário</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="disponibilidade" class="form-label">Disponibilidade</label>
                                         <select class="form-select form-control" id="disponibilidade"
                                             name="disponibilidade" aria-label="Default select example">
-                                            <option selected>Selecione</option>
-                                            <option value="{{ 1, old('disponibilidade') }}">Disponível</option>
-                                            <option value="{{ 2, old('disponibilidade') }}">Indiponível</option>
+                                            <option value="">Selecione</option>
+                                            <option value="1" {{ old('disponibilidade') == '1' ? 'selected' : '' }}>
+                                                Disponível</option>
+                                            <option value="2" {{ old('disponibilidade') == '2' ? 'selected' : '' }}>
+                                                Indisponível</option>
                                         </select>
                                     </div>
                                     <div class="col-md-4">
