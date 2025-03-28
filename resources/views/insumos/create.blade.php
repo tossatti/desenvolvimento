@@ -124,7 +124,7 @@
                 <div class="row g-3">
                     <div class= "col-md-5"></div>
                     <div class="col-md-2 content-center">
-                        <button type="submit" class="btn btn-success btn-sm">Cadastrar</button>
+                        <button class="btn btn-success btn-sm">Cadastrar</button>
                     </div>
                     <div class= "col-md-5"></div>
                 </div>

@@ -31,24 +31,170 @@
                         </h2>
                         <div id="dados" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <div class="row g-3">
-                                    <div class="col-md-12">
-                                        <label for="name" class="form-label">Nome</label>
+                                <div class="row g-3 form-floating">
+                                    <div class="col-md-12 form-floating">
                                         <input type="text" class="form-control" id="name" name="name"
                                             placeholder="Nome completo"
                                             value="{{ old('name') ? old('name') : $user->name }}">
+                                        <label for="name" class="form-label">Nome</label>
                                     </div>
-                                    <div class="col-md-7">
-                                        <label for="email" class="form-label">E-mail</label>
+                                    <div class="col-md-7 form-floating">
                                         <input type="email" class="form-control" id="email" name="email"
                                             placeholder="Insira um e-mail válido"
                                             value="{{ old('email') ? old('email') : $user->email }}">
+                                        <label for="email" class="form-label">E-mail</label>
                                     </div>
-                                    <div class="col-md-5">
-                                        <label for="password" class="form-label">Senha</label>
+                                    <div class="col-md-5 form-floating">
                                         <input type="password" class="form-control" id="password" name="password"
                                             placeholder="Senha com no mínimo 6 caracteres" value="{{ old('password') }}">
+                                        <label for="password" class="form-label">Senha</label>
                                     </div>
+                                    <div class="form-floating col-md-3 ">
+                                        <input type="date" class="form-control" id="nascimento" name="nascimento"
+                                            value="{{ old('nascimento') ? old('nascimento') : $user->nascimento }}"
+                                            required>
+                                        <label for="nascimento" class="form-label">Data de nascimento</label>
+                                    </div>
+                                    <div class="form-floating col-md-3">
+                                        <input type="text" class="form-control" id="naturalidade" name="naturalidade"
+                                            placeholder="Cidade que nasceu"
+                                            value="{{ old('naturalidade') ? old('naturalidade') : $user->naturalidade }}"
+                                            required>
+                                        <label for="naturalidade" class="form-label">Naturalidade</label>
+                                    </div>
+                                    <div class="form-floating col-md-3">
+                                        <input type="text" class="form-control" id="nacionalidade" name="nacionalidade"
+                                            placeholder="Escolha"
+                                            value="{{ old('nacionalidade') ? old('nacionalidade') : $user->nacionalidade }}"
+                                            required>
+                                        <label for="nacionalidade" class="form-label">Nacionalidade</label>
+                                    </div>
+                                    <div class="form-floating col-md-3">
+                                        <select class="form-select" id="genero" name="genero" required>
+                                            <option value="">Selecione</option>
+                                            <option value="1"
+                                                {{ (old('genero') ?? ($user->genero ?? '')) == '1' ? 'selected' : '' }}>
+                                                Masculino</option>
+                                            <option value="2"
+                                                {{ (old('genero') ?? ($user->genero ?? '')) == '2' ? 'selected' : '' }}>
+                                                Feminino</option>
+                                            <option value="3"
+                                                {{ (old('genero') ?? ($user->genero ?? '')) == '3' ? 'selected' : '' }}>
+                                                Outro
+                                            </option>
+                                            <option value="4"
+                                                {{ (old('genero') ?? ($user->genero ?? '')) == '4' ? 'selected' : '' }}>
+                                                Prefiro não informar</option>
+                                        </select>
+                                        <label for="genero" class="form-label">Gênero</label>
+                                    </div>
+                                    <div class="form-floating col-md-3">
+                                        <select class="form-select form-control" id="escolaridade" name="escolaridade"
+                                            required>
+                                            <option value="">Selecione</option>
+                                            <option value="1" {{ $user->escolaridade == '1' ? 'selected' : '' }}>
+                                                Fundamental incompleto</option>
+                                            <option value="2" {{ $user->escolaridade == '2' ? 'selected' : '' }}>
+                                                Fundamental completo</option>
+                                            <option value="3" {{ $user->escolaridade == '3' ? 'selected' : '' }}>
+                                                Médio incompleto</option>
+                                            <option value="4" {{ $user->escolaridade == '4' ? 'selected' : '' }}>
+                                                Médio completo</option>
+                                            <option value="5" {{ $user->escolaridade == '5' ? 'selected' : '' }}>
+                                                Curso técnico incompleto</option>
+                                            <option value="6" {{ $user->escolaridade == '6' ? 'selected' : '' }}>
+                                                Curso técnico completo</option>
+                                            <option value="7" {{ $user->escolaridade == '7' ? 'selected' : '' }}>
+                                                Superior incompleto</option>
+                                            <option value="8" {{ $user->escolaridade == '8' ? 'selected' : '' }}>
+                                                Superior completo</option>
+                                            <option value="9" {{ $user->escolaridade == '9' ? 'selected' : '' }}>
+                                                Pós-graduação incompleto</option>
+                                            <option value="10" {{ $user->escolaridade == '10' ? 'selected' : '' }}>
+                                                Pós-graduação completo</option>
+                                        </select>
+                                        <label for="escolaridade" class="form-label">Escolaridade</label>
+                                    </div>
+                                    <div class="form-floating col-md-3">
+                                        <select class="form-select form-control" id="raca" name="raca" required>
+                                            <option value="">Selecione</option>
+                                            <option value="1"
+                                                {{ (old('raca') ?? ($user->raca ?? '')) == '1' ? 'selected' : '' }}>Branca
+                                            </option>
+                                            <option value="2"
+                                                {{ (old('raca') ?? ($user->raca ?? '')) == '2' ? 'selected' : '' }}>Negra
+                                            </option>
+                                            <option value="3"
+                                                {{ (old('raca') ?? ($user->raca ?? '')) == '3' ? 'selected' : '' }}>Parda
+                                            </option>
+                                            <option value="4"
+                                                {{ (old('raca') ?? ($user->raca ?? '')) == '4' ? 'selected' : '' }}>Amarela
+                                            </option>
+                                            <option value="5"
+                                                {{ (old('raca') ?? ($user->raca ?? '')) == '5' ? 'selected' : '' }}>
+                                                Indígena
+                                            </option>
+                                        </select>
+                                        <label for="raca" class="form-label">Raça</label>
+                                    </div>
+                                    <div class="form-floating col-md-3">
+                                        <select class="form-select form-control" id="civil" name="civil" required>
+                                            <option value="">Selecione</option>
+                                            <option value="1"
+                                                {{ (old('civil') ?? ($user->civil ?? '')) == '1' ? 'selected' : '' }}>
+                                                Solteiro(a)</option>
+                                            <option value="2"
+                                                {{ (old('civil') ?? ($user->civil ?? '')) == '2' ? 'selected' : '' }}>
+                                                Casado(a)</option>
+                                            <option value="3"
+                                                {{ (old('civil') ?? ($user->civil ?? '')) == '3' ? 'selected' : '' }}>
+                                                Divorciado(a)</option>
+                                            <option value="4"
+                                                {{ (old('civil') ?? ($user->civil ?? '')) == '4' ? 'selected' : '' }}>
+                                                Viúvo(a)</option>
+                                            <option value="5"
+                                                {{ (old('civil') ?? ($user->civil ?? '')) == '5' ? 'selected' : '' }}>
+                                                Separado(a)</option>
+                                            <option value="6"
+                                                {{ (old('civil') ?? ($user->civil ?? '')) == '6' ? 'selected' : '' }}>
+                                                Desquitado(a)</option>
+                                            <option value="7"
+                                                {{ (old('civil') ?? ($user->civil ?? '')) == '7' ? 'selected' : '' }}>União
+                                                estável</option>
+                                        </select>
+                                        <label for="civil" class="form-label">Estado Civil</label>
+                                    </div>
+                                    {{-- <div class="form-floating col-md-3">
+                                        <select class="form-select" id="dependentes" name="dependentes">
+                                            <option value="">Selecione</option>
+                                            <option value="1" {{ (old('dependentes') ?? $dependentes->dependentes ?? '') == 1 ? 'selected' : '' }}>Sim</option>
+                                            <option value="2" {{ (old('dependentes') ?? $dependentes->dependentes ?? '') == 2 ? 'selected' : '' }}>Não</option>
+                                        </select>
+                                        <label for="dependentes" class="form-label">Tem dependente(s)</label>
+                                    </div>
+                                    <div class="form-floating col-md-2" id="numeroDependentesDiv" style="display: {{ (old('dependentes') ?? $dependentes->dependentes ?? '') == 1 ? 'block' : 'none' }};">
+                                        <input type="number" class="form-control" id="numeroDependentes" name="numeroDependentes"
+                                            value="{{ old('numeroDependentes') ?? $dependentes->numeroDependentes ?? '' }}">
+                                        <label for="numeroDependentes" class="form-label">Quantos?</label>
+                                    </div>
+                                    
+                                    <div class="form-floating" id="dependentesContainer">
+                                    </div>
+                                    
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', function() {
+                                            const dependentesSelect = document.getElementById('dependentes');
+                                            const numeroDependentesDiv = document.getElementById('numeroDependentesDiv');
+                                    
+                                            dependentesSelect.addEventListener('change', function() {
+                                                if (this.value == 1) {
+                                                    numeroDependentesDiv.style.display = 'block';
+                                                } else {
+                                                    numeroDependentesDiv.style.display = 'none';
+                                                }
+                                            });
+                                        });
+                                    </script> --}}
                                 </div>
                             </div>
                         </div>
@@ -67,33 +213,43 @@
                         <div id="docs" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <label for="cpf" class="form-label">CPF</label>
+                                    <div class="col-md-6 form-floating">
                                         <input type="text" class="form-control" id="cpf" name="cpf"
                                             placeholder="CPF" value="{{ old('cpf') ? old('cpf') : $docs->cpf }}">
+                                        <label for="cpf" class="form-label">CPF</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="pis" class="form-label">PIS/PASEP</label>
+                                    <div class="col-md-6 form-floating">
                                         <input type="text" class="form-control" id="pis" name="pis"
                                             placeholder="PIS/PASEP" value="{{ old('pis') ? old('pis') : $docs->pis }}">
+                                        <label for="pis" class="form-label">PIS/PASEP</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="titulo" class="form-label">Título de eleitor</label>
+                                    <div class="col-md-4 form-floating">
                                         <input type="text" class="form-control" id="titulo" name="titulo"
                                             placeholder="Título de eleitor"
                                             value="{{ old('titulo') ? old('titulo') : $docs->titulo }}">
+                                        <label for="titulo" class="form-label">Título de eleitor</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="cnh" class="form-label">CNH</label>
+                                    <div class="form-floating col-md-4">
+                                        <input type="text" class="form-control" id="zona" name="zona"
+                                            placeholder="Zona" value="{{ old('zona') ?? ($docs->zona ?? '') }}">
+                                        <label for="zona" class="form-label">Zona</label>
+                                    </div>
+                                    <div class="form-floating col-md-4">
+                                        <input type="text" class="form-control" id="secao" name="secao"
+                                            placeholder="Seção" value="{{ old('secao') ?? ($docs->secao ?? '') }}">
+                                        <label for="secao" class="form-label">Seção</label>
+                                    </div>
+                                    <div class="col-md-4 form-floating">
                                         <input type="text" class="form-control" id="cnh" name="cnh"
                                             placeholder="Título de eleitor"
                                             value="{{ old('picnhs') ? old('cnh') : $docs->cnh }}">
+                                        <label for="cnh" class="form-label">CNH</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="ctps" class="form-label">Carteira de trabalho</label>
+                                    <div class="col-md-6 form-floating">
                                         <input type="text" class="form-control" id="ctps" name="ctps"
                                             placeholder="Carteira de trabalho"
                                             value="{{ old('ctps') ? old('ctps') : $docs->ctps }}">
+                                        <label for="ctps" class="form-label">Carteira de trabalho</label>
                                     </div>
                                 </div>
                             </div>
@@ -110,23 +266,22 @@
                                 <strong>Dados bancários</strong>
                             </button>
                         </h2>
-                        <div id="bancario" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div id="bancario" class="accordion-collapse collapse">
                             <div class="accordion-body">
                                 <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <label for="banco" class="form-label">Banco</label>
+                                    <div class="col-md-6 form-floating">
                                         <input type="text" class="form-control" id="banco" name="banco"
                                             placeholder="Banco"
                                             value="{{ old('banco') ? old('banco') : $banco->banco }}">
+                                        <label for="banco" class="form-label">Banco</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="agencia" class="form-label">Agência</label>
+                                    <div class="col-md-6 form-floating">
                                         <input type="text" class="form-control" id="agencia" name="agencia"
                                             placeholder="Agência"
                                             value="{{ old('agencia') ? old('agencia') : $banco->agencia }}">
+                                        <label for="agencia" class="form-label">Agência</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="tipoconta" class="form-label">Tipo de conta</label>
+                                    <div class="col-md-6 form-floating">
                                         <select class="form-select form-control" id="tipoconta" name="tipoconta">
                                             <option>Selecione</option>
                                             <option value="Conta Corrente"
@@ -139,15 +294,15 @@
                                                 {{ $banco->tipoconta == 'Conta Salário' ? 'selected' : '', old('tipoconta') }}>
                                                 Conta Salário</option>
                                         </select>
+                                        <label for="tipoconta" class="form-label">Tipo de conta</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="numeroConta" class="form-label">Nº da conta</label>
+                                    <div class="col-md-6 form-floating">
                                         <input type="text" class="form-control" id="numeroConta" name="numeroConta"
                                             placeholder="Nº da conta"
                                             value="{{ old('numeroConta') ? old('numeroConta') : $banco->numeroConta }}">
+                                        <label for="numeroConta" class="form-label">Nº da conta</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="tipopix" class="form-label">Tipo de chave pix</label>
+                                    <div class="col-md-6 form-floating">
                                         <select class="form-select form-control" id="tipopix" name="tipopix">
                                             <option>Selecione</option>
                                             <option value="CPF"
@@ -160,11 +315,12 @@
                                                 {{ $banco->tipopix == 'Telefone' ? 'selected' : '', old('tipopix') }}>
                                                 Telefone</option>
                                         </select>
+                                        <label for="tipopix" class="form-label">Tipo de chave pix</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="pix" class="form-label">Chave pix</label>
+                                    <div class="col-md-6 form-floating">
                                         <input type="text" class="form-control" id="pix" name="pix"
-                                            placeholder="Chave pix" value="{{ old('pix') ? old('pix') : $banco->pix }}">
+                                        placeholder="Chave pix" value="{{ old('pix') ? old('pix') : $banco->pix }}">
+                                        <label for="pix" class="form-label">Chave pix</label>
                                     </div>
                                 </div>
                             </div>
@@ -458,8 +614,9 @@
                 <div class="row g-3">
                     <div class= "col-md-5"></div>
                     <div class="col-md content-center">
-                        <button type="submit" class="btn btn-outline-warning btn-sm">Editar</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="window.location.href='{{ route('users.show', $user->id) }}'">Cancelar</button>
+                        <button class="btn btn-outline-warning btn-sm">Editar</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm"
+                            onclick="window.location.href='{{ route('users.show', $user->id) }}'">Cancelar</button>
                     </div>
                     <div class= "col-md-4"></div>
                 </div>

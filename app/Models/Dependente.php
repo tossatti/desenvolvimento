@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use App\Models\{Curriculum, User};
 
-class Role extends Model
+class Dependente extends Model
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -18,16 +19,21 @@ class Role extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'funcao',
+        // Relacionamento com a pessoa
+        'curriculum_id',
+        // dados pessoais
+        'name',
+        'cpf',
+        'nascimento',
     ];
-
-    public function role()
+    //
+    public function dependentes()
     {
-        return $this->hasMany(Contrato::class, 'role_id');
+        return $this->belongsTo(Curriculum::class, 'curriculum_id');
     }
 
-    public function curriculum()
+    public function userDependentes()
     {
-        return $this->hasMany(Curriculum::class, 'role_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

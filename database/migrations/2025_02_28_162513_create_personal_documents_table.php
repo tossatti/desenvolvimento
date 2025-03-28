@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('personal_documents', function (Blueprint $table) {
             $table->id();
-            $table->string('cpf');
-            $table->string('pis_pasep');
-            $table->string('titulo_eleitor');
-            $table->string('cnh');
+            $table->string('cpf')->unique();
+            $table->string('pis_pasep')->unique();
+            $table->string('titulo_eleitor')->unique();
+            $table->string('zona', 5);
+            $table->string('secao', 5);
+            $table->string('cnh')->unique();
+            $table->tinyInteger('catcnh');
             $table->string('ctps');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

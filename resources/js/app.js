@@ -5,75 +5,119 @@ import './bootstrap'; // Importa o axios e outras configurações do Laravel
 import * as bootstrap from 'bootstrap'; // Importa todas as funcionalidades do Bootstrap
 import Inputmask from 'inputmask';
 
-
 /**
  * apresentar e ocultar senha
  */
 window.togglePassword = function (fieldId, toggleIcon) {
     const field = document.getElementById(fieldId);
-    const icon = toggleIcon.querySelector('i');
+    const icon = toggleIcon ? toggleIcon.querySelector('i') : null;
 
-    if (field.type === "password") {
-        field.type = "text";
-        icon.classList.remove('bi', 'bi-eye');
-        icon.classList.add('bi', 'bi-eye-slash');
-    } else {
-        field.type = "password";
-        icon.classList.remove('bi', 'bi-eye-slash');
-        icon.classList.add('bi', 'bi-eye');
+    if (!field || !icon) {
+        console.error("Campo ou ícone não encontrado.");
+        return;
     }
 
-}
+    const isPassword = field.type === "password";
+
+    field.type = isPassword ? "text" : "password";
+    icon.classList.toggle('bi-eye', !isPassword);
+    icon.classList.toggle('bi-eye-slash', isPassword);
+};
 
 /**
  * Máscaras nos campos de dados de documentos quando html for carregado 
  */
-document.addEventListener("DOMContentLoaded", function () {
-    var cpfMask = new Inputmask("999.999.999-99");
-    cpfMask.mask(document.querySelector('#cpf')); //caso usar id
-    // cpfMask.mask(document.querySelector('.cpf')); // caso usar class
+function applyMasks(masks) {
+    for (const selector in masks) {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(element => {
+            const mask = new Inputmask(masks[selector]);
+            if (element) {
+                mask.mask(element);
+            }
+        });
+    }
+}
 
-    var telefoneMask = new Inputmask("(99) 99999-9999");
-    telefoneMask.mask(document.querySelector('#telefone')); //caso usar id
+document.addEventListener('DOMContentLoaded', function () {
+    const dependentesSelect = document.getElementById('dependentes');
+    const numeroDependentesDiv = document.getElementById('numeroDependentesDiv');
+    const dependentesContainer = document.getElementById('dependentesContainer');
 
-    var cepMask = new Inputmask("99999-999");
-    cepMask.mask(document.querySelector('#cep')); //caso usar id
+    const initialMasks = {
+        '#cpf': "999.999.999-99",
+        '#telefone': "(99) 99999-9999",
+        '#cep': "99999-999",
+        '#pis': "999.99999.99-9",
+        '#titulo': "9999 9999 9999",
+        '#cnh': "99999999999",
+        '#ctps': "9999999/9999"
+    };
 
-    var pispasepMask = new Inputmask("999.99999.99-9");
-    pispasepMask.mask(document.querySelector('#pis')); //caso usar id
+    applyMasks(initialMasks);
 
-    var tituloMask = new Inputmask("9999 9999 9999");
-    tituloMask.mask(document.querySelector('#titulo')); //caso usar id
+    if (dependentesSelect && numeroDependentesDiv && dependentesContainer) {
+        dependentesSelect.addEventListener('change', function () {
+            dependentesContainer.innerHTML = '';
+            numeroDependentesDiv.style.display = this.value == 1 ? 'block' : 'none';
+        });
 
-    var cnhMask = new Inputmask("99999999999");
-    cnhMask.mask(document.querySelector('#cnh')); //caso usar id
+        const numeroDependentesInput = document.getElementById('numeroDependentes');
+        if (numeroDependentesInput) {
+            numeroDependentesInput.addEventListener('change', function () {
+                const quantidade = parseInt(this.value);
+                dependentesContainer.innerHTML = '';
 
-    var ctpsMask = new Inputmask("9999999/9999");
-    ctpsMask.mask(document.querySelector('#ctps')); //caso usar id
-
+                if (quantidade > 0) {
+                    for (let i = 0; i < quantidade; i++) {
+                        dependentesContainer.innerHTML += `
+                            <div class="card m-2 dependentes-group">
+                                <h5 class="card-subtitle mt-2 mb-2 ms-4 text-body-secondary">Dependente ${i + 1}</h5>
+                                <div class="row row-g3 m-2">
+                                    <div class="form-floating mb-2 col-md-12">
+                                        <input type="text" class="form-control" name="dependente[${i}][nome]">
+                                        <label for="dependente[${i}][nome]" class="form-label">Nome</label>
+                                    </div>
+                                    <div class="form-floating mb-3 col-md-6">
+                                        <input type="date" class="form-control" name="dependente[${i}][dataNascimento]">
+                                        <label for="dependente[${i}][dataNascimento]" class="form-label">Data de Nascimento</label>
+                                    </div>
+                                    <div class="form-floating mb-3 col-md-6">
+                                        <input type="text" class="form-control dependente-cpf" name="dependente[${i}][cpf]">
+                                        <label for="dependente[${i}][cpf]" class="form-label">CPF</label>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    applyMasks({ '.dependente-cpf': "999.999.999-99" });
+                }
+            });
+        }
+    }
 });
 
 /**
  * máscara de moeda
  */
-
 function formatarMoeda(input) {
-    let valor = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+    const valor = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
 
     if (valor) {
-        valor = (parseInt(valor) / 100).toFixed(2); // Converte para número e formata com duas casas decimais
-        const valorFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor); // Formata para exibição
-
-        // Prepara o valor para o banco de dados
-        const valorBanco = valor.replace('.', ''); // Remove separadores de milhar
-        const valorBancoFinal = valorBanco.replace(',', '.'); // Substitui vírgula por ponto
-
-        input.value = valorFormatado; // Atualiza o valor exibido no input
-        input.dataset.valorBanco = valorBancoFinal; // Armazena o valor para o banco
+        const valorNumerico = parseInt(valor) / 100;
+        input.value = valorNumerico.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        input.dataset.valorOriginal = valorNumerico; // Armazena o valor numérico original
     } else {
-        input.value = ''; // Limpa o input se não houver valor
-        input.dataset.valorBanco = ''; // Limpa o valor para o banco
+        input.value = '';
+        input.dataset.valorOriginal = '';
     }
+}
+
+function formatarValorParaBanco(valor) {
+    if (typeof valor === 'number') {
+        return valor.toFixed(2).replace('.', ',');
+    }
+    return '';
 }
 
 const inputsMoeda = document.querySelectorAll('.valor-input');
@@ -84,8 +128,28 @@ inputsMoeda.forEach(input => {
 
     // Garante que a máscara seja aplicada ao carregar a página
     formatarMoeda(input);
+    // Exemplo de uso para formatar o valor para o banco de dados:
+    // const valorParaBanco = formatarValorParaBanco(input.dataset.valorOriginal);
 });
 
 /**
- * escolha to tipo de pix
+ * não mandar formulário com enter
  */
+document.addEventListener('DOMContentLoaded', function () {
+    const formularios = document.querySelectorAll('form'); // Seleciona todos os formulários
+
+    formularios.forEach(formulario => {
+        const campos = formulario.querySelectorAll('input');
+
+        campos.forEach(campo => {
+            campo.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Impede o envio padrão
+                }
+            });
+        });
+    });
+});
+
+
+

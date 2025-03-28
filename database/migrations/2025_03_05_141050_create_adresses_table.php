@@ -19,7 +19,7 @@ return new class extends Migration
             $table-> string('complemento', 255);
             $table-> string('bairro', 80);
             $table-> string('cidade', 80);
-            $table-> string('estado', 2);
+            $table-> tinyInteger('estado');
             $table-> string('cep',8);
             $table-> string('telefone');
             $table->timestamps();

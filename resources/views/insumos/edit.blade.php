@@ -105,7 +105,7 @@
                 <div class="row g-3">
                     <div class= "col-md-5"></div>
                     <div class="col-md-2 content-center">
-                        <button type="submit" class="btn btn-warning btn-sm">Editar</button>
+                        <button class="btn btn-warning btn-sm">Editar</button>
                     </div>
                     <div class= "col-md-5"></div>
                 </div>

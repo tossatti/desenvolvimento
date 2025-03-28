@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\{PersonalDocument, Adress, BancAcount, Contrato, ESocial};
+use App\Models\{PersonalDocument, Adress, BancAcount, Contrato, ESocial, Dependente};
 
 class User extends Authenticatable
 {
@@ -23,6 +23,19 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'nascimento',
+        'naturalidade',
+        'nacionalidade',
+        'genero',
+        'escolaridade',
+        'raca',
+        'civil',
+        'calca',
+        'camisa',
+        'camisa',
+        'nr10',
+        'dependentes',
+        'numeroDependentes',
     ];
 
 
@@ -89,5 +102,10 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function userDependentes()
+    {
+        return $this->hasMany(Dependente::class, 'user_id');
     }
 }

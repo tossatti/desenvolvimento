@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('banc_acounts', function (Blueprint $table) {
+        Schema::create('dependentes', function (Blueprint $table) {
             $table->id();
+            // vaga
+            $table->foreignId('curriculum_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table-> string('banco', 50);
-            $table-> string('agencia', 20);
-            $table-> tinyInteger('tipoconta');
-            $table-> string('numeroConta', 20);
-            $table-> tinyInteger('tipopix');
-            $table-> string('pix', 100);
+            $table->string('name', 255);
+            $table->string('cpf')->unique();
+            $table->date('nascimento');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banc_acounts');
+        Schema::dropIfExists('dependentes');
     }
 };

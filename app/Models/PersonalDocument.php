@@ -22,6 +22,8 @@ class PersonalDocument extends Model
         'cpf',
         'pis_pasep',
         'titulo_eleitor',
+        'zona', // ok
+        'secao', // ok
         'cnh',
         'ctps',
         'user_id',
