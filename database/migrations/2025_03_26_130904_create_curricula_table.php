@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('complemento', 255); // ok
             $table->string('bairro', 80); // ok
             $table->string('cidade', 80); // ok
-            $table->tinyInteger('estado', 2); // ok
+            $table->tinyInteger('estado'); // ok
             $table->string('cep',8); // ok
             $table->string('telefone'); // ok
             $table->string('email')->unique(); // ok
@@ -52,7 +52,7 @@ return new class extends Migration
             // EPI
             $table->tinyInteger('calca'); // ok
             $table->tinyInteger('camisa'); // ok
-            $table->tinyInteger('camisa'); // ok
+            $table->tinyInteger('calcado'); // ok
             // capacitação
             $table->tinyInteger('nr10'); // ok
             // dependentes
