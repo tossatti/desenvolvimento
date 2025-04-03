@@ -30,4 +30,9 @@ class Role extends Model
     {
         return $this->hasMany(Curriculum::class, 'role_id');
     }
+
+    public function remuneration()
+    {
+        return $this->hasOne(Remuneration::class, 'role_id');
+    }
 }

@@ -1,0 +1,101 @@
+.accordion {
+    --bs-accordion-active-bg: rgb(173, 247, 173);
+    --bs-accordion-active-color: black;
+    --bs-accordion-border-color: rgb(173, 247, 173);
+    --bs-accordion-btn-focus-box-shadow: rgb(173, 247, 173);
+}
+/* hamburguer */
+.hamburger-btn {
+    padding: 9px 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.hamburger-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+}
+
+.bar {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #333;
+    transition: background-color .3s ease, transform .3s ease;
+}
+
+/* botão fechar offcanvas */
+.btn-close::after {
+    content: '\2190'; 
+    font-size: 1.5rem; 
+    color: #fff; 
+    opacity: 1; 
+    text-shadow: none; 
+}
+
+/* Remove o ícone padrão de "X" do Bootstrap */
+.btn-close {
+    background-image: none !important;
+    opacity: 1; 
+}
+
+.offcanvas-header {
+    display: flex;
+    flex-direction: column; /* Organiza os itens verticalmente */
+    align-items: flex-start; /* Alinha os itens à esquerda */
+    padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+}
+
+.offcanvas-header .btn-close {
+    margin-left: 0; /* Remove a margem que empurrava para a direita */
+    margin-bottom: 10px; /* Adiciona espaço entre a seta e a imagem */
+    padding: 0; /* Remove padding padrão do botão para alinhar melhor o texto */
+}
+
+.offcanvas-header .navbar-brand {
+    margin-top: 0; /* Remove margem superior padrão */
+    margin-bottom: 0; /* Remove margem inferior padrão */
+    width: 100%; /* Garante que a marca ocupe a largura total para centralizar o conteúdo */
+    text-align: center; /* Centraliza o texto/imagem dentro da marca */
+}
+
+/* botão transparente */
+.nav-link.active,
+.nav-link.active:hover,
+.nav-link.active:focus {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+/* espaçamento entre botões */
+.btn-toggle-nav li {
+    padding-top: 0.25rem; /* Ajuste o valor conforme necessário */
+    padding-bottom: 0.25rem; /* Ajuste o valor conforme necessário */
+}
+
+.btn-toggle-nav li i.bi {
+    margin-right: 0.3em; /* Experimente um valor menor que o padrão */
+}
+
+.btn-toggle-nav li a {
+    font-size: 0.9rem; /* Experimente um valor menor */
+}
+
+.btn-toggle-nav li a {
+    white-space: nowrap;
+    overflow: hidden; /* Oculta o texto que ultrapassa */
+    text-overflow: ellipsis; /* Adiciona "..." para indicar texto oculto */
+}
+
+/* cor do botão quando o mouse passa */
+.offcanvas-body .nav-pills .nav-link:hover,
+.offcanvas-body .nav-pills .nav-link:focus,
+.offcanvas-body .btn-toggle-nav li a:hover,
+.offcanvas-body .btn-toggle-nav li a:focus {
+    background-color: rgba(0, 0, 0, 0.1); /* Um cinza claro semi-transparente */
+    color: #000; /* Opcional: mudar a cor do texto também */
+}

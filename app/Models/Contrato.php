@@ -22,7 +22,7 @@ class Contrato extends Model
         'lotacao',
         'equipe',
         'role_id',
-        'remuneracao',
+        'remuneration_id',
         'cbo',
         'situacao',
         'disponibilidade',
@@ -44,4 +44,22 @@ class Contrato extends Model
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function remuneration()
+    {
+        return $this->hasOne(Remuneration::class, 'remuneration_id');
+    }
+
+    // public function users()
+    // {
+    //     return $this->hasMany(User::class, 'hire_id'); // 'hire_id' is the FK in the users table
+    // }
+
+
+    public function contratos()
+    {
+        return $this->hasMany(Contrato::class, 'lotacao');
+    }
+
+
 }

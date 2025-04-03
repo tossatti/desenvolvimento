@@ -47,6 +47,10 @@
                                         title="apagar"><i class="bi bi-eraser"></i>
                                     </button>
                                 </form>
+                                <a href="{{ route('users.document', ['user' => $user->id]) }}"
+                                    class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="top"
+                                    title="Ficha individual" target="_blank"><i class="bi bi-file-earmark-pdf"></i></i>
+                                </a>
                             </td>
                         </tr>
                     @empty

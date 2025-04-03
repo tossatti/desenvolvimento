@@ -2,7 +2,9 @@
 
 @section('auth')
     <main class="form-signin w-100 m-auto text-center bg-light rounded">
-        <img class="mb-4" src="{{ asset('images/meka.png') }}" alt="" width="200" height="100">
+        <a href="{{ route('public.index') }}">
+            <img class="mb-4" src="{{ asset('images/meka.png') }}" alt="" width="200" height="100">
+        </a>
         <h1 class="h3 mb-3 fw-normal">Área restrita</h1>
         <x-alert />
 

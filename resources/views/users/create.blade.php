@@ -24,6 +24,9 @@
                     {{-- dados bancários --}}
                     @include('layouts.dados_bancarios')
                     {{-- dados bancários --}}
+                    {{-- contrato --}}
+                    @include('layouts.contrato')
+                    {{-- contrato --}}
                     {{-- informações adicionais --}}
                     @include('layouts.informacoes_adicionais')
                     {{-- informações adicionais --}}

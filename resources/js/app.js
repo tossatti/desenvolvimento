@@ -1,9 +1,8 @@
-/**
- * importar o ARQUIVO bootstrap
- */
-import './bootstrap'; // Importa o axios e outras configurações do Laravel
-import * as bootstrap from 'bootstrap'; // Importa todas as funcionalidades do Bootstrap
-import Inputmask from 'inputmask';
+
+import './bootstrap';
+import 'bootstrap/dist/js/bootstrap.bundle';
+import $ from 'jquery';
+window.$ = window.jQuery = $;
 
 /**
  * apresentar e ocultar senha
@@ -135,21 +134,38 @@ inputsMoeda.forEach(input => {
 /**
  * não mandar formulário com enter
  */
+
 document.addEventListener('DOMContentLoaded', function () {
-    const formularios = document.querySelectorAll('form'); // Seleciona todos os formulários
+    if (window.location.pathname.indexOf('login') === -1) {
+        const formularios = document.querySelectorAll('form');
 
-    formularios.forEach(formulario => {
-        const campos = formulario.querySelectorAll('input');
+        formularios.forEach(formulario => {
+            // Verifica se o formulário tem o atributo data-search="true"
+            if (formulario.dataset.search !== 'true') {
+                const campos = formulario.querySelectorAll('input');
 
-        campos.forEach(campo => {
-            campo.addEventListener('keydown', function (event) {
-                if (event.key === 'Enter') {
-                    event.preventDefault(); // Impede o envio padrão
-                }
-            });
+                campos.forEach(campo => {
+                    campo.addEventListener('keydown', function (event) {
+                        if (event.key === 'Enter') {
+                            event.preventDefault();
+                        }
+                    });
+                });
+            }
         });
-    });
+    }
 });
 
+// hamburguer
+const offcanvasElement = document.getElementById('sidebarOffcanvas');
+const hamburgerButton = document.querySelector('.hamburger-btn');
 
+offcanvasElement.addEventListener('show.bs.offcanvas', () => {
+    // Adicionar classe ao botão quando o offcanvas é aberto (para animação opcional)
+    hamburgerButton.classList.add('open');
+});
 
+offcanvasElement.addEventListener('hide.bs.offcanvas', () => {
+    // Remover classe do botão quando o offcanvas é fechado
+    hamburgerButton.classList.remove('open');
+});

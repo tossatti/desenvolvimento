@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- estilo --}}
-    <link rel="stylesheet" href="css/edit.css">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="{{ asset('css/app.css') }}"></script>
+    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.min.css') }}">
     <title>Meka Engenharia</title>
 </head>
+
 <body>
     {{-- menu superior --}}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -35,10 +35,13 @@
                     </li>
                     {{-- contatos --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contatos</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Contatos</a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item form-control" href="{{ route('public.contatos') }}">Contatos</a></li>
-                            <li><a class="dropdown-item form-control" href="{{ route('public.curriculum') }}">Mande seu currículo</a></li>
+                            <li><a class="dropdown-item form-control" href="{{ route('public.contatos') }}">Contatos</a>
+                            </li>
+                            <li><a class="dropdown-item form-control" href="{{ route('public.curriculum') }}">Mande seu
+                                    currículo</a></li>
                         </ul>
                     </li>
                     {{-- contatos --}}
@@ -68,6 +71,7 @@
             }
         });
     </script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
 </body>
 
 </html>

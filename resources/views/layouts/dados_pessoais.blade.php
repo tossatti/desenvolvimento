@@ -9,10 +9,15 @@
         <div class="accordion-body">
             <div class="row g-3">
                 {{-- dados pessoais --}} 
-                <div class="form-floating col-md-12">
+                <div class="form-floating col-md-10">
                     <input type="text" class="form-control" id="name" name="name" placeholder="Nome completo"
                         value="{{ old('name') }}" required>
                     <label for="name" class="form-label">Nome</label>
+                </div>
+                <div class="form-floating col-md-2">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Senha"
+                        value="{{ old('password') }}" required>
+                    <label for="password" class="form-label">Senha</label>
                 </div>
                 <div class="form-floating col-md-9">
                     <input type="text" class="form-control" id="endereco" name="endereco"
@@ -20,9 +25,9 @@
                     <label for="endereco" class="form-label">Endereço</label>
                 </div>
                 <div class="form-floating col-md-3">
-                    <input type="text" class="form-control" id="numeroEndereco" name="numeroEndereco"
-                        placeholder="Nº" value="{{ old('numeroEndereco') }}" required>
-                    <label for="numeroEndereco" class="form-label">Nº</label>
+                    <input type="text" class="form-control" id="numero" name="numero"
+                        placeholder="Nº" value="{{ old('numero') }}" required>
+                    <label for="numero" class="form-label">Nº</label>
                 </div>
                 <div class="form-floating col-md-3">
                     <input type="text" class="form-control" id="complemento" name="complemento"

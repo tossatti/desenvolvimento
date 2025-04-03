@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\{PersonalDocument, Adress, BancAcount, Contrato, ESocial, Dependente};
+use App\Models\{PersonalDocument, Adress, BancAcount, Contrato, ESocial, Dependente, Hire};
 
 class User extends Authenticatable
 {
@@ -107,5 +107,39 @@ class User extends Authenticatable
     public function userDependentes()
     {
         return $this->hasMany(Dependente::class, 'user_id');
+    }
+
+    public function managedHires()
+    {
+        return $this->hasMany(Hire::class, 'gestor');
+    }
+
+    public function assistedHires()
+    {
+        return $this->hasMany(Hire::class, 'auxiliar');
+    }
+
+    public function hire()
+    {
+        return $this->belongsTo(Hire::class, 'hire_id');
+    }
+
+    public function lotacao()
+    {
+        return $this->belongsTo(Hire::class, 'hire_id', 'id');
+        // 'hire_id' is the FK in the users table
+        // 'id' is the primary key in the hires table
+    }
+
+    public function lotacao2()
+    {
+        return $this->hasOneThrough(
+            Hire::class,         // Final model we want to access
+            Contrato::class,     // Intermediate model
+            'user_id',          // Foreign key on the Contrato table referencing User
+            'id',               // Foreign key on the Hire table referencing Contrato 
+            'id',               // Local key on the User table
+            'lotacao'        // Foreign key on the Contrato table referencing Hire
+        );
     }
 }

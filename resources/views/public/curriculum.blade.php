@@ -18,16 +18,14 @@
                     {{-- vaga --}}
                     <div class="accordion-item ">
                         <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#">
+                            <button class="accordion-button" type="button">
                                 <strong>Vaga pretendida</strong>
                             </button>
                         </h2>
                         <div id="vaga" class="accordion-collapse collapse show">
                             <div class="accordion-body">
-
                                 <div class="form-floating col-md-12">
-                                    <select class="form-select form-control" id="vaga" name="vaga"
-                                        aria-label="Default select example" required>
+                                    <select class="form-select form-control" id="vaga" name="vaga" required>
                                         <option value=""></option>
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->id }}"
@@ -36,9 +34,8 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <label for="vaga" class="form-label">Para qual vaga você é candidato?</label>
+                                    <label class="form-label">Para qual vaga você é candidato?</label>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -50,7 +47,7 @@
                     @include('layouts.documentos_pessoais')
                     {{-- documentos pessoais --}}
                     {{-- dados bancários --}}
-                    @include('layouts.dados_bancarios')
+                    {{-- @include('layouts.dados_bancarios') --}}
                     {{-- dados bancários --}}
                     {{-- informações adicionais --}}
                     @include('layouts.informacoes_adicionais')

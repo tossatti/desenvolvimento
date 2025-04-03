@@ -1,0 +1,40 @@
+/* contrato */
+body {
+    font-family: Arial, sans-serif;
+    margin: 2cm; /* Define 2 centímetros de margem em todos os lados */
+}
+.header {
+    text-align: center;
+    padding: 20px 0;
+}
+.logo {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+.container {
+    /* A largura e a margem automática serão ajustadas pela margem do body */
+    border: 0px solid #ccc; /* Opcional */
+    padding: 20px;
+}
+.justificado {
+    text-align: justify;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    text-indent: 2em; /* Mantendo a tabulação na primeira linha */
+}
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+/* Se precisar de estilos específicos para impressão */
+@media print {
+    body {
+        margin: 2cm;
+    }
+}

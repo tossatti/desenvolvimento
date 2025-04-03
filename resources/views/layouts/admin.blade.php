@@ -5,121 +5,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- estilo --}}
-    <link rel="stylesheet" href="css/edit.css">
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="{{ asset('css/app.css') }}"></script>
-    <style>
-        .accordion {
-            --bs-accordion-active-bg: rgb(173, 247, 173);
-            --bs-accordion-active-color: black;
-            --bs-accordion-border-color: rgb(173, 247, 173);
-            --bs-accordion-btn-focus-box-shadow: rgb(173, 247, 173);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/meka.css') }}">  
     <title>Meka Engenharia</title>
 </head>
+
 <body>
-    {{-- menu superior --}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href=" {{ route('meka.index') }} ">Meka</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                {{-- administração --}}
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
-                            aria-expanded="false">Administração</button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item form-control-sm disabled" href="">Clientes</a></li>
-                            <li><a class="dropdown-item form-control-sm"
-                                    href="{{ route('users.index') }}">Colaboradores</a></li>
-                            <li><a class="dropdown-item form-control-sm disabled" href="">Contratos</a></li>
-                            <li><a class="dropdown-item form-control-sm disabled" href="">Fornecedores</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                {{-- administração --}}
-                {{-- Logística --}}
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
-                            aria-expanded="false">Logística</button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item form-control-sm"
-                                    href="{{ route('almoxarifado.index') }}">Almoxarifado</a></li>
-                            <li><a class="dropdown-item form-control-sm disabled" href="">Controle veicular</a>
-                            </li>
-                            <li><a class="dropdown-item form-control-sm disabled" href="">Frota</a></li>
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('insumos.index') }}">Insumos</a>
-                            </li>
-                            <li><a class="dropdown-item form-control-sm disabled" href="#">Manutenção</a></li>
-                            <li><a class="dropdown-item form-control-sm disabled" href="#">Patrimônio</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                {{-- Logística --}}
-                {{-- Obras --}}
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-dark dropdown-toggle btn-sm disabled" data-bs-toggle="dropdown"
-                            aria-expanded="false">Obras</button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item form-control-sm" href="#">Planejamento mensal</a></li>
-                            <li><a class="dropdown-item form-control-sm" href="#">Serviços</a></li>
-                            <li><a class="dropdown-item form-control-sm" href="#">Solicitações</a></li>
-                            {{-- <li><a class="dropdown-item form-control-sm" href="{{ route('insumos.index') }}">Insumos</a></li> --}}
-                        </ul>
-                    </li>
-                </ul>
-                {{-- Obras --}}
-                {{-- tarefas --}}
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-dark dropdown-toggle btn-sm disabled" data-bs-toggle="dropdown"
-                            aria-expanded="false">Tarefas</button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item form-control-sm" href="#">Pendentes</a></li>
-                            <li><a class="dropdown-item form-control-sm" href="#">Concluídas</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                {{-- tarefas --}}
-                {{-- ferramentas --}}
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <button class="btn btn-dark dropdown-toggle btn-sm" data-bs-toggle="dropdown"
-                            aria-expanded="false">Ferramentas</button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            {{-- <li><a class="dropdown-item form-control-sm" href="{{ route('users.import') }}">Importar dados de usuários</a></li> --}}
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('grupoInsumo.index') }}">Grupos de insumos</a></li>
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('subgrupoInsumo.index') }}">Subgrupos de insumos</a></li>
-                            {{-- <li><a class="dropdown-item form-control-sm" href="{{ route('insumo.import') }}">Importar dados de insumos</a></li> --}}
-                            <li><hr class="dropdown-divider"></li>  
-                            <li><a class="dropdown-item form-control-sm" href="{{ route('roles.index') }}">Funções</a></li>  
-                        </ul>
-                    </li>
-                </ul>
-                {{-- ferramentas --}}
-            </div>
-            <div class="text-end">
-                <a class="btn btn-outline-light me-2 btn-sm" href="{{ route('logout') }}" role="button">Logout</a>
-                {{-- <button type="button" class="btn btn-outline-light me-2 btn-sm">Logout</button> --}}
-            </div>
+
+
+    {{-- Botão Hamburguer --}}
+    <button class="btn btn-primary hamburger-btn" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas" aria-label="Abrir Menu">
+        <div class="hamburger-inner">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         </div>
-    </nav>
-    {{-- menu superior --}}
-    {{-- conteúdo --}}
-    <div class="container">
-        @yield('content')
+    </button>
+
+    {{-- Sidebar --}}
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel"
+        style="width: 200px">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                style="background-image: none !important; font-size: 1.5rem; color: #070707; opacity: 1;">
+                <i class="bi bi-arrow-left-circle" style="font-size: 1.5rem; color: #070707;"></i> </button>
+            <a class="navbar-brand text-center" href="{{ route('meka.index') }}" style="width: 100%;">
+                <img src="{{ asset('images/mekaiso.png') }}" alt="Início" style="height: 30px;">
+            </a>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav nav-pills flex-column mb-auto">
+                {{-- administração --}}
+                <li class="nav-item" style="text-align: left;">
+                    <a class="nav-link active" aria-current="page" href="#" role="button"
+                        data-bs-toggle="collapse" data-bs-target="#administração" aria-expanded="false" style="display: block;">
+                        <i class="bi bi-ui-checks-grid"
+                            style="margin-left: 0; margin-right: 0.5em; font-size: 1.2em;"></i>
+                        Administração
+                    </a>
+                    <div class="collapse" id="administração">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 1em;">
+                            <li>
+                                <i class="bi bi-person-fill"></i>
+                                <a href="{{ route('users.index') }}"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Colaborador</a>
+                            </li>
+                            <li>
+                                <i class="bi bi-card-checklist"></i>
+                                <a href="{{ route('hires.index') }}"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Contratos</a>
+                            </li>
+                            {{-- <li>
+                                <a href="#"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Fornecedores</a>
+                            </li> --}}
+                        </ul>
+                    </div>
+                </li>
+                {{-- administração --}}
+                {{-- logística --}}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" role="button"
+                        data-bs-toggle="collapse" data-bs-target="#logistica" aria-expanded="false">
+                        <i class="bi bi-rulers"
+                            style="margin-right: 1em; font-size: 1.2em; margin-left: 0"></i>
+                        Logística
+                    </a>
+                    <div class="collapse" id="logistica">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 1em;">
+                            <li>
+                                <i class="bi bi-building"></i>
+                                <a href="{{ route('almoxarifado.index') }}"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Almoxarifado</a>
+                            </li>
+                            <li>
+                                <i class="bi bi-card-checklist"></i>
+                                <a href="{{ route('hires.index') }}"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Contratos</a>
+                            </li>
+                            {{-- <li>
+                                <i class="bi bi-card-checklist"></i>
+                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="">Controle veicular</a>
+                            </li>
+                            <li>
+                                <i class="bi bi-card-checklist"></i>
+                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="">Frota</a></li>
+                            <li> --}}
+                                <i class="bi bi-card-checklist"></i>
+                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="{{ route('insumos.index') }}">Insumos</a>
+                            </li>
+                            {{-- <li>
+                                <i class="bi bi-card-checklist"></i>
+                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="#">Manutenção</a>
+                            </li>
+                            <li>
+                                <i class="bi bi-card-checklist"></i>
+                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="#">Patrimônio</a>
+                            </li> --}}
+                        </ul>
+                    </div>
+                </li>
+                {{-- logística --}}
+
+
+
+
+
+                
+            </ul>
+            
+        
+        </div>
     </div>
-    {{-- conteúdo --}}
+
+
+
+    <main class="container">
+        <div class="container">
+            @yield('content')
+        </div>
+    </main>
+    {{-- sidebar --}}
+
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" ></script>
+    <script src="{{ asset('js/meka.js') }}" ></script>
+    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+
 </body>
+
 </html>

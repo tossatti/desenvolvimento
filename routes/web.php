@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, GrupoInsumoController, InsumoController, MekaController, RoleController, SubgrupoInsumoController};
+use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, GrupoInsumoController, HireController, InsumoController, MekaController, RemunerationController, RoleController, SubgrupoInsumoController};
+use App\Models\Remuneration;
 use Illuminate\Support\Facades\Route;
 
 // rotas públicas
@@ -23,7 +24,7 @@ Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     //logout
     Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
-    
+
     // início
     Route::get('/meka', [MekaController::class, 'index'])->name('meka.index');
 
@@ -43,10 +44,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/importcontratosdata-user', [UserController::class, 'importcontratosdata'])->name('users.importcontratosdata');
     Route::post('/importesocialdata-user', [UserController::class, 'importesocialdata'])->name('users.importesocialdata');
     Route::get('/search-user', [UserController::class, 'search'])->name('users.search');
-    
+    Route::get('/users/{user}/document', [UserController::class, 'showDocument'])->name('users.document');
+    Route::get('/users/{user}/pdf', [UserController::class, 'generatePdf'])->name('users.pdf');
+
     // Almoxarifado
     Route::get('/almoxarifado', [AlmoxarifadoController::class, 'index'])->name('almoxarifado.index');
-    
+
     // insumos
     Route::get('/insumos', [InsumoController::class, 'index'])->name('insumos.index');
     Route::get('/create-insumos', [InsumoController::class, 'create'])->name('insumos.create');
@@ -58,8 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/import-insumo', [InsumoController::class, 'import'])->name('insumo.import');
     Route::post('/importinsumo-insumo', [InsumoController::class, 'importinsumo'])->name('insumo.importinsumo');
     Route::get('/insumos-search', [InsumoController::class, 'search'])->name('insumos.search');
-    
-    
+
+
     // grupo de insumos
     Route::get('/grupoinsumos', [GrupoInsumoController::class, 'index'])->name('grupoInsumo.index');
     Route::get('/create-grupoinsumos', [GrupoInsumoController::class, 'create'])->name('grupoInsumo.create');
@@ -68,7 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/update-grupoinsumos/{grupoInsumo}', [GrupoInsumoController::class, 'update'])->name('grupoInsumo.update');
     Route::delete('/destroy-grupoinsumos/{grupoInsumo}', [GrupoInsumoController::class, 'destroy'])->name('grupoInsumo.destroy');
     Route::get('/search-grupoinsumos', [GrupoInsumoController::class, 'search'])->name('grupoinsumo.search');
-    
+
     // subgrupo de insumos
     Route::get('/subgrupoinsumos', [SubgrupoInsumoController::class, 'index'])->name('subgrupoInsumo.index');
     Route::get('/create-subgrupoinsumos', [SubgrupoInsumoController::class, 'create'])->name('subgrupoInsumo.create');
@@ -87,8 +90,29 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/destroy-roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
     Route::get('/search-roles', [RoleController::class, 'search'])->name('roles.search');
 
+    // remunerações
+    Route::get('/remunerations', [RemunerationController::class, 'index'])->name('remuneration.index');
+    Route::get('/create-remunerations', [RemunerationController::class, 'create'])->name('remuneration.create');
+    Route::post('/store-remunerations', [RemunerationController::class, 'store'])->name('remuneration.store');
+    Route::get('/edit-remunerations/{remuneration}', [RemunerationController::class, 'edit'])->name('remuneration.edit');
+    Route::put('/update-remunerations/{remuneration}', [RemunerationController::class, 'update'])->name('remuneration.update');
+    Route::get('/remunerations/{remuneration}', [RemunerationController::class, 'show'])->name('remuneration.show');
+    Route::delete('/destroy-remunerations/{remuneration}', [RemunerationController::class, 'destroy'])->name('remuneration.destroy');
+    Route::get('/search-remunerations', [RemunerationController::class, 'search'])->name('remuneration.search');
+    Route::get('/import-remuneration', [RemunerationController::class, 'import'])->name('remuneration.import');
+    Route::post('/importremuneration-remuneration', [RemunerationController::class, 'importremuneration'])->name('remuneration.importremuneration');
 
-
-    
-
+    // hires (contratos de obras)
+    Route::get('/hires', [HireController::class, 'index'])->name('hires.index');
+    Route::get('/create-ss', [HireController::class, 'create'])->name('hires.create');
+    Route::post('/store-hires', [HireController::class, 'store'])->name('hires.store');
+    Route::get('/show-hire/{hire}', [HireController::class, 'show'])->name('hires.show');
+    Route::get('/edit-hires/{hire}', [HireController::class, 'edit'])->name('hires.edit');
+    Route::put('/update-hires/{hire}', [HireController::class, 'update'])->name('hires.update');
+    Route::delete('/destroy-hires/{hire}', [HireController::class, 'destroy'])->name('hires.destroy');
+    Route::get('/search-hires', [HireController::class, 'search'])->name('hires.search');
+    Route::get('/import-hire', [HireController::class, 'import'])->name('hires.import');
+    Route::post('/importhire-hire', [HireController::class, 'importhire'])->name('hires.importhire');
+    Route::get('/hires/{hire}/document', [HireController::class, 'showDocument'])->name('hires.document');
+    Route::get('/hires/{hire}/pdf', [HireController::class, 'generatePdf'])->name('hires.pdf');
 });

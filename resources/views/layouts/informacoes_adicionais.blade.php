@@ -16,14 +16,14 @@
             <div class="form-floating col-md-3">
                 <select class="form-select" id="camisa" name="camisa" required>
                     <option value="">Selecione</option>
-                    <option value="1" {{ old('camisa') == 'PP' ? 'selected' : '' }}>PP
+                    <option value="1" {{ old('camisa') == '1' ? 'selected' : '' }}>PP
                     </option>
-                    <option value="2" {{ old('camisa') == 'P' ? 'selected' : '' }}>P</option>
-                    <option value="3" {{ old('camisa') == 'M' ? 'selected' : '' }}>M</option>
-                    <option value="4" {{ old('camisa') == 'G' ? 'selected' : '' }}>G</option>
-                    <option value="5" {{ old('camisa') == 'GG' ? 'selected' : '' }}>GG
+                    <option value="2" {{ old('camisa') == '2' ? 'selected' : '' }}>P</option>
+                    <option value="3" {{ old('camisa') == '3' ? 'selected' : '' }}>M</option>
+                    <option value="4" {{ old('camisa') == '4' ? 'selected' : '' }}>G</option>
+                    <option value="5" {{ old('camisa') == '5' ? 'selected' : '' }}>GG
                     </option>
-                    <option value="6" {{ old('camisa') == 'XGG' ? 'selected' : '' }}>XGG
+                    <option value="6" {{ old('camisa') == '6' ? 'selected' : '' }}>XGG
                     </option>
                 </select>
                 <label for="camisa" class="form-label">Camisa</label>

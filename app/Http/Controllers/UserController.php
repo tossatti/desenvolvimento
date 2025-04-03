@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\Models\{Adress, BancAcount, Contrato, ESocial, PersonalDocument, Role, User};
+use App\Models\{Adress, BancAcount, Contrato, ESocial, Hire, PersonalDocument, Role, User};
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -43,18 +43,19 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
+        $lotacao = Hire::all()->pluck('sigla', 'id');
         // retorna para a view
-        return view('users.create', compact('roles'));
+        return view('users.create', compact('roles', 'lotacao'));
     }
 
     public function store(UserRequest $request)
     {
-        // //validar formulário
+        dd($request);
 
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            // 'password' => 'required|string|min:8',
         ]);
 
         //cadastrar usuário
@@ -63,18 +64,32 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'nascimento' => $request->nascimento,
+            'naturalidade' => $request->naturalidade,
+            'nacionalidade' => $request->nacionalidade,
+            'genero' => $request->genero,
+            'escolaridade' => $request->escolaridade,
+            'raca' => $request->raca,
+            'civil' => $request->civil,
+            'calca' => $request->calca,
+            'camisa' => $request->camisa,
+            'calcado' => $request->calcado,
+            'nr10' => $request->nr10,
+            'dependentes' => $request->dependentes,
+            'numeroDependentes' => $request->numeroDependentes,
         ]);
 
         // documentos pessoais
         PersonalDocument::create([
             'user_id' => $user->id,
-            // 'cpf' => $request->cpf,
             'cpf' => preg_replace('/[^0-9]/', '', $request->cpf),
             'pis_pasep' => preg_replace('/[^0-9]/', '', $request->pis),
             'titulo_eleitor' => preg_replace('/[^0-9]/', '', $request->titulo),
+            'zona' => $request->zona,
+            'secao' => $request->secao,
             'cnh' => preg_replace('/[^0-9]/', '', $request->cnh),
+            'catcnh' => $request->catchn,
             'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
-
         ]);
 
         // dados bancários
@@ -82,9 +97,9 @@ class UserController extends Controller
             'user_id' => $user->id,
             'banco' => $request->banco,
             'agencia' => $request->agencia,
-            'tipoconta' => $request->tipoconta,
-            'numeroConta' => $request->numeroConta,
-            'tipopix' => $request->tipopix,
+            'tipo_conta' => $request->tipo_conta,
+            'numero_conta ' => $request->numero_conta,
+            'tipo_pix' => $request->tipo_pix,
             'pix' => $request->pix,
         ]);
 
@@ -104,11 +119,11 @@ class UserController extends Controller
         // contrato
         Contrato::create([
             'user_id' => $user->id,
+            'remuneration_id ' => $request->remuneration_id,
+            'role_id' => $request->role_id,
             'tipoContrato' => $request->tipoContrato,
             'lotacao' => $request->lotacao,
             'equipe' => $request->equipe,
-            'role_id' => $request->role_id,
-            'remuneracao' => $request->remuneracao,
             'cbo' => $request->cbo,
             'situacao' => $request->situacao,
             'disponibilidade' => $request->disponibilidade,
@@ -137,6 +152,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
+        $lotacao = Hire::all()->pluck('sigla', 'id');
         //recuperar os dados do BD
         $docs = (User::find($user->id)->documentos()->get())->first();
         $adress = (User::find($user->id)->adress()->get())->first();
@@ -155,6 +171,7 @@ class UserController extends Controller
             'esocial' => $esocial,
             'roles' => $roles,
             'funcao' => $funcao,
+            'lotacao' => $lotacao,
         ]);
     }
 
@@ -182,7 +199,19 @@ class UserController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            // 'password' => $request->password,
+            'nascimento' => $request->nascimento,
+            'naturalidade' => $request->naturalidade,
+            'nacionalidade' => $request->nacionalidade,
+            'genero' => $request->genero,
+            'escolaridade' => $request->escolaridade,
+            'raca' => $request->raca,
+            'civil' => $request->civil,
+            'calca' => $request->calca,
+            'camisa' => $request->camisa,
+            'calcado' => $request->calcado,
+            'nr10' => $request->nr10,
+            'dependentes' => $request->dependentes,
+            'numeroDependentes' => $request->numeroDependentes,
         ]);
 
         // Atualiza a senha apenas se ela foi fornecida
@@ -195,15 +224,13 @@ class UserController extends Controller
         // atualiza informações no banco de dados
         // documentos pessoais 
         $docs->update([
-            // 'cpf' => $request->cpf,
-            // 'pis_pasep' => $request->pis,
-            // 'titulo_eleitor' => $request->titulo,
-            // 'cnh' => $request->cnh,
-            // 'ctps' => $request->ctps,
             'cpf' => preg_replace('/[^0-9]/', '', $request->cpf),
             'pis_pasep' => preg_replace('/[^0-9]/', '', $request->pis),
             'titulo_eleitor' => preg_replace('/[^0-9]/', '', $request->titulo),
+            'zona' => $request->zona,
+            'secao' => $request->secao,
             'cnh' => preg_replace('/[^0-9]/', '', $request->cnh),
+            'catcnh' => $request->catchn,
             'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
         ]);
 
@@ -211,9 +238,9 @@ class UserController extends Controller
         $banco->update([
             'banco' => $request->banco,
             'agencia' => $request->agencia,
-            'tipoconta' => $request->tipoconta,
-            'numeroConta' => $request->numeroConta,
-            'tipopix' => $request->tipopix,
+            'tipo_conta' => $request->tipoconta,
+            'numero_conta' => $request->numeroConta,
+            'tipo_pix' => $request->tipopix,
             'pix' => $request->pix,
         ]);
 
@@ -282,7 +309,7 @@ class UserController extends Controller
             ->orWhereHas('bancario', function ($query) use ($search) {
                 $query->where('banco', 'like', "%$search%")
                     ->orWhere('agencia', 'like', "%$search%")
-                    ->orWhere('tipoconta', 'like', "%$search%");
+                    ->orWhere('tipo_conta', 'like', "%$search%");
             })
             ->orWhereHas('contrato', function ($query) use ($search) {
                 $query->where('equipe', 'like', "%$search%")
@@ -440,7 +467,7 @@ class UserController extends Controller
         ]);
 
         // criar array com colunas do banco de dados
-        $headers = ['user_id', 'banco', 'agencia', 'tipoconta', 'numeroConta', 'tipopix', 'pix'];
+        $headers = ['user_id', 'banco', 'agencia', 'tipo_conta', 'numero_conta', 'tipo_pix', 'pix'];
 
         // receber os dados do arquivo
         $dataFile = array_map('str_getcsv', file($request->file('banc')));
@@ -457,9 +484,9 @@ class UserController extends Controller
             foreach ($headers as $key => $header) {
 
                 // verificar e-mail
-                if ($header == 'pix') {
+                if ($header == 'user_id') {
                     // verificar se já cadastrado
-                    if (BancAcount::where('pix', $values[$key])->first()) {
+                    if (BancAcount::where('user_id', $values[$key])->first()) {
                         // listar já cadastrados
                         $pixAlredyRegistered .= $values[$key] . ",";
                     }
@@ -471,7 +498,7 @@ class UserController extends Controller
 
         // Caso e-mail já tenha sido cadastrado, retornar com mensagem e não salvar no banco de dados
         if ($pixAlredyRegistered) {
-            return back()->with('error', 'Dados não importados. Pix já cadastrado: ' . $pixAlredyRegistered);
+            return back()->with('error', 'Dados não importados.');
         }
         // dd($arrayValues);
         // cadastrar os registros no banco de dados
@@ -593,7 +620,7 @@ class UserController extends Controller
         ]);
 
         // criar array com colunas do banco de dados
-        $headers = ['user_id', 'matricula', 'nocivos', 'admissional', 'periodicos', 'mudanca', 'retorno', 'demissional'];
+        $headers = ['user_id', 'matricula', 'nocivos', 'admissionais', 'periodicos', 'mudanca', 'retorno', 'demissional'];
 
         // receber os dados do arquivo
         $dataFile = array_map('str_getcsv', file($request->file('esocial')));
@@ -616,5 +643,52 @@ class UserController extends Controller
         ESocial::insert($arrayValues);
         //Retornar para a view
         return view('users.index', ['users' => $users])->with('success', 'Dados de contratos importados com sucesso');
+    }
+
+    public function showDocument(User $user)
+    {
+        // Recuperar informações do banco de dados
+        $docs = $user->documentos()->first();
+        $adress = $user->adress()->first();
+        $banco = $user->bancario()->first();
+        $contrato = $user->contrato()->first();
+        $esocial = $user->esocial()->first();
+        $roles = $user->role()->first();
+
+        // Retornar para a view com os dados
+        return view('users.document', [
+            'user' => $user,
+            'docs' => $docs,
+            'adress' => $adress,
+            'banco' => $banco,
+            'contrato' => $contrato,
+            'esocial' => $esocial,
+            'roles' => $roles,
+        ]);
+    }
+
+    public function generatePdf(User $user)
+    {
+        // Recuperar informações do banco de dados
+        $docs = $user->documentos()->first();
+        $adress = $user->adress()->first();
+        $banco = $user->bancario()->first();
+        $contrato = $user->contrato()->first();
+        $esocial = $user->esocial()->first();
+        $roles = $user->role()->first();
+
+        // Gerar PDF com os dados
+        $pdf = Pdf::loadView('users.document', [
+            'user' => $user,
+            'docs' => $docs,
+            'adress' => $adress,
+            'banco' => $banco,
+            'contrato' => $contrato,
+            'esocial' => $esocial,
+            'roles' => $roles,
+        ]);
+
+        // Retornar o PDF para download
+        return $pdf->download('documento_usuario_' . $user->id . '.pdf');
     }
 }
