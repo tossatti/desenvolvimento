@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Meka;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MekaController extends Controller
 {
@@ -12,8 +13,9 @@ class MekaController extends Controller
      */
     public function index()
     {
+       $logged_user =  Auth::user();
        //Retornar para a view
-       return view('meka.index');
+       return view('meka.index', compact('logged_user'));
     }
 
     /**

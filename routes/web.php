@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, GrupoInsumoController, HireController, InsumoController, MekaController, RemunerationController, RoleController, SubgrupoInsumoController};
+use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, CurriculumController, GrupoInsumoController, HireController, InsumoController, MekaController, RemunerationController, RoleController, SubgrupoInsumoController};
 use App\Models\Remuneration;
 use Illuminate\Support\Facades\Route;
 
@@ -10,8 +10,9 @@ Route::get('/quemsomos', [PublicController::class, 'quemsomos'])->name('public.q
 Route::get('/servicos', [PublicController::class, 'servicos'])->name('public.servicos');
 Route::get('/projetos', [PublicController::class, 'projetos'])->name('public.projetos');
 Route::get('/contatos', [PublicController::class, 'contatos'])->name('public.contatos');
-Route::get('/curriculum', [PublicController::class, 'curriculum'])->name('public.curriculum');
-Route::post('/store-curriculum', [PublicController::class, 'store'])->name('public.store');
+Route::get('/curriculum', [CurriculumController::class, 'create'])->name('curricula.create');
+Route::post('/store-curriculum', [CurriculumController::class, 'store'])->name('curricula.store');
+Route::get('/mensagem-curriculum', [CurriculumController::class, 'message'])->name('curricula.message');
 
 // login
 Route::get('/login', [LoginController::class, 'login'])->name('login');
@@ -115,4 +116,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/importhire-hire', [HireController::class, 'importhire'])->name('hires.importhire');
     Route::get('/hires/{hire}/document', [HireController::class, 'showDocument'])->name('hires.document');
     Route::get('/hires/{hire}/pdf', [HireController::class, 'generatePdf'])->name('hires.pdf');
+
+    //currículos
+    Route::get('/curricula', [CurriculumController::class, 'index'])->name('curricula.index');
+    Route::get('/show-curricula/{curriculum}', [CurriculumController::class, 'show'])->name('curricula.show');
+    Route::get('/edit-curricula/{curriculum}', [CurriculumController::class, 'edit'])->name('curricula.edit');
+    Route::put('/update-curricula/{curriculum}', [CurriculumController::class, 'update'])->name('curricula.update');
+    Route::delete('/destroy-curricula/{curriculum}', [CurriculumController::class, 'destroy'])->name('curricula.destroy');
+    Route::get('/search-curricula', [CurriculumController::class, 'search'])->name('curricula.search');
+    Route::get('/curricula/{curriculum}/document', [CurriculumController::class, 'showDocument'])->name('curricula.document');
+    Route::get('/curricula/{curriculum}/pdf', [CurriculumController::class, 'generatePdf'])->name('curricula.pdf');
 });

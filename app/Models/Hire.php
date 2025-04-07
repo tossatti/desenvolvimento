@@ -20,7 +20,7 @@ class Hire extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'cbo',
+        'cno',
         'codigo',
         'sigla',
         'objeto',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ESocial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ESocialController extends Controller
 {

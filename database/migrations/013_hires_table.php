@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('hires', function (Blueprint $table) {
             $table->id();
-            $table->string('cbo', 100)->nullable();
+            $table->string('cno', 100)->nullable();
             $table->string('codigo', 100)->nullable();
             $table->string('sigla', 100)->nullable();
             $table->text('objeto')->nullable();

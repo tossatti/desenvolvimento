@@ -50,48 +50,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
     applyMasks(initialMasks);
 
-    // Verifica se estamos na página de criação de currículo
-    const isCurriculaCreate = window.location.pathname === '/curriculum'; // Ou a URL correta da sua rota
+    if (dependentesSelect && numeroDependentesDiv && dependentesContainer) {
+        dependentesSelect.addEventListener('change', function () {
+            dependentesContainer.innerHTML = '';
+            numeroDependentesDiv.style.display = this.value == 1 ? 'block' : 'none';
+        });
 
-    if (!isCurriculaCreate) {
-        if (dependentesSelect && numeroDependentesDiv && dependentesContainer) {
-            dependentesSelect.addEventListener('change', function () {
+        const numeroDependentesInput = document.getElementById('numeroDependentes');
+        if (numeroDependentesInput) {
+            numeroDependentesInput.addEventListener('change', function () {
+                const quantidade = parseInt(this.value);
                 dependentesContainer.innerHTML = '';
-                numeroDependentesDiv.style.display = this.value == 1 ? 'block' : 'none';
-            });
 
-            const numeroDependentesInput = document.getElementById('numeroDependentes');
-            if (numeroDependentesInput) {
-                numeroDependentesInput.addEventListener('change', function () {
-                    const quantidade = parseInt(this.value);
-                    dependentesContainer.innerHTML = '';
-
-                    if (quantidade > 0) {
-                        for (let i = 0; i < quantidade; i++) {
-                            dependentesContainer.innerHTML += `
-                                <div class="card m-2 dependentes-group">
-                                    <h5 class="card-subtitle mt-2 mb-2 ms-4 text-body-secondary">Dependente ${i + 1}</h5>
-                                    <div class="row row-g3 m-2">
-                                        <div class="form-floating mb-2 col-md-12">
-                                            <input type="text" class="form-control" name="dependente[${i}][nome]">
-                                            <label for="dependente[${i}][nome]" class="form-label">Nome</label>
-                                        </div>
-                                        <div class="form-floating mb-3 col-md-6">
-                                            <input type="date" class="form-control" name="dependente[${i}][dataNascimento]">
-                                            <label for="dependente[${i}][dataNascimento]" class="form-label">Data de Nascimento</label>
-                                        </div>
-                                        <div class="form-floating mb-3 col-md-6">
-                                            <input type="text" class="form-control dependente-cpf" name="dependente[${i}][cpf]">
-                                            <label for="dependente[${i}][cpf]" class="form-label">CPF</label>
-                                        </div>
+                if (quantidade > 0) {
+                    for (let i = 0; i < quantidade; i++) {
+                        dependentesContainer.innerHTML += `
+                            <div class="card m-2 dependentes-group">
+                                <h5 class="card-subtitle mt-2 mb-2 ms-4 text-body-secondary">Dependente ${i + 1}</h5>
+                                <div class="row row-g3 m-2">
+                                    <div class="form-floating mb-2 col-md-12">
+                                        <input type="text" class="form-control" name="dependente[${i}][nome]">
+                                        <label for="dependente[${i}][nome]" class="form-label">Nome</label>
+                                    </div>
+                                    <div class="form-floating mb-3 col-md-6">
+                                        <input type="date" class="form-control" name="dependente[${i}][dataNascimento]">
+                                        <label for="dependente[${i}][dataNascimento]" class="form-label">Data de Nascimento</label>
+                                    </div>
+                                    <div class="form-floating mb-3 col-md-6">
+                                        <input type="text" class="form-control dependente-cpf" name="dependente[${i}][cpf]">
+                                        <label for="dependente[${i}][cpf]" class="form-label">CPF</label>
                                     </div>
                                 </div>
-                            `;
-                        }
-                        applyMasks({ '.dependente-cpf': "999.999.999-99" });
+                            </div>
+                        `;
                     }
-                });
-            }
+                    applyMasks({ '.dependente-cpf': "999.999.999-99" });
+                }
+            });
         }
     }
 });

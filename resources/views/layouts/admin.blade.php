@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/meka.css') }}">  
+    <link rel="stylesheet" href="{{ asset('css/meka.css') }}">
     <title>Meka Engenharia</title>
 </head>
 
@@ -26,7 +26,7 @@
 
     {{-- Sidebar --}}
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel"
-        style="width: 200px">
+        style="width: 300px">
         <div class="offcanvas-header">
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
                 style="background-image: none !important; font-size: 1.5rem; color: #070707; opacity: 1;">
@@ -40,7 +40,8 @@
                 {{-- administração --}}
                 <li class="nav-item" style="text-align: left;">
                     <a class="nav-link active" aria-current="page" href="#" role="button"
-                        data-bs-toggle="collapse" data-bs-target="#administração" aria-expanded="false" style="display: block;">
+                        data-bs-toggle="collapse" data-bs-target="#administração" aria-expanded="false"
+                        style="display: block;">
                         <i class="bi bi-ui-checks-grid"
                             style="margin-left: 0; margin-right: 0.5em; font-size: 1.2em;"></i>
                         Administração
@@ -57,6 +58,11 @@
                                 <a href="{{ route('hires.index') }}"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Contratos</a>
                             </li>
+                            <li>
+                                <i class="bi bi-file-text"></i>
+                                <a href="{{ route('curricula.index') }}"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Currículos</a>
+                            </li>
                             {{-- <li>
                                 <a href="#"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Fornecedores</a>
@@ -69,8 +75,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#" role="button"
                         data-bs-toggle="collapse" data-bs-target="#logistica" aria-expanded="false">
-                        <i class="bi bi-rulers"
-                            style="margin-right: 1em; font-size: 1.2em; margin-left: 0"></i>
+                        <i class="bi bi-rulers" style="margin-right: 1em; font-size: 1.2em; margin-left: 0"></i>
                         Logística
                     </a>
                     <div class="collapse" id="logistica">
@@ -82,45 +87,30 @@
                             </li>
                             <li>
                                 <i class="bi bi-card-checklist"></i>
-                                <a href="{{ route('hires.index') }}"
-                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Contratos</a>
+                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                    href="{{ route('insumos.index') }}">Insumos</a>
                             </li>
-                            {{-- <li>
-                                <i class="bi bi-card-checklist"></i>
-                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="">Controle veicular</a>
-                            </li>
-                            <li>
-                                <i class="bi bi-card-checklist"></i>
-                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="">Frota</a></li>
-                            <li> --}}
-                                <i class="bi bi-card-checklist"></i>
-                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="{{ route('insumos.index') }}">Insumos</a>
-                            </li>
-                            {{-- <li>
-                                <i class="bi bi-card-checklist"></i>
-                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="#">Manutenção</a>
-                            </li>
-                            <li>
-                                <i class="bi bi-card-checklist"></i>
-                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="#">Patrimônio</a>
-                            </li> --}}
                         </ul>
                     </div>
                 </li>
-                {{-- logística --}}
-
-
-
-
-
+            </ul>
+        </div>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="" width="32" height="32"
+                    class="rounded-circle me-2">
+                <strong>{{Auth::user()->name }}</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                {{-- <li><a class="dropdown-item" href="#">New project...</a></li> --}}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}">Sair</a></li>
                 
             </ul>
-            
-        
         </div>
     </div>
-
-
 
     <main class="container">
         <div class="container">
@@ -128,12 +118,11 @@
         </div>
     </main>
     {{-- sidebar --}}
-
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" ></script>
-    <script src="{{ asset('js/meka.js') }}" ></script>
-    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-
+    <script src="{{ asset('js/inputmask.min.js') }}"></script>
+    <script src="{{ asset('js/meka.js') }}"></script>
+    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
 </body>
 
 </html>

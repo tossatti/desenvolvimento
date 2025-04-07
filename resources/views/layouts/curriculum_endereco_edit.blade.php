@@ -12,31 +12,31 @@
                     <div class="col-md-9 form-floating">
                         <input type="text" class="form-control" id="endereco" name="endereco"
                             placeholder="Nome da Rua/Avenida ..."
-                            value="{{ old('endereco') ? old('endereco') : $adress->endereco }} ">
+                            value="{{ old('endereco') ? old('endereco') : $curriculum->endereco }} ">
                         <label for="endereco" class="form-label">Endereço</label>
                     </div>
                     <div class="col-md-3 form-floating">
                         <input type="text" class="form-control" id="numero" name="numero"
                             placeholder="Nº"
-                            value="{{ old('numero') ? old('numero') : $adress->numero }}">
+                            value="{{ old('numero') ? old('numero') : $curriculum->numero }}">
                         <label for="numero" class="form-label">Nº</label>
                     </div>
                     <div class="col-md-6 form-floating">
                         <input type="text" class="form-control" id="complemento" name="complemento"
                             placeholder="Complemento"
-                            value="{{ old('complemento') ? old('complemento') : $adress->complemento }}">
+                            value="{{ old('complemento') ? old('complemento') : $curriculum->complemento }}">
                         <label for="complemento" class="form-label">Complemento</label>
                     </div>
                     <div class="col-md-6 form-floating">
                         <input type="text" class="form-control" id="bairro" name="bairro"
                             placeholder="Bairro"
-                            value="{{ old('bairro') ? old('bairro') : $adress->bairro }}">
+                            value="{{ old('bairro') ? old('bairro') : $curriculum->bairro }}">
                         <label for="bairro" class="form-label">Bairro</label>
                     </div>
                     <div class="col-md-6 form-floating">
                         <input type="text" class="form-control" id="cidade" name="cidade"
                             placeholder="Cidade"
-                            value="{{ old('cidade') ? old('cidade') : $adress->cidade }}">
+                            value="{{ old('cidade') ? old('cidade') : $curriculum->cidade }}">
                         <label for="cidade" class="form-label">Cidade</label>
                     </div>
                     <div class="form-floating col-md-3">
@@ -74,13 +74,13 @@
                     </div>
                     <div class="form-floating col-md-3">
                         <input type="text" class="form-control" id="cep" name="cep"
-                            placeholder="CEP" value="{{ old('cep') ? old('cep') : $adress->cep }}">
+                            placeholder="CEP" value="{{ old('cep') ? old('cep') : $curriculum->cep }}">
                         <label for="cep" class="form-label">CEP</label>
                     </div>
                     <div class="form-floating col-md-6">
                         <input type="text" class="form-control" id="telefone" name="telefone"
                             placeholder="Nº de telefone"
-                            value="{{ old('telefone') ? old('telefone') : $adress->telefone }}">
+                            value="{{ old('telefone') ? old('telefone') : $curriculum->telefone }}">
                         <label for="telefone" class="form-label">Nº de telefone</label>
                     </div>
                 </div>

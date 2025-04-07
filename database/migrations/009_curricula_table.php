@@ -58,6 +58,7 @@ return new class extends Migration
             // dependentes
             $table->tinyInteger('dependentes', 2)->nullable();
             $table->tinyInteger('numeroDependentes', 2)->nullable();
+            $table->tinyInteger('status', 2)->nullable();
             $table->timestamps();
         });
     }

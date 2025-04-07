@@ -26,64 +26,67 @@
                         <div id="contrato" class="accordion-collapse collapse show">
                             <div class="accordion-body">
                                 <div class="row">
-                                    <div class="col-sm-3 mb-2">
-                                        <label for="cbo" class="form-label">CBO</label>
-                                        <input type="text" class="form-control" id="cbo" name="cbo"
-                                            placeholder="CBO" value="{{ old('cbo') }}">
+                                    <div class="col-sm-3 mb-2 form-floating">
+                                        <input type="text" class="form-control" id="cno" name="cno"
+                                        placeholder="cno" value="{{ old('cno') }}">
+                                        <label for="cno" class="form-label">CNO</label>
                                     </div>
-                                    <div class="col-sm-3 mb-2">
-                                        <label for="sigla" class="form-label">Sigla</label>
+                                    <div class="col-sm-3 mb-2 form-floating">
                                         <input type="text" class="form-control" id="sigla" name="sigla"
-                                            placeholder="Sigla" value="{{ old('sigla') }}">
+                                        placeholder="Sigla" value="{{ old('sigla') }}">
+                                        <label for="sigla" class="form-label">Sigla</label>
                                     </div>
-                                    <div class="col-sm-3 mb-2">
-                                        <label for="tipo" class="form-label">Tipo</label>
-                                        <input type="text" class="form-control" id="tipo" name="tipo"
-                                            placeholder="Tipo" value="{{ old('tipo') }}">
+                                    <div class="form-floating col-sm-3 mb-2">
+                                        <select class="form-select form-control" id="tipo" name="tipo">
+                                            <option value="">Selecione o tipo</option>
+                                            <option value="1" {{ old('tipo') == '1' ? 'selected' : '' }}>Administração</option>
+                                            <option value="2" {{ old('tipo') == '2' ? 'selected' : '' }}>Manutenção</option>
+                                            <option value="3" {{ old('tipo') == '3' ? 'selected' : '' }}>Obra</option>
+                                        </select>
+                                        <label for="tipo" class="form-label">Setor</label>
                                     </div>
-                                    <div class="col-sm-12 mb-2">
-                                        <label for="objeto" class="form-label">Objeto</label>
+                                    <div class="col-sm-12 mb-2 form-floating">
                                         <input type="text" class="form-control" id="objeto" name="objeto"
-                                            placeholder="Objeto" value="{{ old('objeto') }}">
+                                        placeholder="Objeto" value="{{ old('objeto') }}">
+                                        <label for="objeto" class="form-label">Objeto</label>
                                     </div>
-                                    <div class="col-sm-6 mb-2">
-                                        <label for="contrato" class="form-label">Contrato</label>
+                                    <div class="col-sm-6 mb-2 form-floating">
                                         <input type="text" class="form-control" id="contrato" name="contrato"
-                                            placeholder="Contrato" value="{{ old('contrato') }}">
+                                        placeholder="Contrato" value="{{ old('contrato') }}">
+                                        <label for="contrato" class="form-label">Contrato</label>
                                     </div>
-                                    <div class="col-sm-6 mb-2">
-                                        <label for="contratante" class="form-label">Contratante</label>
+                                    <div class="col-sm-6 mb-2 form-floating">
                                         <input type="text" class="form-control" id="contratante" name="contratante"
-                                            placeholder="Contratante" value="{{ old('contratante') }}">
+                                        placeholder="Contratante" value="{{ old('contratante') }}">
+                                        <label for="contratante" class="form-label">Contratante</label>
                                     </div>
-                                    <div class="col-sm-4 mb-2">
-                                        <label for="cnpj" class="form-label">CNPJ</label>
+                                    <div class="col-sm-4 mb-2 form-floating">
                                         <input type="text" class="form-control" id="cnpj" name="cnpj"
-                                            placeholder="CNPJ" value="{{ old('cnpj') }}">
+                                        placeholder="CNPJ" value="{{ old('cnpj') }}">
+                                        <label for="cnpj" class="form-label">CNPJ</label>
                                     </div>
-                                    <div class="col-sm-4 mb-2">
-                                        <label for="valor" class="form-label">Valor</label>
+                                    <div class="col-sm-4 mb-2 form-floating">
                                         <input type="text" class="form-control valor-input" id="valor" name="valor"
-                                            placeholder="Valor" value="{{ old('valor') }}">
+                                        placeholder="Valor" value="{{ old('valor') }}">
+                                        <label for="valor" class="form-label">Valor</label>
                                     </div>
-                                    <div class="col-sm-4 mb-2">
-                                        <label for="vigencia" class="form-label">Vigência</label>
+                                    <div class="col-sm-4 mb-2 form-floating">
                                         <input type="text" class="form-control" id="vigencia" name="vigencia"
-                                            placeholder="Vigência" value="{{ old('vigencia') }}">
+                                        placeholder="Vigência" value="{{ old('vigencia') }}">
+                                        <label for="vigencia" class="form-label">Vigência</label>
                                     </div>
-                                    <div class="col-sm-4 mb-2">
-                                        <label for="inicio" class="form-label">Início</label>
+                                    <div class="col-sm-4 mb-2 form-floating">
                                         <input type="date" class="form-control" id="inicio" name="inicio"
-                                            value="{{ old('inicio') }}">
+                                        value="{{ old('inicio') }}">
+                                        <label for="inicio" class="form-label">Início</label>
                                     </div>
-                                    <div class="col-sm-4 mb-2">
-                                        <label for="termino" class="form-label">Término</label>
+                                    <div class="col-sm-4 mb-2 form-floating">
                                         <input type="date" class="form-control" id="termino" name="termino"
-                                            value="{{ old('termino') }}">
+                                        value="{{ old('termino') }}">
+                                        <label for="termino" class="form-label">Término</label>
                                     </div>
                                     <div class="col-sm-4 mb-2"></div>
-                                    <div class="col-sm-4 mb-2">
-                                        <label for="gestor" class="form-label">Gestor</label>
+                                    <div class="col-sm-4 mb-2 form-floating">
                                         <select class="form-select" name="gestor" id="gestor">
                                             <option value="">Selecione o Gestor</option>
                                             @foreach ($users as $user)
@@ -93,9 +96,9 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                        <label for="gestor" class="form-label">Gestor</label>
                                     </div>
-                                    <div class="col-sm-4 mb-2">
-                                        <label for="auxiliar" class="form-label">Auxiliar</label>
+                                    <div class="col-sm-4 mb-2 form-floating">
                                         <select class="form-select" name="auxiliar" id="auxiliar">
                                             <option value="">Selecione o Auxiliar</option>
                                             @foreach ($users as $user)
@@ -105,9 +108,9 @@
                                                 </option>
                                             @endforeach
                                         </select>
+                                        <label for="auxiliar" class="form-label">Auxiliar</label>
                                     </div>
-                                    <div class="col-sm-4 mb-2">
-                                        <label for="status" class="form-label">Status</label>
+                                    <div class="col-sm-4 mb-2 form-floating">
                                         <select class="form-select" name="status" id="status">
                                             <option value="">Selecione o Status</option>
                                             <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>
@@ -120,6 +123,7 @@
                                                 Paralisado
                                             </option>
                                         </select>
+                                        <label for="status" class="form-label">Status</label>
                                     </div>
                                 </div>
                             </div>

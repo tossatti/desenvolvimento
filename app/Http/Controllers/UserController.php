@@ -7,6 +7,7 @@ use App\Models\{Adress, BancAcount, Contrato, ESocial, Hire, PersonalDocument, R
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {

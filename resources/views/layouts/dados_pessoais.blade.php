@@ -14,11 +14,13 @@
                         value="{{ old('name') }}" required>
                     <label for="name" class="form-label">Nome</label>
                 </div>
+                @if (! request()->routeIs('curricula.create'))
                 <div class="form-floating col-md-2">
                     <input type="password" class="form-control" id="password" name="password" placeholder="Senha"
                         value="{{ old('password') }}" required>
                     <label for="password" class="form-label">Senha</label>
                 </div>
+                @endif
                 <div class="form-floating col-md-9">
                     <input type="text" class="form-control" id="endereco" name="endereco"
                         placeholder="Nome da Rua/Avenida ..." value="{{ old('endereco') }}" required>

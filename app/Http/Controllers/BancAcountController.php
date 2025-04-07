@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\BancAcount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BancAcountController extends Controller
+
 {
     /**
      * Display a listing of the resource.

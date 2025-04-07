@@ -122,16 +122,16 @@
                                 <dd id="cnh" class="col-sm-1">{{ $docs->cnh }}</dd>
 
                                 <dt class="col-sm-2">Categoria:</dt>
-                                <dd id="cnh" class="col-sm-2">{{ $docs->cnh }}</dd>
+                                <dd id="catcnh" class="col-sm-2">{{ $docs->cnh }}</dd>
 
                                 <dt class="col-sm-2">Título de eleitor:</dt>
                                 <dd id="titulo" class="col-sm-2">{{ $docs->titulo_eleitor }}</dd>
 
                                 <dt class="col-sm-2">Zona:</dt>
-                                <dd id="titulo" class="col-sm-2">{{ $docs->zona }}</dd>
+                                <dd id="zona" class="col-sm-2">{{ $docs->zona }}</dd>
 
                                 <dt class="col-sm-2">Seção:</dt>
-                                <dd id="titulo" class="col-sm-2">{{ $docs->secao }}</dd>
+                                <dd id="secao" class="col-sm-2">{{ $docs->secao }}</dd>
 
                                 <dt class="col-sm-2">CTPS:</dt>
                                 <dd id="ctps" class="col-sm-10">{{ $docs->ctps }}</dd>

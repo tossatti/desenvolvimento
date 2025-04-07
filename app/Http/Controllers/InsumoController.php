@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\{GrupoInsumo, Insumo, SubgrupoInsumo};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class InsumoController extends Controller
 {
@@ -180,7 +181,7 @@ class InsumoController extends Controller
         }
 
         //Retornar para a view
-        return view('insumos.index', ['insumos' => $insumos])->with('success', 'Insumos importados com sucesso');
+        return redirect()->route('insumos.index', ['insumos' => $insumos])->with('success', 'Insumos importados com sucesso');
     }
 
     public function search(Request $request)

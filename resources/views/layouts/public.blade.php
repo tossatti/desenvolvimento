@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- estilo --}}
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/meka.css') }}"> --}}
     <title>Meka Engenharia</title>
 </head>
 
@@ -40,8 +40,7 @@
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item form-control" href="{{ route('public.contatos') }}">Contatos</a>
                             </li>
-                            <li><a class="dropdown-item form-control" href="{{ route('public.curriculum') }}">Mande seu
-                                    currículo</a></li>
+                            <li><a class="dropdown-item form-control" href="{{ route('curricula.create') }}">Mande seu currículo</a></li>
                         </ul>
                     </li>
                     {{-- contatos --}}
@@ -71,7 +70,11 @@
             }
         });
     </script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('js/inputmask.min.js') }}"></script>
+    <script src="{{ asset('js/meka.js') }}"></script>
+    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
 </body>
 
 </html>

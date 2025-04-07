@@ -7,6 +7,7 @@ use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class HireController extends Controller
 {
@@ -38,7 +39,7 @@ class HireController extends Controller
     public function store(Request $request)
     {
         $contrato = ([
-            'cbo' => $request->cbo,
+            'cno' => $request->cno,
             'sigla' => $request->sigla,
             'objeto' => $request->objeto,
             'tipo' => $request->tipo,
@@ -88,7 +89,10 @@ class HireController extends Controller
      */
     public function destroy(Hire $hire)
     {
-        //
+        //apagar dado do BD
+        $hire->delete();
+        // redirecionar para a view
+        return redirect()->route('hires.index')->with('success', 'Contrato apagado com sucesso!');
     }
 
     public function import()
@@ -149,7 +153,7 @@ class HireController extends Controller
         // Inserir os registros no banco de dados
         foreach ($arrayValues as $data) {
             Hire::create([
-                'cbo' => $data['cbo'],
+                'cno' => $data['cno'],
                 'codigo' => $data['codigo'] ?? null,
                 'sigla' => $data['sigla'],
                 'objeto' => $data['objeto'],
@@ -168,7 +172,7 @@ class HireController extends Controller
         }
 
         //Retornar para a view
-        return view('hires.index', ['hires' => $hires])->with('success', 'Dados importados com sucesso');
+        return redirect()->route('hires.index', ['hires' => $hires])->with('success', 'Dados importados com sucesso');
     }
 
     public function showDocument(Hire $hire)
@@ -190,7 +194,7 @@ class HireController extends Controller
     {
         $search = $request->input('search');
 
-        $hires = Hire::where('cbo', 'like', "%$search%")
+        $hires = Hire::where('cno', 'like', "%$search%")
             ->orWhere('codigo', 'like', "%$search%")
             ->orWhere('sigla', 'like', "%$search%")
             ->orWhere('objeto', 'like', "%$search%")

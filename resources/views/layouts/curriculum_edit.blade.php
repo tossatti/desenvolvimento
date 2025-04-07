@@ -11,13 +11,13 @@
                 <div class="row g-3 form-floating">
                     <div class="col-md-12 form-floating">
                         <input type="text" class="form-control" id="name" name="name"
-                            placeholder="Nome completo" value="{{ old('name') ? old('name') : $user->name }}">
+                            placeholder="Nome completo" value="{{ old('name') ? old('name') : $curriculum->name }}">
                         <label for="name" class="form-label">Nome</label>
                     </div>
                     <div class="col-md-7 form-floating">
                         <input type="email" class="form-control" id="email" name="email"
                             placeholder="Insira um e-mail válido"
-                            value="{{ old('email') ? old('email') : $user->email }}">
+                            value="{{ old('email') ? old('email') : $curriculum->email }}">
                         <label for="email" class="form-label">E-mail</label>
                     </div>
                     <div class="col-md-5 form-floating">
@@ -27,36 +27,36 @@
                     </div>
                     <div class="form-floating col-md-3 ">
                         <input type="date" class="form-control" id="nascimento" name="nascimento"
-                            value="{{ old('nascimento') ? old('nascimento') : $user->nascimento }}" required>
+                            value="{{ old('nascimento') ? old('nascimento') : $curriculum->nascimento }}" required>
                         <label for="nascimento" class="form-label">Data de nascimento</label>
                     </div>
                     <div class="form-floating col-md-3">
                         <input type="text" class="form-control" id="naturalidade" name="naturalidade"
                             placeholder="Cidade que nasceu"
-                            value="{{ old('naturalidade') ? old('naturalidade') : $user->naturalidade }}" required>
+                            value="{{ old('naturalidade') ? old('naturalidade') : $curriculum->naturalidade }}" required>
                         <label for="naturalidade" class="form-label">Naturalidade</label>
                     </div>
                     <div class="form-floating col-md-3">
                         <input type="text" class="form-control" id="nacionalidade" name="nacionalidade"
                             placeholder="Escolha"
-                            value="{{ old('nacionalidade') ? old('nacionalidade') : $user->nacionalidade }}" required>
+                            value="{{ old('nacionalidade') ? old('nacionalidade') : $curriculum->nacionalidade }}" required>
                         <label for="nacionalidade" class="form-label">Nacionalidade</label>
                     </div>
                     <div class="form-floating col-md-3">
                         <select class="form-select" id="genero" name="genero" required>
                             <option value="">Selecione</option>
                             <option value="1"
-                                {{ (old('genero') ?? ($user->genero ?? '')) == '1' ? 'selected' : '' }}>
+                                {{ (old('genero') ?? ($curriculum->genero ?? '')) == '1' ? 'selected' : '' }}>
                                 Masculino</option>
                             <option value="2"
-                                {{ (old('genero') ?? ($user->genero ?? '')) == '2' ? 'selected' : '' }}>
+                                {{ (old('genero') ?? ($curriculum->genero ?? '')) == '2' ? 'selected' : '' }}>
                                 Feminino</option>
                             <option value="3"
-                                {{ (old('genero') ?? ($user->genero ?? '')) == '3' ? 'selected' : '' }}>
+                                {{ (old('genero') ?? ($curriculum->genero ?? '')) == '3' ? 'selected' : '' }}>
                                 Outro
                             </option>
                             <option value="4"
-                                {{ (old('genero') ?? ($user->genero ?? '')) == '4' ? 'selected' : '' }}>
+                                {{ (old('genero') ?? ($curriculum->genero ?? '')) == '4' ? 'selected' : '' }}>
                                 Prefiro não informar</option>
                         </select>
                         <label for="genero" class="form-label">Gênero</label>
@@ -64,25 +64,25 @@
                     <div class="form-floating col-md-3">
                         <select class="form-select form-control" id="escolaridade" name="escolaridade" required>
                             <option value="">Selecione</option>
-                            <option value="1" {{ $user->escolaridade == '1' ? 'selected' : '' }}>
+                            <option value="1" {{ $curriculum->escolaridade == '1' ? 'selected' : '' }}>
                                 Fundamental incompleto</option>
-                            <option value="2" {{ $user->escolaridade == '2' ? 'selected' : '' }}>
+                            <option value="2" {{ $curriculum->escolaridade == '2' ? 'selected' : '' }}>
                                 Fundamental completo</option>
-                            <option value="3" {{ $user->escolaridade == '3' ? 'selected' : '' }}>
+                            <option value="3" {{ $curriculum->escolaridade == '3' ? 'selected' : '' }}>
                                 Médio incompleto</option>
-                            <option value="4" {{ $user->escolaridade == '4' ? 'selected' : '' }}>
+                            <option value="4" {{ $curriculum->escolaridade == '4' ? 'selected' : '' }}>
                                 Médio completo</option>
-                            <option value="5" {{ $user->escolaridade == '5' ? 'selected' : '' }}>
+                            <option value="5" {{ $curriculum->escolaridade == '5' ? 'selected' : '' }}>
                                 Curso técnico incompleto</option>
-                            <option value="6" {{ $user->escolaridade == '6' ? 'selected' : '' }}>
+                            <option value="6" {{ $curriculum->escolaridade == '6' ? 'selected' : '' }}>
                                 Curso técnico completo</option>
-                            <option value="7" {{ $user->escolaridade == '7' ? 'selected' : '' }}>
+                            <option value="7" {{ $curriculum->escolaridade == '7' ? 'selected' : '' }}>
                                 Superior incompleto</option>
-                            <option value="8" {{ $user->escolaridade == '8' ? 'selected' : '' }}>
+                            <option value="8" {{ $curriculum->escolaridade == '8' ? 'selected' : '' }}>
                                 Superior completo</option>
-                            <option value="9" {{ $user->escolaridade == '9' ? 'selected' : '' }}>
+                            <option value="9" {{ $curriculum->escolaridade == '9' ? 'selected' : '' }}>
                                 Pós-graduação incompleto</option>
-                            <option value="10" {{ $user->escolaridade == '10' ? 'selected' : '' }}>
+                            <option value="10" {{ $curriculum->escolaridade == '10' ? 'selected' : '' }}>
                                 Pós-graduação completo</option>
                         </select>
                         <label for="escolaridade" class="form-label">Escolaridade</label>
@@ -91,23 +91,23 @@
                         <select class="form-select form-control" id="raca" name="raca" required>
                             <option value="">Selecione</option>
                             <option value="1"
-                                {{ (old('raca') ?? ($user->raca ?? '')) == '1' ? 'selected' : '' }}>
+                                {{ (old('raca') ?? ($curriculum->raca ?? '')) == '1' ? 'selected' : '' }}>
                                 Branca
                             </option>
                             <option value="2"
-                                {{ (old('raca') ?? ($user->raca ?? '')) == '2' ? 'selected' : '' }}>
+                                {{ (old('raca') ?? ($curriculum->raca ?? '')) == '2' ? 'selected' : '' }}>
                                 Negra
                             </option>
                             <option value="3"
-                                {{ (old('raca') ?? ($user->raca ?? '')) == '3' ? 'selected' : '' }}>
+                                {{ (old('raca') ?? ($curriculum->raca ?? '')) == '3' ? 'selected' : '' }}>
                                 Parda
                             </option>
                             <option value="4"
-                                {{ (old('raca') ?? ($user->raca ?? '')) == '4' ? 'selected' : '' }}>
+                                {{ (old('raca') ?? ($curriculum->raca ?? '')) == '4' ? 'selected' : '' }}>
                                 Amarela
                             </option>
                             <option value="5"
-                                {{ (old('raca') ?? ($user->raca ?? '')) == '5' ? 'selected' : '' }}>
+                                {{ (old('raca') ?? ($curriculum->raca ?? '')) == '5' ? 'selected' : '' }}>
                                 Indígena
                             </option>
                         </select>
@@ -117,31 +117,31 @@
                         <select class="form-select form-control" id="civil" name="civil" required>
                             <option value="">Selecione</option>
                             <option value="1"
-                                {{ (old('civil') ?? ($user->civil ?? '')) == '1' ? 'selected' : '' }}>
+                                {{ (old('civil') ?? ($curriculum->civil ?? '')) == '1' ? 'selected' : '' }}>
                                 Solteiro(a)</option>
                             <option value="2"
-                                {{ (old('civil') ?? ($user->civil ?? '')) == '2' ? 'selected' : '' }}>
+                                {{ (old('civil') ?? ($curriculum->civil ?? '')) == '2' ? 'selected' : '' }}>
                                 Casado(a)</option>
                             <option value="3"
-                                {{ (old('civil') ?? ($user->civil ?? '')) == '3' ? 'selected' : '' }}>
+                                {{ (old('civil') ?? ($curriculum->civil ?? '')) == '3' ? 'selected' : '' }}>
                                 Divorciado(a)</option>
                             <option value="4"
-                                {{ (old('civil') ?? ($user->civil ?? '')) == '4' ? 'selected' : '' }}>
+                                {{ (old('civil') ?? ($curriculum->civil ?? '')) == '4' ? 'selected' : '' }}>
                                 Viúvo(a)</option>
                             <option value="5"
-                                {{ (old('civil') ?? ($user->civil ?? '')) == '5' ? 'selected' : '' }}>
+                                {{ (old('civil') ?? ($curriculum->civil ?? '')) == '5' ? 'selected' : '' }}>
                                 Separado(a)</option>
                             <option value="6"
-                                {{ (old('civil') ?? ($user->civil ?? '')) == '6' ? 'selected' : '' }}>
+                                {{ (old('civil') ?? ($curriculum->civil ?? '')) == '6' ? 'selected' : '' }}>
                                 Desquitado(a)</option>
                             <option value="7"
-                                {{ (old('civil') ?? ($user->civil ?? '')) == '7' ? 'selected' : '' }}>
+                                {{ (old('civil') ?? ($curriculum->civil ?? '')) == '7' ? 'selected' : '' }}>
                                 União
                                 estável</option>
                         </select>
                         <label for="civil" class="form-label">Estado Civil</label>
                     </div>
-                    <div class="form-floating col-md-3">
+                    {{-- <div class="form-floating col-md-3">
                     <select class="form-select" id="dependentes" name="dependentes">
                         <option value="">Selecione</option>
                         <option value="1" {{ (old('dependentes') ?? $dependentes->dependentes ?? '') == 1 ? 'selected' : '' }}>Sim</option>
@@ -171,7 +171,7 @@
                             }
                         });
                     });
-                </script>
+                </script> --}}
                 </div>
             </div>
         </div>

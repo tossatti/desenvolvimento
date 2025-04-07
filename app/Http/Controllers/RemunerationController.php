@@ -6,6 +6,7 @@ use App\Models\Remuneration;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 
 class RemunerationController extends Controller
