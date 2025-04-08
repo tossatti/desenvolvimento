@@ -11,7 +11,7 @@
             </span>
         </div>
         <div class="card-body">
-            <x-alert />
+            {{-- <x-alert /> --}}
             {{-- pesquisa --}}
             <x-search-form action="{{ route('hires.search') }}" />
             {{-- pesquisa --}}
@@ -47,16 +47,11 @@
                                     class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top"
                                     title="editar"><i class="bi bi-pencil-square"></i>
                                 </a>
-                                <form method="POST" action="{{ route('hires.destroy', ['hire' => $hire->id]) }}"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit"
-                                        onclick="return confirm('Tem certeza que deseja apagar este registro?')"
-                                        class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                                        title="apagar"><i class="bi bi-eraser"></i>
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-outline-danger btn-sm btn-delete"
+                                    data-id="{{ $hire->id }}"
+                                    data-route="{{ route('hires.destroy', ['hire' => $hire->id]) }}">
+                                    <i class="bi bi-eraser"></i>
+                                </button>
                                 <a href="{{ route('hires.document', ['hire' => $hire->id]) }}"
                                     class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="top"
                                     title="Contrato" target="_blank"><i class="bi bi-file-earmark-pdf"></i></i>
@@ -71,3 +66,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/alertas.js') }}"></script>
+@endpush

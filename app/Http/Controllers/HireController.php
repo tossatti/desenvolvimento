@@ -38,7 +38,7 @@ class HireController extends Controller
      */
     public function store(Request $request)
     {
-        $contrato = ([
+        $contrato = Hire::create([
             'cno' => $request->cno,
             'sigla' => $request->sigla,
             'objeto' => $request->objeto,
@@ -53,9 +53,10 @@ class HireController extends Controller
             'gestor ' => $request->gestor,
             'auxiliar' => $request->auxiliar,
             'status' => $request->status,
-
         ]);
-        dd($contrato);
+
+        // redirecionar para a view
+        return redirect()->route('hires.index')->with('success', 'Contrato cadastrado com sucesso!');
     }
 
     /**

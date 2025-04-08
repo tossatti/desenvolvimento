@@ -46,14 +46,17 @@
                     {{-- documentos pessoais --}}
                     @include('layouts.documentos_pessoais')
                     {{-- documentos pessoais --}}
+                    {{-- experiencia --}}
+                    @include('layouts.experiencia')
+                    {{-- experiencia --}}
                     {{-- dados bancários --}}
                     {{-- @include('layouts.dados_bancarios') --}}
                     {{-- dados bancários --}}
                     {{-- informações adicionais --}}
-                    @include('layouts.informacoes_adicionais')
+                    {{-- @include('layouts.informacoes_adicionais') --}}
                     {{-- informações adicionais --}}
                     {{-- dependentes --}}
-                    @include('layouts.dependentes')
+                    {{-- @include('layouts.dependentes') --}}
                     {{-- dependentes --}}
                 </div>
                 {{-- botão --}}

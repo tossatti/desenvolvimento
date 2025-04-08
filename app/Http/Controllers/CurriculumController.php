@@ -7,6 +7,7 @@ use App\Models\{Dependente, Hire, Role};
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CurriculumController extends Controller
 {
@@ -65,32 +66,24 @@ class CurriculumController extends Controller
                 'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
                 'cnh' => preg_replace('/[^0-9]/', '', $request->cnh),
                 'catcnh' => $request->catcnh,
-                'calca' => $request->calca,
-                'camisa' => $request->camisa,
-                'calcado' => $request->calcado,
-                'nr10' => $request->nr10,
-                'dependentes' => $request->dependentes,
-                'numeroDependentes' => $request->numeroDependentes,
-
+                'anterior' => $request->anterior,
+                'funcao_anterior' => $request->funcao_anterior,
+                'empresa' => $request->empresa,
+                'periodo_inicio' => $request->periodo_inicio,
+                'periodo_termino' => $request->periodo_termino,
+                'carteira' => $request->carteira,
+                'indicacao' => $request->indicacao,
+                'quem' => $request->quem,
             ]);
-
-            // // Salvar os dependentes
-            // if ($request->input('dependentes') == 1 && $request->has('dependente')) {
-            //     foreach ($request->input('dependente') as $dependenteData) {
-            //         Dependente::create([
-            //             'curriculum_id' => $curriculum->id,
-            //             'nome' => $dependenteData['nome'],
-            //             'cpf' => preg_replace('/[^0-9]/', '', $dependenteData['cpf']),
-            //             'data_nascimento' => $dependenteData['dataNascimento'],
-            //         ]);
-            //     }
-            // }
 
             // Retornar para a view com mensagem de sucesso
             return redirect()->route('curricula.message')->with('success', 'Currículo cadastrado com sucesso!');
         } catch (\Exception $e) {
-            // Retornar para a view com mensagem de erro
-            return redirect()->route('curricula.message')->with('error', 'Ocorreu um erro ao cadastrar o currículo. Por favor, tente novamente.');
+            // Registrar o erro no log
+            Log::error('Erro ao cadastrar currículo: ' . $e->getMessage() . "\n" . $e->getTraceAsString());
+    
+            // Retornar para a view com uma mensagem genérica de erro
+            return redirect()->route('curricula.message')->with('error', 'Ocorreu um erro ao cadastrar o currículo. Por favor, tente novamente.'. $e->getMessage());
         }
     }
 
@@ -120,7 +113,6 @@ class CurriculumController extends Controller
      */
     public function update(Request $request, Curriculum $curriculum)
     {
-        dd($request);
         try {
             // dados do currículo
             $curriculum -> update([
@@ -157,6 +149,14 @@ class CurriculumController extends Controller
                 'dependentes' => $request->dependentes,
                 'numeroDependentes' => $request->numeroDependentes,
                 'status' => $request->status,
+                'anterior' => $request->anterior,
+                'funcao_anterior' => $request->funcao_anterior,
+                'empresa' => $request->empresa,
+                'periodo_inicio' => $request->periodo_inicio,
+                'periodo_termino' => $request->periodo_termino,
+                'carteira' => $request->carteira,
+                'indicacao' => $request->indicacao,
+                'quem' => $request->quem,
             ]);
 
             // Salvar os dependentes
@@ -174,8 +174,11 @@ class CurriculumController extends Controller
             // Retornar para a view com mensagem de sucesso
             return redirect()->route('curricula.message')->with('success', 'Dados atualizados com sucesso!');
         } catch (\Exception $e) {
-            // Retornar para a view com mensagem de erro
-            return redirect()->route('curricula.message')->with('error', 'Ocorreu um erro ao atualizar os dados. Por favor, tente novamente.');
+            // Registrar o erro no log
+            Log::error('Erro ao atualizar currículo ID ' . $curriculum->id . ': ' . $e->getMessage() . "\n" . $e->getTraceAsString());
+    
+            // Retornar para a view com uma mensagem genérica de erro
+            return redirect()->route('curricula.message')->with('error', 'Ocorreu um erro ao atualizar os dados: ' . $e->getMessage());
         }
     }
 

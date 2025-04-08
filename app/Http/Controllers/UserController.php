@@ -8,6 +8,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -51,103 +53,114 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        dd($request);
-
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            // 'password' => 'required|string|min:8',
+            'password' => 'nullable|string|min:6', 
         ]);
+    
+        DB::beginTransaction(); // Inicia a transação
+    
+        try {
+            // Cadastrar usuário
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password), // É importante hashear a senha antes de salvar
+                'nascimento' => $request->nascimento,
+                'naturalidade' => $request->naturalidade,
+                'nacionalidade' => $request->nacionalidade,
+                'genero' => $request->genero,
+                'escolaridade' => $request->escolaridade,
+                'raca' => $request->raca,
+                'civil' => $request->civil,
+                'calca' => $request->calca,
+                'camisa' => $request->camisa,
+                'calcado' => $request->calcado,
+                'nr10' => $request->nr10,
+                'dependentes' => $request->dependentes,
+                'numeroDependentes' => $request->numeroDependentes,
+            ]);
+    
+            // Documentos pessoais
+            PersonalDocument::create([
+                'user_id' => $user->id,
+                'cpf' => preg_replace('/[^0-9]/', '', $request->cpf),
+                'pis_pasep' => preg_replace('/[^0-9]/', '', $request->pis),
+                'titulo_eleitor' => preg_replace('/[^0-9]/', '', $request->titulo),
+                'zona' => $request->zona,
+                'secao' => $request->secao,
+                'cnh' => preg_replace('/[^0-9]/', '', $request->cnh),
+                'catcnh' => $request->catchn,
+                'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
+            ]);
+    
+            // Dados bancários
+            BancAcount::create([
+                'user_id' => $user->id,
+                'banco' => $request->banco,
+                'agencia' => $request->agencia,
+                'tipo_conta' => $request->tipo_conta,
+                'numero_conta' => $request->numero_conta, // Corrigi o espaço extra no nome da coluna
+                'tipo_pix' => $request->tipo_pix,
+                'pix' => $request->pix,
+            ]);
+    
+            // Endereço
+            Adress::create([
+                'user_id' => $user->id,
+                'endereco' => $request->endereco,
+                'numero' => $request->numero,
+                'complemento' => $request->complemento,
+                'bairro' => $request->bairro,
+                'cidade' => $request->cidade,
+                'estado' => $request->estado,
+                'cep' => preg_replace('/[^0-9]/', '', $request->cep),
+                'telefone' => $request->telefone,
+            ]);
+    
+            // Contrato
+            Contrato::create([
+                'user_id' => $user->id,
+                'remuneration_id' => $request->remuneration_id, // Corrigi o espaço extra no nome da coluna
+                'role_id' => $request->role_id,
+                'tipoContrato' => $request->tipoContrato,
+                'lotacao' => $request->lotacao,
+                'equipe' => $request->equipe,
+                'cbo' => $request->cbo,
+                'situacao' => $request->situacao,
+                'disponibilidade' => $request->disponibilidade,
+                'aso' => $request->aso,
+                'admissao' => $request->admissao,
+                'termino' => $request->termino,
+                'observacao' => $request->observacao,
+            ]);
+    
+            // E-social
+            ESocial::create([
+                'user_id' => $user->id,
+                'matricula' => $request->matricula,
+                'nocivos' => $request->nocivos,
+                'admissional' => $request->admissionais,
+                'periodicos' => $request->periodicos,
+                'mudanca' => $request->mudanca,
+                'retorno' => $request->retorno,
+                'demissional' => $request->demissional,
+            ]);
+    
+            DB::commit(); // Se todas as operações foram bem-sucedidas, confirma a transação
+    
+            // Redirecionar para a view
+            return redirect()->route('users.index')->with('success', 'Colaborador cadastrado com sucesso!');
+    
+        } catch (\Exception $e) {
+            DB::rollback(); // Se ocorrer alguma exceção, desfaz todas as operações da transação
+            // Log do erro para análise (opcional)
+            Log::error('Erro ao cadastrar colaborador: ' . $e->getMessage());
+            // Redirecionar de volta com uma mensagem de erro
+            return redirect()->back()->with('error', 'Ocorreu um erro ao cadastrar o colaborador. Por favor, tente novamente.');
+        }
 
-        //cadastrar usuário
-        // dados pessoais
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'nascimento' => $request->nascimento,
-            'naturalidade' => $request->naturalidade,
-            'nacionalidade' => $request->nacionalidade,
-            'genero' => $request->genero,
-            'escolaridade' => $request->escolaridade,
-            'raca' => $request->raca,
-            'civil' => $request->civil,
-            'calca' => $request->calca,
-            'camisa' => $request->camisa,
-            'calcado' => $request->calcado,
-            'nr10' => $request->nr10,
-            'dependentes' => $request->dependentes,
-            'numeroDependentes' => $request->numeroDependentes,
-        ]);
-
-        // documentos pessoais
-        PersonalDocument::create([
-            'user_id' => $user->id,
-            'cpf' => preg_replace('/[^0-9]/', '', $request->cpf),
-            'pis_pasep' => preg_replace('/[^0-9]/', '', $request->pis),
-            'titulo_eleitor' => preg_replace('/[^0-9]/', '', $request->titulo),
-            'zona' => $request->zona,
-            'secao' => $request->secao,
-            'cnh' => preg_replace('/[^0-9]/', '', $request->cnh),
-            'catcnh' => $request->catchn,
-            'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
-        ]);
-
-        // dados bancários
-        BancAcount::create([
-            'user_id' => $user->id,
-            'banco' => $request->banco,
-            'agencia' => $request->agencia,
-            'tipo_conta' => $request->tipo_conta,
-            'numero_conta ' => $request->numero_conta,
-            'tipo_pix' => $request->tipo_pix,
-            'pix' => $request->pix,
-        ]);
-
-        // endereço
-        Adress::create([
-            'user_id' => $user->id,
-            'endereco' => $request->endereco,
-            'numero' => $request->numero,
-            'complemento' => $request->complemento,
-            'bairro' => $request->bairro,
-            'cidade' => $request->cidade,
-            'estado' => $request->estado,
-            'cep' => $request->cep,
-            'telefone' => $request->telefone,
-        ]);
-
-        // contrato
-        Contrato::create([
-            'user_id' => $user->id,
-            'remuneration_id ' => $request->remuneration_id,
-            'role_id' => $request->role_id,
-            'tipoContrato' => $request->tipoContrato,
-            'lotacao' => $request->lotacao,
-            'equipe' => $request->equipe,
-            'cbo' => $request->cbo,
-            'situacao' => $request->situacao,
-            'disponibilidade' => $request->disponibilidade,
-            'aso' => $request->aso,
-            'admissao' => $request->admissao,
-            'termino' => $request->termino,
-            'observacao' => $request->observacao,
-        ]);
-
-        // e-social
-        ESocial::create([
-            'user_id' => $user->id,
-            'matricula' => $request->matricula,
-            'nocivos' => $request->nocivos,
-            'admissional' => $request->admissionais,
-            'periodicos' => $request->periodicos,
-            'mudanca' => $request->mudanca,
-            'retorno' => $request->retorno,
-            'demissional' => $request->demissional,
-        ]);
-
-        // redirecionar para a view
-        return redirect()->route('users.index')->with('success', 'Colaborador cadastrado com sucesso!');
     }
 
     public function edit(User $user)

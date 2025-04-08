@@ -25,8 +25,26 @@
                         <tr>
                             <td>{{ $curriculum->name }}</td>
                             <td class="text-center">{{ $curriculum->role->funcao }}</td>
-                            <td class="text-center">{{ $curriculum->status }}</td>
-                            <td class="text-center">{{ \Carbon\Carbon::parse($curriculum->updated_at)->setTimezone('America/Manaus')->format('d/m/Y') }}</td>
+                            <td class="text-center">
+                                @if ($curriculum->status == '1')
+                                    Candidato
+                                @elseif ($curriculum->status == '2')
+                                    Seleção
+                                @elseif ($curriculum->status == '3')
+                                    Entrevista
+                                @elseif ($curriculum->status == '4')
+                                    Exames
+                                @elseif ($curriculum->status == '5')
+                                    Aprovado
+                                @elseif ($curriculum->status == '6')
+                                    Reprovado
+                                @else
+                                    Não Informado
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                {{ \Carbon\Carbon::parse($curriculum->updated_at)->setTimezone('America/Manaus')->format('d/m/Y') }}
+                            </td>
                             <td class="text-center">
                                 <a href="{{ route('curricula.show', ['curriculum' => $curriculum->id]) }}"
                                     class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top"
@@ -36,7 +54,8 @@
                                     class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top"
                                     title="editar"><i class="bi bi-pencil-square"></i>
                                 </a>
-                                <form method="POST" action="{{ route('curricula.destroy', ['curriculum' => $curriculum->id]) }}"
+                                <form method="POST"
+                                    action="{{ route('curricula.destroy', ['curriculum' => $curriculum->id]) }}"
                                     class="d-inline">
                                     @csrf
                                     @method('delete')

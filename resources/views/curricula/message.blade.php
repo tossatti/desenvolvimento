@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <x-alert />
-            @if (session('success'))
+            {{-- @if (session('success'))
                 <div class="row g-3">
                     <div class= "col-md-5"></div>
                     <div class="col-md-2 content-center">
@@ -27,6 +27,34 @@
                             Edição</button>
                     </div>
                     <div class= "col-md-5"></div>
+                </div>
+            @endif --}}
+            @if (session('success'))
+                <div class="row g-3">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2 content-center">
+                        @if (session('action') == 'edit')
+                            <a class="btn btn-info btn-sm" href="{{ route('curricula.index') }}" role="button">Voltar</a>
+                        @elseif (session('action') == 'create')
+                            <a class="btn btn-info btn-sm" href="{{ route('public.index') }}" role="button">Voltar</a>
+                        @else
+                            <a class="btn btn-info btn-sm" href="{{ url()->previous() }}" role="button">Voltar</a>
+                        @endif
+                    </div>
+                    <div class="col-md-5"></div>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2 content-center">
+                        <a class="btn btn-secondary btn-sm" href="{{ url()->previous() }}" role="button">Voltar</a>
+                    </div>
+                    <div class="col-md-5"></div>
                 </div>
             @endif
         </div>

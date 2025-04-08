@@ -37,7 +37,7 @@
                                     class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top"
                                     title="editar"><i class="bi bi-pencil-square"></i>
                                 </a>
-                                <form method="POST" action="{{ route('users.destroy', ['user' => $user->id]) }}"
+                                {{-- <form method="POST" action="{{ route('users.destroy', ['user' => $user->id]) }}"
                                     class="d-inline">
                                     @csrf
                                     @method('delete')
@@ -46,7 +46,12 @@
                                         class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top"
                                         title="apagar"><i class="bi bi-eraser"></i>
                                     </button>
-                                </form>
+                                </form> --}}
+                                <button type="button" class="btn btn-outline-danger btn-sm btn-delete"
+                                    data-id="{{ $user->id }}"
+                                    data-route="{{ route('users.destroy', ['user' => $user->id]) }}">
+                                    <i class="bi bi-eraser"></i>
+                                </button>
                                 <a href="{{ route('users.document', ['user' => $user->id]) }}"
                                     class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="top"
                                     title="Ficha individual" target="_blank"><i class="bi bi-file-earmark-pdf"></i></i>
@@ -61,3 +66,6 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/alertas.js') }}"></script>
+@endpush

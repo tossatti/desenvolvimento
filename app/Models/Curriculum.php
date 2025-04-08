@@ -63,7 +63,15 @@ class Curriculum extends Model
         'nr10',
         // dependentes
        'dependentes',
-       'numeroDependentes',
+       'anterior',
+       'funcao_anterior',
+       'empresa',
+       'periodo_inicio',
+       'periodo_termino',
+       'carteira',
+       'indicacao',
+       'quem',
+       'status',
     ];
     //
     public function role()

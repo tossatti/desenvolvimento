@@ -12,14 +12,10 @@
                 <a href="{{ route('hires.edit', ['hire' => $hire->id]) }}" class="btn btn-outline-warning btn-sm me-1"
                     data-toggle="tooltip" data-placement="top" title="editar"><i class="bi bi-pencil-square"></i>
                 </a>
-                <form method="POST" action="{{ route('hires.destroy', ['hire' => $hire->id]) }}" class="d-inline">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')"
-                        class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="apagar"><i
-                            class="bi bi-eraser"></i>
-                    </button>
-                </form>
+                <button type="button" class="btn btn-outline-danger btn-sm btn-delete" data-id="{{ $hire->id }}"
+                    data-route="{{ route('hires.destroy', ['hire' => $hire->id]) }}">
+                    <i class="bi bi-eraser"></i>
+                </button>
             </span>
         </div>
         {{-- cabeçalho --}}
@@ -109,3 +105,6 @@
         {{-- dados do banco de dados --}}
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/alertas.js') }}"></script>
+@endpush

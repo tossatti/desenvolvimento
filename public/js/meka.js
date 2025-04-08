@@ -157,10 +157,34 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // fechar offcanvas
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const closeButton = document.getElementById('closeSidebarButton');
     if (closeButton) {
         closeButton.innerHTML = ''; // Limpa o conteúdo padrão do botão
     }
+});
+
+// campos do currículo
+$(document).ready(function() {
+    function toggleDependentFields() {
+        const experienciaAnterior = $('#anterior').val();
+        const experienciaAnteriorSim = (experienciaAnterior === '1');
+
+        $('.div-dependente').each(function() {
+            $(this).toggle(experienciaAnteriorSim);
+            $(this).find('input, select').prop('required', experienciaAnteriorSim);
+        });
+
+        const indicacao = $('#indicacao').val();
+        const indicacaoSim = (indicacao === '1');
+
+        $('#div_quem').toggle(indicacaoSim);
+        $('#div_quem').find('input').prop('required', indicacaoSim);
+    }
+
+    toggleDependentFields();
+
+    $('#anterior').change(toggleDependentFields);
+    $('#indicacao').change(toggleDependentFields);
 });
 

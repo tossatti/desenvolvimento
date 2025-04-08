@@ -74,7 +74,7 @@
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/inputmask.min.js') }}"></script>
     <script src="{{ asset('js/meka.js') }}"></script>
-    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script> --}}
 </body>
 
 </html>

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="success-message" content="{{ session('success') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/meka.css') }}">
@@ -12,8 +14,6 @@
 </head>
 
 <body>
-
-
     {{-- Botão Hamburguer --}}
     <button class="btn btn-primary hamburger-btn" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas" aria-label="Abrir Menu">
@@ -23,7 +23,6 @@
             <span class="bar"></span>
         </div>
     </button>
-
     {{-- Sidebar --}}
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel"
         style="width: 300px">
@@ -117,12 +116,13 @@
             @yield('content')
         </div>
     </main>
+    @stack('scripts')
     {{-- sidebar --}}
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/inputmask.min.js') }}"></script>
     <script src="{{ asset('js/meka.js') }}"></script>
-    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2@11.js') }}"></script>
 </body>
 
 </html>

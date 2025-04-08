@@ -58,6 +58,15 @@ return new class extends Migration
             // dependentes
             $table->tinyInteger('dependentes', 2)->nullable();
             $table->tinyInteger('numeroDependentes', 2)->nullable();
+            // experiencia
+            $table->tinyInteger('anterior', 2)->nullable();
+            $table->string('funcao_anterior', 100);
+            $table->string('empresa', 100);
+            $table->date('periodo_inicio');
+            $table->date('periodo_termino');
+            $table->tinyInteger('carteira', 2)->nullable();
+            $table->tinyInteger('indicacao', 2)->nullable();
+            $table->string('quem', 255);
             $table->tinyInteger('status', 2)->nullable();
             $table->timestamps();
         });

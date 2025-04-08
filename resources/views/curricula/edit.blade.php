@@ -38,6 +38,9 @@
                 {{-- e-social --}}
                 @include('layouts.esocial_edit')
                 {{-- e-social --}}
+                {{-- experiencia --}}
+                @include('layouts.curriculum_experiencia_edit')
+                {{-- experiencia --}}
                 <div class="card mb-2">
                     <div class="card-body">
                         <div class="row rg-3">
@@ -45,12 +48,19 @@
                             <div class="col-md-6 form-floating">
                                 <select class="form-select form-control" id="status" name="status">
                                     <option value="">Selecione o Status</option>
-                                    <option value="1" {{ old('status', $curriculum->status) == '1' ? 'selected' : '' }}>Candidato</option>
-                                    <option value="2" {{ old('status', $curriculum->status) == '2' ? 'selected' : '' }}>Seleção</option>
-                                    <option value="3" {{ old('status', $curriculum->status) == '3' ? 'selected' : '' }}>Entrevista</option>
-                                    <option value="4" {{ old('status', $curriculum->status) == '4' ? 'selected' : '' }}>Exames</option>
-                                    <option value="5" {{ old('status', $curriculum->status) == '5' ? 'selected' : '' }}>Aprovado</option>
-                                    <option value="6" {{ old('status', $curriculum->status) == '6' ? 'selected' : '' }}>Reprovado</option>
+                                    <option value="1"
+                                        {{ old('status', $curriculum->status) == '1' ? 'selected' : '' }}>Candidato</option>
+                                    <option value="2"
+                                        {{ old('status', $curriculum->status) == '2' ? 'selected' : '' }}>Seleção</option>
+                                    <option value="3"
+                                        {{ old('status', $curriculum->status) == '3' ? 'selected' : '' }}>Entrevista
+                                    </option>
+                                    <option value="4"
+                                        {{ old('status', $curriculum->status) == '4' ? 'selected' : '' }}>Exames</option>
+                                    <option value="5"
+                                        {{ old('status', $curriculum->status) == '5' ? 'selected' : '' }}>Aprovado</option>
+                                    <option value="6"
+                                        {{ old('status', $curriculum->status) == '6' ? 'selected' : '' }}>Reprovado</option>
                                 </select>
                                 <label for="status" class="form-label">Status</label>
                             </div>
