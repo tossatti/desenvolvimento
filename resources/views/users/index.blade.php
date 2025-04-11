@@ -6,12 +6,11 @@
             <span><strong>Listar colaboradores</strong></span>
             <span class="ms-auto">
                 <a href="{{ route('users.create') }}" class="btn btn-outline-success btn-sm" data-toggle="tooltip"
-                    data-placement="top" title="cadastrar"><i class="bi bi-plus-square"></i>
+                    data-placement="top" title="Cadastrar"><i class="bi bi-plus-square"></i>
                 </a>
             </span>
         </div>
         <div class="card-body">
-            <x-alert />
             {{-- pesquisa --}}
             <x-search-form action="{{ route('users.search') }}" />
             {{-- pesquisa --}}
@@ -20,6 +19,7 @@
                     <tr>
                         <th scope="col">Nome</th>
                         <th scope="col">E-mail</th>
+                        <th scope="col">Lotação</th>
                         <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
@@ -28,28 +28,20 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->contrato->hire->sigla ?? 'Não Informado' }}</td>
                             <td class="text-center">
                                 <a href="{{ route('users.show', ['user' => $user->id]) }}"
                                     class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="visualizar"><i class="bi bi-eye"></i>
+                                    title="Visualizar registro"><i class="bi bi-eye"></i>
                                 </a>
                                 <a href="{{ route('users.edit', ['user' => $user->id]) }}"
                                     class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="editar"><i class="bi bi-pencil-square"></i>
+                                    title="Editar registro"><i class="bi bi-pencil-square"></i>
                                 </a>
-                                {{-- <form method="POST" action="{{ route('users.destroy', ['user' => $user->id]) }}"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit"
-                                        onclick="return confirm('Tem certeza que deseja apagar este registro?')"
-                                        class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                                        title="apagar"><i class="bi bi-eraser"></i>
-                                    </button>
-                                </form> --}}
                                 <button type="button" class="btn btn-outline-danger btn-sm btn-delete"
                                     data-id="{{ $user->id }}"
-                                    data-route="{{ route('users.destroy', ['user' => $user->id]) }}">
+                                    data-route="{{ route('users.destroy', ['user' => $user->id]) }}" data-toggle="tooltip" data-placement="top"
+                                    title="Excluir registro">
                                     <i class="bi bi-eraser"></i>
                                 </button>
                                 <a href="{{ route('users.document', ['user' => $user->id]) }}"

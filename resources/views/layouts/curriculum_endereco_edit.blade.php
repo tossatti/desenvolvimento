@@ -40,7 +40,7 @@
                         <label for="cidade" class="form-label">Cidade</label>
                     </div>
                     <div class="form-floating col-md-3">
-                        <select class="form-select form-control" id="estado" name="estado" required>
+                        <select class="form-select form-control" id="estado" name="estado">
                             <option value="">Selecione</option>
                             <option value="22" {{ old('estado', $curriculum->estado) == '22' ? 'selected' : '' }}>RO</option>
                             <option value="1" {{ old('estado', $curriculum->estado) == '1' ? 'selected' : '' }}>AC</option>

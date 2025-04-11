@@ -172,13 +172,13 @@ class CurriculumController extends Controller
             }
 
             // Retornar para a view com mensagem de sucesso
-            return redirect()->route('curricula.message')->with('success', 'Dados atualizados com sucesso!');
+            return redirect()->route('curricula.index')->with('success', 'Dados atualizados com sucesso!');
         } catch (\Exception $e) {
             // Registrar o erro no log
             Log::error('Erro ao atualizar currículo ID ' . $curriculum->id . ': ' . $e->getMessage() . "\n" . $e->getTraceAsString());
     
             // Retornar para a view com uma mensagem genérica de erro
-            return redirect()->route('curricula.message')->with('error', 'Ocorreu um erro ao atualizar os dados: ' . $e->getMessage());
+            return redirect()->route('curricula.index')->with('error', 'Ocorreu um erro ao atualizar os dados: ' . $e->getMessage());
         }
     }
 

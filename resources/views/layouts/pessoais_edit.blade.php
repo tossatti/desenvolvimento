@@ -141,37 +141,6 @@
                         </select>
                         <label for="civil" class="form-label">Estado Civil</label>
                     </div>
-                    <div class="form-floating col-md-3">
-                    <select class="form-select" id="dependentes" name="dependentes">
-                        <option value="">Selecione</option>
-                        <option value="1" {{ (old('dependentes') ?? $dependentes->dependentes ?? '') == 1 ? 'selected' : '' }}>Sim</option>
-                        <option value="2" {{ (old('dependentes') ?? $dependentes->dependentes ?? '') == 2 ? 'selected' : '' }}>Não</option>
-                    </select>
-                    <label for="dependentes" class="form-label">Tem dependente(s)</label>
-                </div>
-                <div class="form-floating col-md-2" id="numeroDependentesDiv" style="display: {{ (old('dependentes') ?? $dependentes->dependentes ?? '') == 1 ? 'block' : 'none' }};">
-                    <input type="number" class="form-control" id="numeroDependentes" name="numeroDependentes"
-                        value="{{ old('numeroDependentes') ?? $dependentes->numeroDependentes ?? '' }}">
-                    <label for="numeroDependentes" class="form-label">Quantos?</label>
-                </div>
-                
-                <div class="form-floating" id="dependentesContainer">
-                </div>
-                
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const dependentesSelect = document.getElementById('dependentes');
-                        const numeroDependentesDiv = document.getElementById('numeroDependentesDiv');
-                
-                        dependentesSelect.addEventListener('change', function() {
-                            if (this.value == 1) {
-                                numeroDependentesDiv.style.display = 'block';
-                            } else {
-                                numeroDependentesDiv.style.display = 'none';
-                            }
-                        });
-                    });
-                </script>
                 </div>
             </div>
         </div>

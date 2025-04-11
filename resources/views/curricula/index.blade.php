@@ -6,7 +6,6 @@
             <span><strong>Listar currículos</strong></span>
         </div>
         <div class="card-body">
-            <x-alert />
             {{-- pesquisa --}}
             <x-search-form action="{{ route('curricula.search') }}" />
             {{-- pesquisa --}}
@@ -48,23 +47,18 @@
                             <td class="text-center">
                                 <a href="{{ route('curricula.show', ['curriculum' => $curriculum->id]) }}"
                                     class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="visualizar"><i class="bi bi-eye"></i>
+                                    title="Visualizar registro"><i class="bi bi-eye"></i>
                                 </a>
                                 <a href="{{ route('curricula.edit', ['curriculum' => $curriculum->id]) }}"
                                     class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="editar"><i class="bi bi-pencil-square"></i>
+                                    title="Editar registro"><i class="bi bi-pencil-square"></i>
                                 </a>
-                                <form method="POST"
-                                    action="{{ route('curricula.destroy', ['curriculum' => $curriculum->id]) }}"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit"
-                                        onclick="return confirm('Tem certeza que deseja apagar este registro?')"
-                                        class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                                        title="apagar"><i class="bi bi-eraser"></i>
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-outline-danger btn-sm btn-delete"
+                                    data-id="{{ $curriculum->id }}"
+                                    data-route="{{ route('curricula.destroy', ['curriculum' => $curriculum->id])}}" data-toggle="tooltip" data-placement="top"
+                                    title="Excluir registro">
+                                    <i class="bi bi-eraser"></i>
+                                </button>
                                 {{-- <a href="{{ route('curricula.document', ['curriculum' => $curriculum->id]) }}"
                                     class="btn btn-outline-dark btn-sm" data-toggle="tooltip" data-placement="top"
                                     title="Ficha individual" target="_blank"><i class="bi bi-file-earmark-pdf"></i></i>
@@ -79,3 +73,6 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/alertas.js') }}"></script>
+@endpush

@@ -24,8 +24,8 @@
         </div>
     </button>
     {{-- Sidebar --}}
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel"
-        style="width: 300px">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarOffcanvas"
+        aria-labelledby="sidebarOffcanvasLabel" style="width: 300px">
         <div class="offcanvas-header">
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
                 style="background-image: none !important; font-size: 1.5rem; color: #070707; opacity: 1;">
@@ -43,7 +43,7 @@
                         style="display: block;">
                         <i class="bi bi-ui-checks-grid"
                             style="margin-left: 0; margin-right: 0.5em; font-size: 1.2em;"></i>
-                        Administração
+                        <span>Administração</span>
                     </a>
                     <div class="collapse" id="administração">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 1em;">
@@ -74,8 +74,8 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#" role="button"
                         data-bs-toggle="collapse" data-bs-target="#logistica" aria-expanded="false">
-                        <i class="bi bi-rulers" style="margin-right: 1em; font-size: 1.2em; margin-left: 0"></i>
-                        Logística
+                        <i class="bi bi-house-gear" style="margin-right: 1em; font-size: 1.2em; margin-left: 0"></i>
+                        <span>Logística</span>
                     </a>
                     <div class="collapse" id="logistica">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 1em;">
@@ -92,6 +92,63 @@
                         </ul>
                     </div>
                 </li>
+                {{-- logística --}}
+                {{-- Exames --}}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" role="button"
+                        data-bs-toggle="collapse" data-bs-target="#exames" aria-expanded="false">
+                        <i class="bi bi-hospital" style="margin-right: 1em; font-size: 1.2em; margin-left: 0"></i>
+                        <span>Inspeções médicas</span>
+                    </a>
+                    <div class="collapse" id="exames">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 1em;">
+                            <li>
+                                <i class="bi bi-building"></i>
+                                <a href="#"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Exames Admissionais</a>
+                            </li>
+                            <li>
+                                <i class="bi bi-building"></i>
+                                <a href="#"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Exames periódicos</a>
+                            </li>
+                            <li>
+                                <i class="bi bi-card-checklist"></i>
+                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                    href="#">Exames Demissionais</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {{-- Exames --}}
+                {{-- Configurações --}}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" role="button"
+                        data-bs-toggle="collapse" data-bs-target="#configuracoes" aria-expanded="false">
+                        <i class="bi bi-gear" style="margin-right: 1em; font-size: 1.2em; margin-left: 0"></i>
+                        <span>Configurações</span>
+                    </a>
+                    <div class="collapse" id="configuracoes">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 1em;">
+                            <li>
+                                <i class="bi bi-journal-bookmark"></i>
+                                <a href={{ route('grupoInsumo.index') }}
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Grupos de insumos</a>
+                            </li>
+                            <li>
+                                <i class="bi bi-journal-bookmark-fill"></i>
+                                <a href="{{ route('subgrupoInsumo.index') }}"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Subgrupos de insumos</a>
+                            </li>
+                            <li>
+                                <i class="bi bi-diagram-3"></i>
+                                <a class="link-body-emphasis d-inline-flex text-decoration-none rounded"
+                                    href="{{ route('roles.index') }}">Funções</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {{-- Configurações --}}
             </ul>
         </div>
         <hr>
@@ -100,13 +157,15 @@
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="" width="32" height="32"
                     class="rounded-circle me-2">
-                <strong>{{Auth::user()->name }}</strong>
+                <strong>{{ Auth::user()->name }}</strong>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                 {{-- <li><a class="dropdown-item" href="#">New project...</a></li> --}}
-                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
                 <li><a class="dropdown-item" href="{{ route('logout') }}">Sair</a></li>
-                
+
             </ul>
         </div>
     </div>
@@ -118,8 +177,8 @@
     </main>
     @stack('scripts')
     {{-- sidebar --}}
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/inputmask.min.js') }}"></script>
     <script src="{{ asset('js/meka.js') }}"></script>
     <script src="{{ asset('js/sweetalert2@11.js') }}"></script>

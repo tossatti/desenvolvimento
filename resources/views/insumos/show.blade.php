@@ -7,19 +7,16 @@
             <span><strong>Visualizar insumo</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('insumos.index') }}" class="btn btn-outline-primary btn-sm me-1" data-toggle="tooltip"
-                    data-placement="top" title="voltar"><i class="bi bi-arrow-left-square"></i></i></i>
+                    data-placement="top" title="Voltar"><i class="bi bi-arrow-left-square"></i></i></i>
                 </a>
                 <a href="{{ route('insumos.edit', ['insumo' => $insumo->id]) }}" class="btn btn-outline-warning btn-sm me-1"
-                    data-toggle="tooltip" data-placement="top" title="editar"><i class="bi bi-pencil-square"></i>
+                    data-toggle="tooltip" data-placement="top" title="Editar registro"><i class="bi bi-pencil-square"></i>
                 </a>
-                <form method="POST" action="{{ route('insumos.destroy', ['insumo' => $insumo->id]) }}" class="d-inline">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')"
-                        class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="apagar"><i
-                            class="bi bi-eraser"></i>
-                    </button>
-                </form>
+                <button type="button" class="btn btn-outline-danger btn-sm btn-delete" data-id="{{ $insumo->id }}"
+                    data-route="{{ route('insumos.destroy', ['insumo' => $insumo->id]) }}" data-toggle="tooltip" data-placement="top"
+                    title="Excluir registro">
+                    <i class="bi bi-eraser"></i>
+                </button>
             </span>
         </div>
         {{-- cabeçalho --}}
@@ -79,3 +76,6 @@
         {{-- dados do banco de dados --}}
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/alertas.js') }}"></script>
+@endpush

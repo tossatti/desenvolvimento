@@ -1,6 +1,5 @@
-
 /**
- * apresentar e ocultar senha
+ * Apresentar e ocultar senha
  */
 window.togglePassword = function (fieldId, toggleIcon) {
     const field = document.getElementById(fieldId);
@@ -19,7 +18,7 @@ window.togglePassword = function (fieldId, toggleIcon) {
 };
 
 /**
- * Máscaras nos campos de dados de documentos quando html for carregado 
+ * Máscaras nos campos de dados de documentos quando html for carregado
  */
 function applyMasks(masks) {
     for (const selector in masks) {
@@ -51,24 +50,22 @@ document.addEventListener('DOMContentLoaded', function () {
     applyMasks(initialMasks);
 
     // Verifica se estamos na página de criação de currículo
-    const isCurriculaCreate = window.location.pathname === '/curriculum'; // Ou a URL correta da sua rota
 
-    if (!isCurriculaCreate) {
-        if (dependentesSelect && numeroDependentesDiv && dependentesContainer) {
-            dependentesSelect.addEventListener('change', function () {
+    if (dependentesSelect && numeroDependentesDiv && dependentesContainer) {
+        dependentesSelect.addEventListener('change', function () {
+            dependentesContainer.innerHTML = '';
+            numeroDependentesDiv.style.display = this.value == 1 ? 'block' : 'none';
+        });
+
+        const numeroDependentesInput = document.getElementById('numeroDependentes');
+        if (numeroDependentesInput) {
+            numeroDependentesInput.addEventListener('change', function () {
+                const quantidade = parseInt(this.value);
                 dependentesContainer.innerHTML = '';
-                numeroDependentesDiv.style.display = this.value == 1 ? 'block' : 'none';
-            });
 
-            const numeroDependentesInput = document.getElementById('numeroDependentes');
-            if (numeroDependentesInput) {
-                numeroDependentesInput.addEventListener('change', function () {
-                    const quantidade = parseInt(this.value);
-                    dependentesContainer.innerHTML = '';
-
-                    if (quantidade > 0) {
-                        for (let i = 0; i < quantidade; i++) {
-                            dependentesContainer.innerHTML += `
+                if (quantidade > 0) {
+                    for (let i = 0; i < quantidade; i++) {
+                        dependentesContainer.innerHTML += `
                                 <div class="card m-2 dependentes-group">
                                     <h5 class="card-subtitle mt-2 mb-2 ms-4 text-body-secondary">Dependente ${i + 1}</h5>
                                     <div class="row row-g3 m-2">
@@ -87,11 +84,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                     </div>
                                 </div>
                             `;
-                        }
-                        applyMasks({ '.dependente-cpf': "999.999.999-99" });
                     }
-                });
-            }
+                    applyMasks({ '.dependente-cpf': "999.999.999-99" });
+                }
+            });
         }
     }
 });
@@ -165,12 +161,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // campos do currículo
-$(document).ready(function() {
+$(document).ready(function () {
     function toggleDependentFields() {
         const experienciaAnterior = $('#anterior').val();
         const experienciaAnteriorSim = (experienciaAnterior === '1');
 
-        $('.div-dependente').each(function() {
+        $('.div-dependente').each(function () {
             $(this).toggle(experienciaAnteriorSim);
             $(this).find('input, select').prop('required', experienciaAnteriorSim);
         });
@@ -187,4 +183,44 @@ $(document).ready(function() {
     $('#anterior').change(toggleDependentFields);
     $('#indicacao').change(toggleDependentFields);
 });
+
+// Mantém o dropdown "Contatos" ativo apenas quando um de seus links está ativo
+document.addEventListener('DOMContentLoaded', function () {
+    const currentPage = new URL(window.location.href).pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contatosDropdown = document.querySelector('.nav-item.dropdown');
+    const contatosToggle = contatosDropdown ? contatosDropdown.querySelector('.nav-link.dropdown-toggle') : null;
+    const contatosMenu = contatosDropdown ? contatosDropdown.querySelector('.dropdown-menu') : null;
+    const contatosMenuItems = contatosMenu ? contatosMenu.querySelectorAll('.dropdown-item') : [];
+
+    let isContatosActive = false;
+
+    contatosMenuItems.forEach(item => {
+        const href = new URL(item.getAttribute('href'), window.location.origin).pathname;
+        if (href === currentPage) {
+            isContatosActive = true;
+        }
+    });
+
+    navLinks.forEach(link => {
+        const href = new URL(link.href, window.location.origin).pathname;
+
+        if (contatosToggle && link === contatosToggle) {
+            if (isContatosActive) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        } else if (href === currentPage) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+});
+// tooltips
+const tooltipTriggerList = document.querySelectorAll('[data-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+
 

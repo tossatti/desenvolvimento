@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\Models\{Adress, BancAcount, Contrato, ESocial, Hire, PersonalDocument, Role, User};
+use App\Models\{Adress, BancAcount, Contrato, Dependente, ESocial, Hire, PersonalDocument, Role, Signature, User};
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,8 +15,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        $perPage = 30; // Defina o número de itens por página
-        $users = User::orderBy('name')->paginate($perPage);
+
+        $perPage = 30;
+        $users = User::with('contrato.hire')
+            ->orderBy('name')
+            ->paginate($perPage);
 
         // Retornar para a view
         return view('users.index', compact('users'));
@@ -56,11 +59,11 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'nullable|string|min:6', 
+            'password' => 'nullable|string|min:6',
         ]);
-    
+
         DB::beginTransaction(); // Inicia a transação
-    
+
         try {
             // Cadastrar usuário
             $user = User::create([
@@ -81,7 +84,7 @@ class UserController extends Controller
                 'dependentes' => $request->dependentes,
                 'numeroDependentes' => $request->numeroDependentes,
             ]);
-    
+
             // Documentos pessoais
             PersonalDocument::create([
                 'user_id' => $user->id,
@@ -94,7 +97,7 @@ class UserController extends Controller
                 'catcnh' => $request->catchn,
                 'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
             ]);
-    
+
             // Dados bancários
             BancAcount::create([
                 'user_id' => $user->id,
@@ -105,7 +108,7 @@ class UserController extends Controller
                 'tipo_pix' => $request->tipo_pix,
                 'pix' => $request->pix,
             ]);
-    
+
             // Endereço
             Adress::create([
                 'user_id' => $user->id,
@@ -116,13 +119,13 @@ class UserController extends Controller
                 'cidade' => $request->cidade,
                 'estado' => $request->estado,
                 'cep' => preg_replace('/[^0-9]/', '', $request->cep),
-                'telefone' => $request->telefone,
+                'telefone' => preg_replace('/[^0-9]/', '', $request->telefone),
             ]);
-    
+
             // Contrato
             Contrato::create([
                 'user_id' => $user->id,
-                'remuneration_id' => $request->remuneration_id, // Corrigi o espaço extra no nome da coluna
+                'remuneration_id' => $request->remuneration_id,
                 'role_id' => $request->role_id,
                 'tipoContrato' => $request->tipoContrato,
                 'lotacao' => $request->lotacao,
@@ -135,7 +138,7 @@ class UserController extends Controller
                 'termino' => $request->termino,
                 'observacao' => $request->observacao,
             ]);
-    
+
             // E-social
             ESocial::create([
                 'user_id' => $user->id,
@@ -146,13 +149,25 @@ class UserController extends Controller
                 'mudanca' => $request->mudanca,
                 'retorno' => $request->retorno,
                 'demissional' => $request->demissional,
+
             ]);
-    
+
+            // Dependentes
+            if ($request->has('dependente')) {
+                foreach ($request->input('dependente') as $dependenteData) {
+                    Dependente::create([
+                        'user_id' => $user->id,
+                        'nome' => $dependenteData['nome'] ?? null,
+                        'cpf' => preg_replace('/[^0-9]/', '', $dependenteData['cpf']) ?? null,
+                        'nascimento' => $dependenteData['dataNascimento'] ?? null,
+                    ]);
+                }
+            }
+
             DB::commit(); // Se todas as operações foram bem-sucedidas, confirma a transação
-    
+
             // Redirecionar para a view
             return redirect()->route('users.index')->with('success', 'Colaborador cadastrado com sucesso!');
-    
         } catch (\Exception $e) {
             DB::rollback(); // Se ocorrer alguma exceção, desfaz todas as operações da transação
             // Log do erro para análise (opcional)
@@ -160,7 +175,6 @@ class UserController extends Controller
             // Redirecionar de volta com uma mensagem de erro
             return redirect()->back()->with('error', 'Ocorreu um erro ao cadastrar o colaborador. Por favor, tente novamente.');
         }
-
     }
 
     public function edit(User $user)
@@ -189,116 +203,146 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UserRequest $request, User $user, PersonalDocument $docs)
+    public function update(UserRequest $request, User $user)
     {
-
-        // //validar o formulário
-
-        // recupera informaçoes do banco de dados
-        $docs = (User::find($user->id)->documentos()->get())->first();
-        $adress = (User::find($user->id)->adress()->get())->first();
-        $banco = (User::find($user->id)->bancario()->get())->first();
-        $contrato = (User::find($user->id)->contrato()->get())->first();
-        $esocial = (User::find($user->id)->esocial()->get())->first();
-
-
-        //editar dados no BD
-
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:6',
-        ]);
-        // dados do usuário
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'nascimento' => $request->nascimento,
-            'naturalidade' => $request->naturalidade,
-            'nacionalidade' => $request->nacionalidade,
-            'genero' => $request->genero,
-            'escolaridade' => $request->escolaridade,
-            'raca' => $request->raca,
-            'civil' => $request->civil,
-            'calca' => $request->calca,
-            'camisa' => $request->camisa,
-            'calcado' => $request->calcado,
-            'nr10' => $request->nr10,
-            'dependentes' => $request->dependentes,
-            'numeroDependentes' => $request->numeroDependentes,
+            'dependentes' => 'nullable|in:0,1',
+            'numeroDependentes' => 'nullable|integer|min:0',
+            'dependentes.*.nome' => 'nullable|array',
+            'dependentes.*.nome.*' => 'nullable|string|max:255',
+            'dependentes.*.cpf' => 'nullable|array',
+            'dependentes.*.cpf.*' => 'nullable|string|max:14',
+            'dependentes.*.dataNascimento' => 'nullable|array',
+            'dependentes.*.dataNascimento.*' => 'nullable|date',
+            'novos_dependentes.*.nome' => 'nullable|array',
+            'novos_dependentes.*.nome.*' => 'nullable|string|max:255',
+            'novos_dependentes.*.cpf' => 'nullable|array',
+            'novos_dependentes.*.cpf.*' => 'nullable|string|max:14',
+            'novos_dependentes.*.dataNascimento' => 'nullable|array',
+            'novos_dependentes.*.dataNascimento.*' => 'nullable|date',
+            'remover_dependentes' => 'nullable|array',
+            'remover_dependentes.*' => 'nullable|integer|exists:dependentes,id,user_id,' . $user->id,
         ]);
 
-        // Atualiza a senha apenas se ela foi fornecida
-        if ($request->filled('password')) {
+        DB::beginTransaction();
+
+        try {
+            // Atualizar dados do usuário
             $user->update([
-                'password' => bcrypt($request->password), // Criptografa a nova senha
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password ? bcrypt($request->password) : $user->password,
+                'nascimento' => $request->nascimento,
+                'naturalidade' => $request->naturalidade,
+                'nacionalidade' => $request->nacionalidade,
+                'genero' => $request->genero,
+                'escolaridade' => $request->escolaridade,
+                'raca' => $request->raca,
+                'civil' => $request->civil,
+                'calca' => $request->calca,
+                'camisa' => $request->camisa,
+                'calcado' => $request->calcado,
+                'nr10' => $request->nr10,
+                'dependentes' => $request->dependentes,
+                'numeroDependentes' => $request->numeroDependentes,
             ]);
+
+            // Atualizar documentos pessoais
+            $user->documentos()->update([
+                'cpf' => preg_replace('/[^0-9]/', '', $request->cpf),
+                'pis_pasep' => preg_replace('/[^0-9]/', '', $request->pis),
+                'titulo_eleitor' => preg_replace('/[^0-9]/', '', $request->titulo),
+                'zona' => $request->zona,
+                'secao' => $request->secao,
+                'cnh' => preg_replace('/[^0-9]/', '', $request->cnh),
+                'catcnh' => $request->catchn,
+                'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
+            ]);
+
+            // Atualizar dados bancários
+            $user->bancario()->update([
+                'banco' => $request->banco,
+                'agencia' => $request->agencia,
+                'tipo_conta' => $request->tipo_conta,
+                'numero_conta' => $request->numero_conta,
+                'tipo_pix' => $request->tipo_pix,
+                'pix' => $request->pix,
+            ]);
+
+            // Atualizar endereço
+            $user->adress()->update([
+                'endereco' => $request->endereco,
+                'numero' => $request->numero,
+                'complemento' => $request->complemento,
+                'bairro' => $request->bairro,
+                'cidade' => $request->cidade,
+                'estado' => $request->estado,
+                'cep' => preg_replace('/[^0-9]/', '', $request->cep),
+                'telefone' => preg_replace('/[^0-9]/', '', $request->telefone),
+            ]);
+
+            // Atualizar contrato
+            $user->contrato()->update([
+                'remuneration_id' => $request->remuneration_id,
+                'role_id' => $request->role_id,
+                'tipoContrato' => $request->tipoContrato,
+                'lotacao' => $request->lotacao,
+                'equipe' => $request->equipe,
+                'cbo' => $request->cbo,
+                'situacao' => $request->situacao,
+                'disponibilidade' => $request->disponibilidade,
+                'aso' => $request->aso,
+                'admissao' => $request->admissao,
+                'termino' => $request->termino,
+                'observacao' => $request->observacao,
+            ]);
+
+            // Atualizar E-social
+            $user->esocial()->update([
+                'matricula' => $request->matricula,
+                'nocivos' => $request->nocivos,
+                'admissional' => $request->admissionais,
+                'periodicos' => $request->periodicos,
+                'mudanca' => $request->mudanca,
+                'retorno' => $request->retorno,
+                'demissional' => $request->demissional,
+            ]);
+
+            // Atualizar dependentes existentes
+            if ($request->has('dependentes')) {
+                foreach ($request->input('dependentes') as $dependenteId => $dependenteData) {
+                    $dependente = $user->dependentes()->find($dependenteId);
+                    if ($dependente) {
+                        $dependente->update($dependenteData);
+                    }
+                }
+            }
+
+            // Criar novos dependentes
+            if ($request->has('novos_dependentes')) {
+                foreach ($request->input('novos_dependentes') as $dependenteData) {
+                    if (isset($dependenteData['nome']) || isset($dependenteData['dataNascimento']) || isset($dependenteData['cpf'])) {
+                        $user->dependentes()->create($dependenteData);
+                    }
+                }
+            }
+
+            // Remover dependentes (se a lógica de remoção estiver implementada)
+            if ($request->has('remover_dependentes')) {
+                Dependente::whereIn('id', $request->input('remover_dependentes'))->delete();
+            }
+
+            DB::commit();
+
+            return redirect()->route('users.index')->with('success', 'Colaborador atualizado com sucesso!');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::error('Erro ao atualizar colaborador: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Ocorreu um erro ao atualizar o colaborador. Por favor, tente novamente.');
         }
-
-        // atualiza informações no banco de dados
-        // documentos pessoais 
-        $docs->update([
-            'cpf' => preg_replace('/[^0-9]/', '', $request->cpf),
-            'pis_pasep' => preg_replace('/[^0-9]/', '', $request->pis),
-            'titulo_eleitor' => preg_replace('/[^0-9]/', '', $request->titulo),
-            'zona' => $request->zona,
-            'secao' => $request->secao,
-            'cnh' => preg_replace('/[^0-9]/', '', $request->cnh),
-            'catcnh' => $request->catchn,
-            'ctps' => preg_replace('/[^0-9]/', '', $request->ctps),
-        ]);
-
-        // dados bancários
-        $banco->update([
-            'banco' => $request->banco,
-            'agencia' => $request->agencia,
-            'tipo_conta' => $request->tipoconta,
-            'numero_conta' => $request->numeroConta,
-            'tipo_pix' => $request->tipopix,
-            'pix' => $request->pix,
-        ]);
-
-        // endereço
-        $adress->update([
-            'endereco' => $request->endereco,
-            'numero' => $request->numero,
-            'complemento' => $request->complemento,
-            'bairro' => $request->bairro,
-            'cidade' => $request->cidade,
-            'estado' => $request->estado,
-            'cep' => $request->cep,
-            'telefone' => $request->telefone,
-        ]);
-
-        // Contrato
-        $contrato->update([
-            'tipoContrato' => $request->tipoContrato,
-            'lotacao' => $request->lotacao,
-            'equipe' => $request->equipe,
-            'role_id' => $request->role_id,
-            'remuneracao' => str_replace(',', '.', str_replace('.', '', trim(preg_replace('/\s+/u', ' ', str_replace('R$', '', $request->remuneracao))))),
-            'cbo' => $request->cbo,
-            'situacao' => $request->situacao,
-            'disponibilidade' => $request->disponibilidade,
-            'aso' => $request->aso,
-            'admissao' => $request->admissao,
-            'termino' => $request->termino,
-            'observacao' => $request->observacao,
-        ]);
-
-        // e-social
-        $esocial->update([
-            'matricula' => $request->matricula,
-            'nocivos' => $request->nocivos,
-            'admissional' => $request->admissionais,
-            'periodicos' => $request->periodicos,
-            'mudanca' => $request->mudanca,
-            'retorno' => $request->retorno,
-            'demissional' => $request->demissional,
-        ]);
-
-        // redirecionar para a view
-        return redirect()->route('users.show', ['user' => $user->id])->with('success', 'Colaborador editado com sucesso!');
     }
 
     public function destroy(User $user)
@@ -668,6 +712,13 @@ class UserController extends Controller
         $contrato = $user->contrato()->first();
         $esocial = $user->esocial()->first();
         $roles = $user->role()->first();
+        $signatureTrabalhador = Signature::where('user_id', $user->id)
+            ->latest('data_assinatura')
+            ->first();
+
+        $signatureEmpregador = Signature::where('user_id', $user->id)
+            ->latest('data_assinatura')
+            ->first();
 
         // Retornar para a view com os dados
         return view('users.document', [
@@ -678,6 +729,8 @@ class UserController extends Controller
             'contrato' => $contrato,
             'esocial' => $esocial,
             'roles' => $roles,
+            'signatureTrabalhador' => $signatureTrabalhador,
+            'signatureEmpregador' => $signatureEmpregador,
         ]);
     }
 

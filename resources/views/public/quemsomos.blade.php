@@ -122,7 +122,4 @@
             </div>
         </div>
     </div>
-    <footer>
-        
-    </footer>
 @endsection

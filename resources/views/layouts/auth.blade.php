@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- estilo --}}
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.min.css') }}">
-
     <style>
         html,
         body {
@@ -29,20 +27,15 @@
 </head>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
-    {{-- conteúdo de login --}}
 
-
-    {{-- conteúdo de login --}}
     {{-- conteúdo --}}
     <div class="container">
         @yield('auth')
     </div>
     {{-- conteúdo --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-
-
+    @stack('scripts')
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 </body>
 
 </html>

@@ -50,16 +50,13 @@ class Contrato extends Model
         return $this->hasOne(Remuneration::class, 'remuneration_id');
     }
 
-    // public function users()
-    // {
-    //     return $this->hasMany(User::class, 'hire_id'); // 'hire_id' is the FK in the users table
-    // }
-
+    public function hire()
+    {
+        return $this->belongsTo(Hire::class, 'lotacao', 'id');
+    }
 
     public function contratos()
     {
         return $this->hasMany(Contrato::class, 'lotacao');
     }
-
-
 }

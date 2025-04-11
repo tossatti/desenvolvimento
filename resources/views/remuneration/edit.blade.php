@@ -6,7 +6,7 @@
             <span><strong>Editar remuneração</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('remuneration.index') }}" class="btn btn-outline-danger btn-sm me-1" data-toggle="tooltip"
-                    data-placement="top" title="cancelar"><i class="bi bi-x-square"></i></a>
+                    data-placement="top" title="Cancelar"><i class="bi bi-x-square"></i></a>
             </span>
         </div>
         <div class="card-body">

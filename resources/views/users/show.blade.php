@@ -7,21 +7,14 @@
             <span><strong>Visualizar dados do colaborador</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('users.index') }}" class="btn btn-outline-primary btn-sm me-1" data-toggle="tooltip"
-                    data-placement="top" title="voltar"><i class="bi bi-arrow-left-square"></i></i></i>
+                    data-placement="top" title="Voltar"><i class="bi bi-arrow-left-square"></i></i></i>
                 </a>
                 <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn-outline-warning btn-sm me-1"
-                    data-toggle="tooltip" data-placement="top" title="editar"><i class="bi bi-pencil-square"></i>
+                    data-toggle="tooltip" data-placement="top" title="Editar registro"><i class="bi bi-pencil-square"></i>
                 </a>
-                {{-- <form method="POST" action="{{ route('users.destroy', ['user' => $user->id]) }}" class="d-inline">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')"
-                        class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="apagar"><i
-                            class="bi bi-eraser"></i>
-                    </button>
-                </form> --}}
                 <button type="button" class="btn btn-outline-danger btn-sm btn-delete" data-id="{{ $user->id }}"
-                    data-route="{{ route('users.destroy', ['user' => $user->id]) }}">
+                    data-route="{{ route('users.destroy', ['user' => $user->id]) }}" data-toggle="tooltip"
+                    data-placement="top" title="Excluir registro">
                     <i class="bi bi-eraser"></i>
                 </button>
             </span>
@@ -29,7 +22,6 @@
         {{-- cabeçalho --}}
         {{-- dados do banco de dados --}}
         <div class="card-body">
-            <x-alert />
             <div class="accordion" id="accordionExample">
                 {{-- dados pessoais do usuário --}}
                 <div class="accordion-item">
@@ -61,16 +53,76 @@
                                 <dd class="col-sm-9">{{ $user->nacionalidade }}</dd>
 
                                 <dt class="col-sm-3">Gênero:</dt>
-                                <dd class="col-sm-9">{{ $user->genero }}</dd>
+                                <dd class="col-sm-9">
+                                    @if ($user->genero == '1')
+                                        Masculino
+                                    @elseif ($user->genero == '2')
+                                        Feminino
+                                    @elseif ($user->genero == '3')
+                                        Outro
+                                    @elseif ($user->genero == '4')
+                                        Prefiro não informar
+                                    @else
+                                        Não especificado
+                                    @endif
+                                </dd>
 
                                 <dt class="col-sm-3">Escolaridade:</dt>
-                                <dd class="col-sm-9">{{ $user->escolaridade }}</dd>
+                                <dd class="col-sm-9">
+                                    @php
+                                        $escolaridades = [
+                                            '1' => 'Fundamental incompleto',
+                                            '2' => 'Fundamental completo',
+                                            '3' => 'Médio incompleto',
+                                            '4' => 'Médio completo',
+                                            '5' => 'Curso técnico incompleto',
+                                            '6' => 'Curso técnico completo',
+                                            '7' => 'Superior incompleto',
+                                            '8' => 'Superior completo',
+                                            '9' => 'Pós-graduação incompleto',
+                                            '10' => 'Pós-graduação completo',
+                                        ];
+                                    @endphp
+                                    {{ $escolaridades[$user->escolaridade] ?? 'Não Informado' }}
+                                </dd>
 
                                 <dt class="col-sm-3">Raça:</dt>
-                                <dd class="col-sm-9">{{ $user->raca }}</dd>
+                                <dd class="col-sm-9">
+                                    @if ($user->raca == '1')
+                                        Branca
+                                    @elseif ($user->raca == '2')
+                                        Negra
+                                    @elseif ($user->raca == '3')
+                                        Parda
+                                    @elseif ($user->raca == '4')
+                                        Amarela
+                                    @elseif ($user->raca == '5')
+                                        Indígena
+                                    @else
+                                        Não especificado
+                                    @endif
+                                </dd>
 
                                 <dt class="col-sm-3">Estado civil:</dt>
-                                <dd class="col-sm-9">{{ $user->civil }}</dd>
+                                <dd class="col-sm-9">
+                                    @if ($user->civil == '1')
+                                        Solteiro(a)
+                                    @elseif ($user->civil == '2')
+                                        Casado(a)
+                                    @elseif ($user->civil == '3')
+                                        Divorciado(a)
+                                    @elseif ($user->civil == '4')
+                                        Viúvo(a)
+                                    @elseif ($user->civil == '5')
+                                        Separado(a)
+                                    @elseif ($user->civil == '6')
+                                        Desquitado(a)
+                                    @elseif ($user->civil == '7')
+                                        União estável
+                                    @else
+                                        Não informado
+                                    @endif
+                                </dd>
 
                                 <dt class="col-sm-3">Tamanho da calça:</dt>
                                 <dd class="col-sm-9">{{ $user->calca }}</dd>
@@ -223,7 +275,40 @@
                                 <dd class="col-sm-2">{{ $adress->cidade }}</dd>
 
                                 <dt class="col-sm-1">Estado:</dt>
-                                <dd class="col-sm-1">{{ $adress->estado }}</dd>
+                                <dd class="col-sm-1">
+                                    @php
+                                        $estados = [
+                                            '1' => 'AC',
+                                            '2' => 'AL',
+                                            '3' => 'AP',
+                                            '4' => 'AM',
+                                            '5' => 'BA',
+                                            '6' => 'CE',
+                                            '7' => 'DF',
+                                            '8' => 'ES',
+                                            '9' => 'GO',
+                                            '10' => 'MA',
+                                            '11' => 'MT',
+                                            '12' => 'MS',
+                                            '13' => 'MG',
+                                            '14' => 'PA',
+                                            '15' => 'PB',
+                                            '16' => 'PR',
+                                            '17' => 'PE',
+                                            '18' => 'PI',
+                                            '19' => 'RJ',
+                                            '20' => 'RN',
+                                            '21' => 'RS',
+                                            '22' => 'RO',
+                                            '23' => 'RR',
+                                            '24' => 'SC',
+                                            '25' => 'SP',
+                                            '26' => 'SE',
+                                            '27' => 'TO',
+                                        ];
+                                    @endphp
+                                    {{ $estados[$adress->estado] ?? 'Não Informado' }}
+                                </dd>
 
                                 <dt class="col-sm-3">CEP:</dt>
                                 <dd id="cep" class="col-sm-3">{{ $adress->cep }}</dd>
@@ -259,7 +344,7 @@
                                 <dd class="col-sm-2">{{ $contrato->tipoContrato }}</dd>
 
                                 <dt class="col-sm-2">Lotação:</dt>
-                                <dd class="col-sm-2">{{ $contrato->lotacao }}</dd>
+                                <dd class="col-sm-2">{{ $user->contrato->hire->sigla ?? 'Não Informado' }}</dd>
 
                                 <dt class="col-sm-2">Equipe:</dt>
                                 <dd class="col-sm-2">{{ $contrato->equipe }}</dd>

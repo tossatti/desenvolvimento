@@ -8,16 +8,15 @@
                 <span><strong>Visualizar dados do currículo</strong></span>
                 <span class="ms-auto d-sm-flex flex-row">
                     <a href="{{ route('curricula.index') }}" class="btn btn-outline-primary btn-sm me-1" data-toggle="tooltip"
-                        data-placement="top" title="voltar"><i class="bi bi-arrow-left-square"></i></a>
+                        data-placement="top" title="Voltar"><i class="bi bi-arrow-left-square"></i></a>
                     <a href="{{ route('curricula.edit', $curriculum->id) }}" class="btn btn-outline-warning btn-sm me-1"
-                        data-toggle="tooltip" data-placement="top" title="editar"><i class="bi bi-pencil-square"></i></a>
-                    <form method="POST" action="{{ route('curricula.destroy', $curriculum->id) }}" class="d-inline">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este currículo?')"
-                            class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                            title="apagar"><i class="bi bi-eraser"></i></button>
-                    </form>
+                        data-toggle="tooltip" data-placement="top" title="Editar registro"><i class="bi bi-pencil-square"></i>
+                    </a>
+                    <button type="button" class="btn btn-outline-danger btn-sm btn-delete" data-id="{{ $curriculum->id }}"
+                        data-route="{{ route('curricula.destroy', ['curriculum' => $curriculum->id]) }}" data-toggle="tooltip" data-placement="top"
+                        title="Excluir registro">
+                        <i class="bi bi-eraser"></i>
+                    </button>
                 </span>
             </div>
             {{-- /Cabeçalho --}}
@@ -252,3 +251,6 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/alertas.js') }}"></script>
+@endpush

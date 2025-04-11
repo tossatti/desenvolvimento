@@ -227,29 +227,205 @@
                     <tr>
                         <td colspan="12"
                             style="text-align: center; vertical-align: middle; justify-content: center; align-items: center;">
-                            Data e assinatura do trabalhador e empregador na ocasião da admissão.
+                            Data e assinatura do trabalhador e empregador.
                         </td>
                     </tr>
                     <tr>
                         <td colspan="12"
                             style="text-align: center; vertical-align: middle; justify-content: center; align-items: center;">
-                            Porto Velho, <?php echo date('d/m/Y'); ?>.
+                            Porto Velho,
+                            {{ $signatureEmpregador ? \Carbon\Carbon::parse($signatureEmpregador->created_at)->setTimezone('America/Manaus')->format('d/m/Y') : now()->setTimezone('America/Manaus')->format('d/m/Y') }}.
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="6"
+                        <td rowspan="2" colspan="6"
                             style="text-align: center; vertical-align: middle; justify-content: center; align-items: center;">
-                            MEKA ENGENHARIA <br>
-                            08.812.617/0001-13
+                            @if (!$signatureEmpregador)
+                                @if (auth()->check() && (str_contains(auth()->user()->name, 'Catiuse') || str_contains(auth()->user()->name, 'Marcos')))
+                                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                        data-bs-target="#signatureModalEmpregador">
+                                        Assinar
+                                    </button>
+                                    <br>
+                                @endif
+                                MEKA ENGENHARIA <br>
+                                08.812.617/0001-13
+                            @endif
+
+                            @if ($signatureEmpregador)
+                                <div class="signature-empregador">
+                                    <table class="table table-bordered">
+                                        <tr style="height: 24px;">
+                                            <td rowspan="2" colspan="1"
+                                                style="text-align: center; vertical-align: middle; justify-content: center; align-items: center;">
+                                                <img src="{{ asset('images/assinatura.png') }}" width="50"
+                                                    height="50" alt="Assinatura do Empregador">
+                                            </td>
+                                            <td class="text-center" colspan="5">
+                                                <p>Assinado por:<strong> {{ $signatureEmpregador->user->name }}</strong>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Data:<strong>
+                                                        {{ \Carbon\Carbon::parse($signatureEmpregador->created_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}</strong>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            @endif
                         </td>
                         <td colspan="6"
                             style="text-align: center; vertical-align: middle; justify-content: center; align-items: center;">
-                            {{ $user->name }} <br>
-                            {{ $user->cpf }}
+                            @if (!$signatureTrabalhador)
+                                @if (auth()->id() === $user->id)
+                                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                        data-bs-target="#signatureModalTrabalhador">
+                                        Assinar
+                                    </button>
+                                    <br>
+                                @endif
+                                {{ $user->name }} <br>
+                                {{ $user->cpf }}
+                            @endif
+
+                            @if ($signatureTrabalhador)
+                                <div class="signature-trabalhador">
+                                    <table class="table table-bordered">
+                                        <tr style="height: 24px;">
+                                            <td rowspan="2" colspan="1"
+                                                style="text-align: center; vertical-align: middle; justify-content: center; align-items: center;">
+                                                <img src="{{ asset('images/assinatura.png') }} " width="50"
+                                                    height="50" alt="Assinatura do Trabalhador">
+                                            </td>
+                                            <td class="text-center" colspan="5">
+                                                <p>Assinado por:<strong> {{ $signatureTrabalhador->user->name }}<strong>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Data:<strong>
+                                                        {{ \Carbon\Carbon::parse($signatureTrabalhador->created_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}<strong>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
+    {{-- Modais de Assinatura --}}
+    <div class="modal fade" id="signatureModalTrabalhador" tabindex="-1"
+        aria-labelledby="signatureModalLabelTrabalhador" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signatureModalLabelTrabalhador">Assinatura do Trabalhador</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Para assinar, por favor, digite sua senha.</p>
+                    <div class="mb-3">
+                        <label for="passwordTrabalhador" class="form-label">Senha:</label>
+                        <input type="password" class="form-control" id="passwordTrabalhador">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-success"
+                            onclick="submitSignature('trabalhador')">Assinar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="signatureModalEmpregador" tabindex="-1" aria-labelledby="signatureModalLabelEmpregador"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signatureModalLabelEmpregador">Assinatura do Empregador</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Para assinar como empregador, por favor, digite a senha do usuário autorizado.</p>
+                    <div class="mb-3">
+                        <label for="passwordEmpregador" class="form-label">Senha:</label>
+                        <input type="password" class="form-control" id="passwordEmpregador">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-success"
+                            onclick="submitSignature('empregador')">Assinar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Modais de Assinatura --}}
+    <script>
+        function submitSignature(tipo) {
+            let passwordFieldId = (tipo === 'trabalhador') ? 'passwordTrabalhador' : 'passwordEmpregador';
+            let password = document.getElementById(passwordFieldId).value;
+            let userId = '{{ $user->id }}'; // ID do usuário logado
+
+            fetch('/assinar-documento', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        user_id: userId,
+                        password: password,
+                        // tipo_assinatura: tipo,
+                        // Os campos abaixo serão preenchidos no backend
+                        // nome_assinante: '',
+                        // email_assinante: '',
+                        // hash_assinatura: '',
+                        // data_assinatura: '',
+                        // token_verificacao: '',
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Assinatura Realizada!',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro na Assinatura!',
+                            text: data.message,
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error('Erro:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ocorreu um erro!',
+                        text: 'Ocorreu um erro ao tentar assinar.',
+                        confirmButtonText: 'OK'
+                    });
+                });
+        }
+    </script>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/alertas.js') }}"></script>
+@endpush

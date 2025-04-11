@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.min.css') }}">
     <title>Documento de {{ $user->name }}</title>
@@ -26,7 +25,10 @@
     <div class="container">
         @yield('content')
     </div>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
+    @stack('scripts')
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2@11.js') }}"></script>
 </body>
 
 </html>

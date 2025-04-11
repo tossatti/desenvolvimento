@@ -6,7 +6,7 @@
             <span><strong>Listar contratos e obras</strong></span>
             <span class="ms-auto">
                 <a href="{{ route('hires.create') }}" class="btn btn-outline-success btn-sm" data-toggle="tooltip"
-                    data-placement="top" title="cadastrar"><i class="bi bi-plus-square"></i>
+                    data-placement="top" title="Cadastrar"><i class="bi bi-plus-square"></i>
                 </a>
             </span>
         </div>
@@ -41,15 +41,16 @@
                             <td class="text-center">
                                 <a href="{{ route('hires.show', ['hire' => $hire->id]) }}"
                                     class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="visualizar"><i class="bi bi-eye"></i>
+                                    title="Visualizar registro"><i class="bi bi-eye"></i>
                                 </a>
                                 <a href="{{ route('hires.edit', ['hire' => $hire->id]) }}"
                                     class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="editar"><i class="bi bi-pencil-square"></i>
+                                    title="Editar registro"><i class="bi bi-pencil-square"></i>
                                 </a>
                                 <button type="button" class="btn btn-outline-danger btn-sm btn-delete"
                                     data-id="{{ $hire->id }}"
-                                    data-route="{{ route('hires.destroy', ['hire' => $hire->id]) }}">
+                                    data-route="{{ route('hires.destroy', ['hire' => $hire->id]) }}" data-toggle="tooltip" data-placement="top"
+                                    title="Excluir registro">
                                     <i class="bi bi-eraser"></i>
                                 </button>
                                 <a href="{{ route('hires.document', ['hire' => $hire->id]) }}"

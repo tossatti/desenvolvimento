@@ -27,23 +27,23 @@
                     </div>
                     <div class="form-floating col-md-3 ">
                         <input type="date" class="form-control" id="nascimento" name="nascimento"
-                            value="{{ old('nascimento') ? old('nascimento') : $curriculum->nascimento }}" required>
+                            value="{{ old('nascimento') ? old('nascimento') : $curriculum->nascimento }}">
                         <label for="nascimento" class="form-label">Data de nascimento</label>
                     </div>
                     <div class="form-floating col-md-3">
                         <input type="text" class="form-control" id="naturalidade" name="naturalidade"
                             placeholder="Cidade que nasceu"
-                            value="{{ old('naturalidade') ? old('naturalidade') : $curriculum->naturalidade }}" required>
+                            value="{{ old('naturalidade') ? old('naturalidade') : $curriculum->naturalidade }}">
                         <label for="naturalidade" class="form-label">Naturalidade</label>
                     </div>
                     <div class="form-floating col-md-3">
                         <input type="text" class="form-control" id="nacionalidade" name="nacionalidade"
                             placeholder="Escolha"
-                            value="{{ old('nacionalidade') ? old('nacionalidade') : $curriculum->nacionalidade }}" required>
+                            value="{{ old('nacionalidade') ? old('nacionalidade') : $curriculum->nacionalidade }}">
                         <label for="nacionalidade" class="form-label">Nacionalidade</label>
                     </div>
                     <div class="form-floating col-md-3">
-                        <select class="form-select" id="genero" name="genero" required>
+                        <select class="form-select" id="genero" name="genero">
                             <option value="">Selecione</option>
                             <option value="1"
                                 {{ (old('genero') ?? ($curriculum->genero ?? '')) == '1' ? 'selected' : '' }}>
@@ -62,7 +62,7 @@
                         <label for="genero" class="form-label">Gênero</label>
                     </div>
                     <div class="form-floating col-md-3">
-                        <select class="form-select form-control" id="escolaridade" name="escolaridade" required>
+                        <select class="form-select form-control" id="escolaridade" name="escolaridade">
                             <option value="">Selecione</option>
                             <option value="1" {{ $curriculum->escolaridade == '1' ? 'selected' : '' }}>
                                 Fundamental incompleto</option>
@@ -88,7 +88,7 @@
                         <label for="escolaridade" class="form-label">Escolaridade</label>
                     </div>
                     <div class="form-floating col-md-3">
-                        <select class="form-select form-control" id="raca" name="raca" required>
+                        <select class="form-select form-control" id="raca" name="raca">
                             <option value="">Selecione</option>
                             <option value="1"
                                 {{ (old('raca') ?? ($curriculum->raca ?? '')) == '1' ? 'selected' : '' }}>
@@ -114,7 +114,7 @@
                         <label for="raca" class="form-label">Raça</label>
                     </div>
                     <div class="form-floating col-md-3">
-                        <select class="form-select form-control" id="civil" name="civil" required>
+                        <select class="form-select form-control" id="civil" name="civil">
                             <option value="">Selecione</option>
                             <option value="1"
                                 {{ (old('civil') ?? ($curriculum->civil ?? '')) == '1' ? 'selected' : '' }}>

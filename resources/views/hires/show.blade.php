@@ -7,13 +7,14 @@
             <span><strong>Visualizar Contrato</strong></span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('hires.index') }}" class="btn btn-outline-primary btn-sm me-1" data-toggle="tooltip"
-                    data-placement="top" title="voltar"><i class="bi bi-arrow-left-square"></i></i></i>
+                    data-placement="top" title="Voltar"><i class="bi bi-arrow-left-square"></i></i></i>
                 </a>
                 <a href="{{ route('hires.edit', ['hire' => $hire->id]) }}" class="btn btn-outline-warning btn-sm me-1"
-                    data-toggle="tooltip" data-placement="top" title="editar"><i class="bi bi-pencil-square"></i>
+                    data-toggle="tooltip" data-placement="top" title="Editar registro"><i class="bi bi-pencil-square"></i>
                 </a>
                 <button type="button" class="btn btn-outline-danger btn-sm btn-delete" data-id="{{ $hire->id }}"
-                    data-route="{{ route('hires.destroy', ['hire' => $hire->id]) }}">
+                    data-route="{{ route('hires.destroy', ['hire' => $hire->id]) }}" data-toggle="tooltip" data-placement="top"
+                    title="Excluir registro">
                     <i class="bi bi-eraser"></i>
                 </button>
             </span>

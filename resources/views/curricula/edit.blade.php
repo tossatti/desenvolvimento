@@ -9,7 +9,7 @@
             </span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('curricula.index') }}" class="btn btn-outline-primary btn-sm me-1" data-toggle="tooltip"
-                    data-placement="top" title="voltar"><i class="bi bi-arrow-left-square"></i></i></i>
+                    data-placement="top" title="Voltar"><i class="bi bi-arrow-left-square"></i></i></i>
                 </a>
             </span>
         </div>
@@ -87,3 +87,4 @@
         {{-- dados do banco de dados --}}
     </div>
 @endsection
+

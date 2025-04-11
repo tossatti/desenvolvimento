@@ -9,7 +9,7 @@
             </span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('users.index') }}" class="btn btn-outline-primary btn-sm me-1" data-toggle="tooltip"
-                    data-placement="top" title="voltar"><i class="bi bi-arrow-left-square"></i></i></i>
+                    data-placement="top" title="Voltar"><i class="bi bi-arrow-left-square"></i></i></i>
                 </a>
             </span>
         </div>
@@ -38,6 +38,9 @@
                 {{-- e-social --}}
                 @include('layouts.esocial_edit')
                 {{-- e-social --}}
+                {{-- dependentes --}}
+                @include('layouts.dependentes')
+                {{-- dependentes --}}
                 {{-- botão --}}
                 <div class="row g-3">
                     <div class= "col-md-5"></div>

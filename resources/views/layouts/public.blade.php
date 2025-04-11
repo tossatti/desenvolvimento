@@ -8,7 +8,6 @@
     {{-- estilo --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('css/meka.css') }}"> --}}
     <title>Meka Engenharia</title>
 </head>
 
@@ -52,29 +51,15 @@
         </div>
     </nav>
     {{-- menu superior --}}
-
     {{-- conteúdo --}}
     <div class="container">
         @yield('public')
     </div>
     {{-- conteúdo --}}
-    <script>
-        const currentPage = new URL(window.location.href).pathname;
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        navLinks.forEach(link => {
-            const href = new URL(link.href, window.location.origin)
-                .pathname; // Usa window.location.origin para URLs relativas
-            if (href === currentPage) {
-                link.classList.add('active');
-            }
-        });
-    </script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/inputmask.min.js') }}"></script>
     <script src="{{ asset('js/meka.js') }}"></script>
-    {{-- <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script> --}}
 </body>
 
 </html>

@@ -104,7 +104,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function userDependentes()
+    public function dependentes()
     {
         return $this->hasMany(Dependente::class, 'user_id');
     }

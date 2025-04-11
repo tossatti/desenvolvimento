@@ -120,7 +120,7 @@
                         </option>
                         <option value="4" {{ old('genero') == '4' ? 'selected' : '' }}>Prefiro
                             não informar</option>
-                    </select>
+                    </select> 
                     <label for="genero" class="form-label">Gênero</label>
                 </div>
                 <div class="form-floating col-md-3">

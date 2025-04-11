@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, CurriculumController, GrupoInsumoController, HireController, InsumoController, MekaController, RemunerationController, RoleController, SubgrupoInsumoController};
-use App\Models\Remuneration;
+use App\Http\Controllers\{UserController, PublicController, LoginController, AlmoxarifadoController, CurriculumController, GrupoInsumoController, HireController, InsumoController, MekaController, RemunerationController, RoleController, SignatureController, SubgrupoInsumoController};
 use Illuminate\Support\Facades\Route;
 
-// rotas públicas
+/**
+ * rotas públicas
+ */
+// página inicial
 Route::get('/', [PublicController::class, 'index'])->name('public.index');
 Route::get('/quemsomos', [PublicController::class, 'quemsomos'])->name('public.quemsomos');
 Route::get('/servicos', [PublicController::class, 'servicos'])->name('public.servicos');
@@ -13,11 +15,17 @@ Route::get('/contatos', [PublicController::class, 'contatos'])->name('public.con
 Route::get('/curriculum', [CurriculumController::class, 'create'])->name('curricula.create');
 Route::post('/store-curriculum', [CurriculumController::class, 'store'])->name('curricula.store');
 Route::get('/mensagem-curriculum', [CurriculumController::class, 'message'])->name('curricula.message');
+//assinatura
+Route::post('/assinar-documento-externo', [SignatureController::class, 'signExternDocument']);
 
-// login
+// // login
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'loginProcess'])->name('login.process');
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
+Route::get('/login/reset', [LoginController::class, 'reset'])->name('login.reset');
+Route::post('/login/reset', [LoginController::class, 'solicitarReset'])->name('password.email');
+Route::get('/login/senha/{token}', [LoginController::class, 'senha'])->name('login.senha');
+Route::post('/login/senha', [LoginController::class, 'updateSenha'])->name('password.update');
 
 /**
  * rotas privadas
@@ -47,6 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search-user', [UserController::class, 'search'])->name('users.search');
     Route::get('/users/{user}/document', [UserController::class, 'showDocument'])->name('users.document');
     Route::get('/users/{user}/pdf', [UserController::class, 'generatePdf'])->name('users.pdf');
+    Route::post('/assinar-documento', [SignatureController::class, 'assinarDocumento'])->name('assinar.documento');
+    
 
     // Almoxarifado
     Route::get('/almoxarifado', [AlmoxarifadoController::class, 'index'])->name('almoxarifado.index');

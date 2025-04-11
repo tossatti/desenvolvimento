@@ -7,7 +7,7 @@
             </span>
             <span class="ms-auto d-sm-flex flex-row">
                 <a href="{{ route('insumos.create') }}" class="btn btn-outline-success btn-sm" data-toggle="tooltip"
-                    data-placement="top" title="cadastrar"><i class="bi bi-plus-square"></i>
+                    data-placement="top" title="Cadastrar"><i class="bi bi-plus-square"></i>
                 </a>
             </span>
         </div>
@@ -42,22 +42,18 @@
                             <td class="text-center">
                                 <a href="{{ route('insumos.show', ['insumo' => $insumo->id]) }}"
                                     class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="visualizar"><i class="bi bi-eye"></i>
+                                    title="Visualizar registro"><i class="bi bi-eye"></i>
                                 </a>
                                 <a href="{{ route('insumos.edit', ['insumo' => $insumo->id]) }}"
                                     class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top"
-                                    title="editar"><i class="bi bi-pencil-square"></i>
+                                    title="Editar registro"><i class="bi bi-pencil-square"></i>
                                 </a>
-                                <form method="POST" action="{{ route('insumos.destroy', ['insumo' => $insumo->id]) }}"
-                                    class="d-inline">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit"
-                                        onclick="return confirm('Tem certeza que deseja apagar este registro?')"
-                                        class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top"
-                                        title="apagar"><i class="bi bi-eraser"></i>
-                                    </button>
-                                </form>
+                                <button type="button" class="btn btn-outline-danger btn-sm btn-delete"
+                                    data-id="{{ $insumo->id }}"
+                                    data-route="{{ route('insumos.destroy', ['insumo' => $insumo->id]) }}" data-toggle="tooltip" data-placement="top"
+                                    title="Excluir registro">
+                                    <i class="bi bi-eraser"></i>
+                                </button>
                             </td>
                         </tr>
                     @empty
@@ -68,3 +64,6 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/alertas.js') }}"></script>
+@endpush

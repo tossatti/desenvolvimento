@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8 ">
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fixed-height" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img src="{{ asset('images/meka.png') }}" class="d-block w-100" alt="...">
@@ -84,6 +84,5 @@
         </div>
 
     </div>
-
     {{-- card --}}
 @endsection
