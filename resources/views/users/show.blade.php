@@ -136,14 +136,6 @@
                                 <dt class="col-sm-3">Curso de NR 10:</dt>
                                 <dd class="col-sm-9">{{ $user->nr10 }}</dd>
 
-                                <dt class="col-sm-3">Dependentes:</dt>
-                                <dd class="col-sm-9">{{ $user->dependentes }}</dd>
-
-                                @if ($user->dependentes == 'Sim')
-                                    <dt class="col-sm-3">Quantidade:</dt>
-                                    <dd class="col-sm-9">{{ $user->numeroDependentes }}</dd>
-                                @endif
-
                                 <dt class="col-sm-3">Data de cadastro:</dt>
                                 <dd class="col-sm-3">
                                     {{ \Carbon\Carbon::parse($user->created_at)->setTimezone('America/Manaus')->format('d/m/Y H:i') }}
@@ -441,6 +433,44 @@
                     </div>
                 </div>
                 {{-- e-social --}}
+                {{-- Dependentes --}}
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#dependentes" aria-expanded="false" aria-controls="collapseThree">
+                            Dependentes
+                        </button>
+                    </h2>
+                    <div id="dependentes" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <dl class="row">
+
+                                @if ($user->dependentes->isNotEmpty())
+                                    <dl class="row">
+                                        @foreach ($user->dependentes as $dependente)
+                                            <dt class="col-sm-3">Nome:</dt>
+                                            <dd class="col-sm-9">{{ $dependente->name }}</dd>
+
+                                            <dt class="col-sm-3">CPF:</dt>
+                                            <dd class="col-sm-9 cpf">{{ $dependente->cpf }}</dd>
+
+                                            <dt class="col-sm-3">Nascimento:</dt>
+                                            <dd class="col-sm-9">
+                                                {{ \Carbon\Carbon::parse($dependente->nascimento)->setTimezone('America/Manaus')->format('d/m/Y') }}
+                                            </dd>
+                                            <hr>
+                                        @endforeach
+                                    </dl>
+                                @else
+                                    Nenhum dependente cadastrado.
+                                @endif
+
+
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                {{-- Dependentes --}}
             </div>
         </div>
         {{-- dados do banco de dados --}}

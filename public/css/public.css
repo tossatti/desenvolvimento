@@ -1,0 +1,23 @@
+.accordion {
+    --bs-accordion-active-bg: rgb(173, 247, 173);
+    --bs-accordion-active-color: black;
+    --bs-accordion-border-color: rgb(173, 247, 173);
+    --bs-accordion-btn-focus-box-shadow: rgb(173, 247, 173);
+}
+.justificado {
+    text-align: justify;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    text-indent: 2em;
+    /* Mantendo a tabulação na primeira linha */
+}
+
+.sem-borda {
+    border: none !important;
+    /* O !important pode ser necessário para sobrepor outros estilos */
+}
+
+.bg-verde-meka {
+    background-color: rgb(141, 194, 121) !important;
+    /* O !important pode ser necessário para sobrepor o bg-dark */
+}

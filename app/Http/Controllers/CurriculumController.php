@@ -159,18 +159,6 @@ class CurriculumController extends Controller
                 'quem' => $request->quem,
             ]);
 
-            // Salvar os dependentes
-            if ($request->input('dependentes') == 1 && $request->has('dependente')) {
-                foreach ($request->input('dependente') as $dependenteData) {
-                    Dependente::create([
-                        'curriculum_id' => $curriculum->id,
-                        'nome' => $dependenteData['nome'],
-                        'cpf' => preg_replace('/[^0-9]/', '', $dependenteData['cpf']),
-                        'data_nascimento' => $dependenteData['dataNascimento'],
-                    ]);
-                }
-            }
-
             // Retornar para a view com mensagem de sucesso
             return redirect()->route('curricula.index')->with('success', 'Dados atualizados com sucesso!');
         } catch (\Exception $e) {

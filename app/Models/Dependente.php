@@ -20,19 +20,19 @@ class Dependente extends Model
      */
     protected $fillable = [
         // Relacionamento com a pessoa
-        'curriculum_id',
+        'user_id',
         // dados pessoais
         'name',
         'cpf',
         'nascimento',
     ];
-    //
-    public function dependentes()
-    {
-        return $this->belongsTo(Curriculum::class, 'curriculum_id');
-    }
 
-    public function userDependentes()
+    // public function userDependentes()
+    // {
+    //     return $this->belongsTo(User::class, 'user_id');
+    // }
+
+    public function dependentes()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

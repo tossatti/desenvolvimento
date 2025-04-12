@@ -11,21 +11,21 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img src="{{ asset('images/meka.png') }}" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
+                            {{-- <div class="carousel-caption d-none d-md-block">
                                 <h5 style="color: black;">Construindo com sustentabilidade</h5>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="carousel-item">
                             <img src="{{ asset('images/sa.png') }}" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
+                            {{-- <div class="carousel-caption d-none d-md-block">
                                 <h5 style="color: black;">Construindo com sustentabilidade</h5>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="carousel-item">
                             <img src="{{ asset('images/meka2.png') }}" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
+                            {{-- <div class="carousel-caption d-none d-md-block">
                                 <h5 style="color: black;">Construindo com sustentabilidade</h5>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -37,10 +37,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 mb-2">
-                <div class="card">
+                <div class="card sem-borda">
                     <div class="card-body">
-                        <h5 class="card-title">Quem somos</h5>
-                        <p class="card-text">
+                        <h5 class="card-title text-center">Quem somos</h5>
+                        <p class="card-text justificado">
                             A Meka Engenharia é uma empresa genuinamente Rondoniense atuando no mercado de construção civil
                             há 10 anos. Hoje estabelecida em Porto Velho, nossa empresa prima pela formação de parcerias e
                             na elaboração e execução de projetos de engenharia. Visamos utilizar as melhores técnicas,
@@ -67,10 +67,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 mb-2">
-                <div class="card">
+                <div class="card sem-borda">
                     <div class="card-body">
-                        <h5 class="card-title">Como trabalhamos</h5>
-                        <p class="card-text">
+                        <h5 class="card-title text-center">Como trabalhamos</h5>
+                        <p class="card-text justificado">
                             A Meka Engenharia, embasada na pesquisa mercadológica, visa atender à versatilidade de sua
                             clientela, bem como às diversidades de exigências do mercado altamente competitivo, buscando
                             desenvolver e/ou aprimorar técnicas procedimentais hábeis à realização das atividades que
@@ -85,10 +85,10 @@
                 </div>
             </div>
             <div class="col-md-6 mb-2">
-                <div class="card">
+                <div class="card sem-borda">
                     <div class="card-body">
-                        <h5 class="card-title">Quadro técnico</h5>
-                        <p class="card-text">
+                        <h5 class="card-title text-center">Quadro técnico</h5>
+                        <p class="card-text justificado">
                             A Meka Engenharia conta em seu quadro técnico, profissionais graduados e pós-graduados, atuantes
                             na engenharia civil, mecânica, química, elétrica, licenciamento de obras, engenharia segurança
                             do trabalho, meio ambiente e arquitetura. Conta também com parceiros atuantes na engenharia

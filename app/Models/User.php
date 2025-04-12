@@ -34,7 +34,7 @@ class User extends Authenticatable
         'camisa',
         'camisa',
         'nr10',
-        'dependentes',
+        'temdependentes',
         'numeroDependentes',
     ];
 

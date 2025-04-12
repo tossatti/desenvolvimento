@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dependentes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('curriculum_id')->constrained()->onDelete('set null'); 
+            $table->id(); 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name', 255);
             $table->string('cpf', 11)->unique();

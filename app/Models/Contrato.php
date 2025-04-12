@@ -18,11 +18,11 @@ class Contrato extends Model
      */
     protected $fillable = [
         'user_id',
+        'remuneration_id',
+        'role_id',
         'tipoContrato',
         'lotacao',
         'equipe',
-        'role_id',
-        'remuneration_id',
         'cbo',
         'situacao',
         'disponibilidade',

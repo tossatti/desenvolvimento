@@ -103,17 +103,17 @@
                     <div class="collapse" id="exames">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" style="margin-left: 1em;">
                             <li>
-                                <i class="bi bi-building"></i>
+                                <i class="bi bi-file-earmark-check"></i>
                                 <a href="#"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Exames Admissionais</a>
                             </li>
                             <li>
-                                <i class="bi bi-building"></i>
+                                <i class="bi bi-file-code"></i>
                                 <a href="#"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Exames periódicos</a>
                             </li>
                             <li>
-                                <i class="bi bi-card-checklist"></i>
+                                <i class="bi bi-file-earmark-excel"></i>
                                 <a class="link-body-emphasis d-inline-flex text-decoration-none rounded"
                                     href="#">Exames Demissionais</a>
                             </li>

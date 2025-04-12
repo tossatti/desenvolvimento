@@ -11,21 +11,21 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img src="{{ asset('images/meka.png') }}" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
+                            {{-- <div class="carousel-caption d-none d-md-block">
                                 <h5 style="color: black;">Construindo com sustentabilidade</h5>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="carousel-item">
                             <img src="{{ asset('images/sa.png') }}" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
+                            {{-- <div class="carousel-caption d-none d-md-block">
                                 <h5 style="color: black;">Construindo com sustentabilidade</h5>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="carousel-item">
                             <img src="{{ asset('images/meka2.png') }}" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
+                            {{-- <div class="carousel-caption d-none d-md-block">
                                 <h5 style="color: black;">Construindo com sustentabilidade</h5>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -37,10 +37,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="card">
+                <div class="card sem-borda">
                     <div class="card-body">
-                        <h5 class="card-title">Elaboração de Projetos</h5>
-                        <p class="card-text">
+                        <h5 class="card-title text-center">Elaboração de Projetos</h5>
+                        <p class="card-text justificado">
                             A Meka Engenharia conta com uma equipe própria e parceiros qualificados que se
                             preocupam com a
                             individualidade, particularidades, integração e interface de cada projeto, propondo
@@ -52,10 +52,10 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
+                <div class="card sem-borda">
                     <div class="card-body">
-                        <h5 class="card-title">Elaboração de Projetos</h5>
-                        <p class="card-text">
+                        <h5 class="card-title text-center">Elaboração de Projetos</h5>
+                        <p class="card-text justificado">
                             A Meka Engenharia conta com uma equipe própria e parceiros qualificados que se
                             preocupam com a
                             individualidade, particularidades, integração e interface de cada projeto, propondo
@@ -67,10 +67,10 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
+                <div class="card sem-borda">
                     <div class="card-body">
-                        <h5 class="card-title">Elaboração de Projetos</h5>
-                        <p class="card-text">
+                        <h5 class="card-title text-center">Elaboração de Projetos</h5>
+                        <p class="card-text justificado">
                             A Meka Engenharia conta com uma equipe própria e parceiros qualificados que se
                             preocupam com a
                             individualidade, particularidades, integração e interface de cada projeto, propondo

@@ -37,10 +37,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="card text-center">
+                <div class="card sem-borda">
                     <div class="card-body">
-                        <h5 class="card-title">Elaboração de Projetos</h5>
-                        <p class="card-text">
+                        <h5 class="card-title text-center">Elaboração de Projetos</h5>
+                        <p class="card-text justificado">
                             A Meka Engenharia conta com uma equipe própria e parceiros qualificados que se
                             preocupam com a individualidade, particularidades, integração e interface de cada projeto, propondo as soluções adequadas às necessidades de cada Cliente, desde a coleta de dados básicos à conclusão da obra.
                         </p>
@@ -48,10 +48,10 @@
                 </div>
             </div>
             <div class="col-md-4 ">
-                <div class="card ">
+                <div class="card sem-borda">
                     <div class="card-body ">
-                        <h5 class="card-title">Fiscalização e execução	de obras</h5>
-                        <p class="card-text">
+                        <h5 class="card-title text-center">Fiscalização e execução	de obras</h5>
+                        <p class="card-text justificado">
                             A Meka Engenharia auxilia a executora no cumprimento fiel das normas e legislação pertinentes, exigidas pelo projeto e nas soluções dos problemas decorrentes durante a execução do mesmo, visando assim, a garantir a qualidade contratada e valorização do investimento do Cliente.
                             ​A Meka Engenharia através de uma equipe de colaboradores capacitados, executa o projeto, levando em conta suas particularidades e complexidade pautando sempre na economia, prazos contratuais, qualidade dos serviços e principalmente na prevenção de acidentes do trabalho.
                         </p>
@@ -59,10 +59,10 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
+                <div class="card sem-borda">
                     <div class="card-body">
-                        <h5 class="card-title">Licenciamento de obras</h5>
-                        <p class="card-text">
+                        <h5 class="card-title text-center">Licenciamento de obras</h5>
+                        <p class="card-text justificado">
                             A Meka Engenharia elabora e acompanha os processos de licenciamento das obras de diversas atividades (indústria, comércio e serviços) no âmbito Municipal: Ambiental, Trânsito e Vigilância Sanitária; Estadual: Ambiente (operação, outorga de água e lançamento de efluentes); CBM e AGEVISA; Federal: IBAMA, DNIT, ANVISA e CNO com monitoramento da obra até a emissão do HABITE-SE do empreendimento em buscando celeridade das vistorias e emissão de licenças.
                         </p>
                     </div>

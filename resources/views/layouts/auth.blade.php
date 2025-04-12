@@ -33,9 +33,10 @@
         @yield('auth')
     </div>
     {{-- conteúdo --}}
-    @stack('scripts')
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2@11.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>

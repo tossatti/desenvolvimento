@@ -20,9 +20,9 @@ class BancAcount extends Model
         'user_id',
         'banco',
         'agencia',
-        'tipoconta',
-        'numeroConta',
-        'tipopix',
+        'tipo_conta',
+        'numero_Conta',
+        'tipo_pix',
         'pix',
     ];
     

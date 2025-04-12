@@ -8,14 +8,15 @@
     {{-- estilo --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/public.css') }}">
     <title>Meka Engenharia</title>
 </head>
 
 <body>
     {{-- menu superior --}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg bg-verde-meka" >
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('public.index') }}">Meka</a>
+            <a class="navbar-brand text-center" href="{{ route('public.index') }}">Meka <br>Engenharia</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -34,12 +35,13 @@
                     </li>
                     {{-- contatos --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Contatos</a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
+                        <ul class="dropdown-menu dropdown-menu  bg-verde-meka">
                             <li><a class="dropdown-item form-control" href="{{ route('public.contatos') }}">Contatos</a>
                             </li>
-                            <li><a class="dropdown-item form-control" href="{{ route('curricula.create') }}">Mande seu currículo</a></li>
+                            <li><a class="dropdown-item form-control" href="{{ route('curricula.create') }}">Mande seu
+                                    currículo</a></li>
                         </ul>
                     </li>
                     {{-- contatos --}}

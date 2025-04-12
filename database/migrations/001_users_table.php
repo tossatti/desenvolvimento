@@ -28,7 +28,7 @@ return new class extends Migration
             $table->tinyInteger('camisa', 2)->nullable();
             $table->tinyInteger('calcado', 2)->nullable();
             $table->tinyInteger('nr10', 2)->nullable();
-            $table->tinyInteger('dependentes', 2)->nullable();
+            $table->tinyInteger('temdependentes', 2)->nullable();
             $table->tinyInteger('numeroDependentes', 2)->nullable();
             $table->rememberToken();
             $table->timestamps();

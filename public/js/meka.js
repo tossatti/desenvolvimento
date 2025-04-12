@@ -32,63 +32,129 @@ function applyMasks(masks) {
     }
 }
 
+const initialMasks = {
+    '#cpf': "999.999.999-99",
+    '.cpf': "999.999.999-99",
+    '#telefone': "(99) 99999-9999",
+    '#cep': "99999-999",
+    '#pis': "999.99999.99-9",
+    '#titulo': "9999 9999 9999",
+    '#cnh': "99999999999",
+    '#ctps': "9999999/9999"
+};
+
+applyMasks(initialMasks);
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     const dependentesSelect = document.getElementById('dependentes');
+//     const numeroDependentesDiv = document.getElementById('numeroDependentesDiv');
+//     const dependentesContainer = document.getElementById('dependentesContainer');
+
+//     const initialMasks = {
+//         '#cpf': "999.999.999-99",
+//         '#telefone': "(99) 99999-9999",
+//         '#cep': "99999-999",
+//         '#pis': "999.99999.99-9",
+//         '#titulo': "9999 9999 9999",
+//         '#cnh': "99999999999",
+//         '#ctps': "9999999/9999"
+//     };
+
+//     applyMasks(initialMasks);
+
+//     // dependentes
+
+//     if (dependentesSelect && numeroDependentesDiv && dependentesContainer) {
+//         dependentesSelect.addEventListener('change', function () {
+//             dependentesContainer.innerHTML = '';
+//             numeroDependentesDiv.style.display = this.value == 1 ? 'block' : 'none';
+//         });
+
+//         const numeroDependentesInput = document.getElementById('numeroDependentes');
+//         if (numeroDependentesInput) {
+//             numeroDependentesInput.addEventListener('change', function () {
+//                 const quantidade = parseInt(this.value);
+//                 dependentesContainer.innerHTML = '';
+
+//                 if (quantidade > 0) {
+//                     for (let i = 0; i < quantidade; i++) {
+//                         dependentesContainer.innerHTML += `
+//                                 <div class="card m-2 dependentes-group">
+//                                     <h5 class="card-subtitle mt-2 mb-2 ms-4 text-body-secondary">Dependente ${i + 1}</h5>
+//                                     <div class="row row-g3 m-2">
+//                                         <div class="form-floating mb-2 col-md-12">
+//                                             <input type="text" class="form-control" name="dependentes[${i}][nome]">
+//                                             <label for="dependentes[${i}][nome]" class="form-label">Nome</label>
+//                                         </div>
+//                                         <div class="form-floating mb-3 col-md-6">
+//                                             <input type="date" class="form-control" name="dependentes[${i}][dataNascimento]">
+//                                             <label for="dependentes[${i}][dataNascimento]" class="form-label">Data de Nascimento</label>
+//                                         </div>
+//                                         <div class="form-floating mb-3 col-md-6">
+//                                             <input type="text" class="form-control dependentes-cpf" name="dependentes[${i}][cpf]">
+//                                             <label for="dependentes[${i}][cpf]" class="form-label">CPF</label>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                             `;
+//                     }
+//                     applyMasks({ '.dependentes-cpf': "999.999.999-99" });
+//                 }
+//             });
+//         }
+//     }
+// });
+
 document.addEventListener('DOMContentLoaded', function () {
-    const dependentesSelect = document.getElementById('dependentes');
+    const temDependentesSelect = document.getElementById('tem_dependentes');
     const numeroDependentesDiv = document.getElementById('numeroDependentesDiv');
     const dependentesContainer = document.getElementById('dependentesContainer');
+    const novosDependentesContainer = document.getElementById('novosDependentesContainer');
 
-    const initialMasks = {
-        '#cpf': "999.999.999-99",
-        '#telefone': "(99) 99999-9999",
-        '#cep': "99999-999",
-        '#pis': "999.99999.99-9",
-        '#titulo': "9999 9999 9999",
-        '#cnh': "99999999999",
-        '#ctps': "9999999/9999"
-    };
-
-    applyMasks(initialMasks);
-
-    // Verifica se estamos na página de criação de currículo
-
-    if (dependentesSelect && numeroDependentesDiv && dependentesContainer) {
-        dependentesSelect.addEventListener('change', function () {
-            dependentesContainer.innerHTML = '';
+    // Controlar a exibição da seção "Quantos?"
+    if (temDependentesSelect && numeroDependentesDiv) {
+        numeroDependentesDiv.style.display = temDependentesSelect.value == 1 ? 'block' : 'none';
+        temDependentesSelect.addEventListener('change', function () {
             numeroDependentesDiv.style.display = this.value == 1 ? 'block' : 'none';
+            // Limpar os novos dependentes ao mudar a seleção
+            novosDependentesContainer.innerHTML = '';
         });
+    }
 
-        const numeroDependentesInput = document.getElementById('numeroDependentes');
-        if (numeroDependentesInput) {
-            numeroDependentesInput.addEventListener('change', function () {
-                const quantidade = parseInt(this.value);
-                dependentesContainer.innerHTML = '';
+    const numeroDependentesInput = document.getElementById('numeroDependentes');
+    let novoDependenteCounter = 0;
+    if (numeroDependentesInput) {
+        numeroDependentesInput.addEventListener('change', function () {
+            const quantidade = parseInt(this.value);
+            novosDependentesContainer.innerHTML = ''; // Limpa os campos de novos dependentes existentes
+            novoDependenteCounter = 0; // Reinicia o contador
 
-                if (quantidade > 0) {
-                    for (let i = 0; i < quantidade; i++) {
-                        dependentesContainer.innerHTML += `
-                                <div class="card m-2 dependentes-group">
-                                    <h5 class="card-subtitle mt-2 mb-2 ms-4 text-body-secondary">Dependente ${i + 1}</h5>
-                                    <div class="row row-g3 m-2">
-                                        <div class="form-floating mb-2 col-md-12">
-                                            <input type="text" class="form-control" name="dependente[${i}][nome]">
-                                            <label for="dependente[${i}][nome]" class="form-label">Nome</label>
-                                        </div>
-                                        <div class="form-floating mb-3 col-md-6">
-                                            <input type="date" class="form-control" name="dependente[${i}][dataNascimento]">
-                                            <label for="dependente[${i}][dataNascimento]" class="form-label">Data de Nascimento</label>
-                                        </div>
-                                        <div class="form-floating mb-3 col-md-6">
-                                            <input type="text" class="form-control dependente-cpf" name="dependente[${i}][cpf]">
-                                            <label for="dependente[${i}][cpf]" class="form-label">CPF</label>
-                                        </div>
-                                    </div>
+            if (quantidade > 0) {
+                for (let i = 0; i < quantidade; i++) {
+                    novosDependentesContainer.innerHTML += `
+                        <div class="card m-2 dependentes-group">
+                            <h5 class="card-subtitle mt-2 mb-2 ms-4 text-body-secondary">Novo Dependente ${i + 1}</h5>
+                            <div class="row row-g3 m-2">
+                                <div class="form-floating mb-2 col-md-12">
+                                    <input type="text" class="form-control" name="novos_dependentes[${novoDependenteCounter}][name]">
+                                    <label for="novos_dependentes[${novoDependenteCounter}][name]" class="form-label">Nome</label>
                                 </div>
-                            `;
-                    }
-                    applyMasks({ '.dependente-cpf': "999.999.999-99" });
+                                <div class="form-floating mb-3 col-md-6">
+                                    <input type="date" class="form-control" name="novos_dependentes[${novoDependenteCounter}][nascimento]">
+                                    <label for="novos_dependentes[${novoDependenteCounter}][nascimento]" class="form-label">Data de Nascimento</label>
+                                </div>
+                                <div class="form-floating mb-3 col-md-6">
+                                    <input type="text" class="form-control dependentes-cpf" name="novos_dependentes[${novoDependenteCounter}][cpf]">
+                                    <label for="novos_dependentes[${novoDependenteCounter}][cpf]" class="form-label">CPF</label>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    novoDependenteCounter++;
                 }
-            });
-        }
+                applyMasks({ '.dependentes-cpf': "999.999.999-99" });
+            }
+        });
     }
 });
 

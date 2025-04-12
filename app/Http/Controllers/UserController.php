@@ -7,7 +7,6 @@ use App\Models\{Adress, BancAcount, Contrato, Dependente, ESocial, Hire, Persona
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -34,6 +33,7 @@ class UserController extends Controller
         $contrato = (User::find($user->id)->contrato()->get())->first();
         $esocial = (User::find($user->id)->esocial()->get())->first();
         $roles = (User::find($user->id)->role()->get())->first();
+        $dependentes = $user->dependentes();
         //retornar para a view
         return view('users.show', [
             'user' => $user,
@@ -43,6 +43,7 @@ class UserController extends Controller
             'contrato' => $contrato,
             'esocial' => $esocial,
             'roles' => $roles,
+            'dependentes' => $dependentes,
         ]);
     }
 
@@ -57,10 +58,141 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'nullable|string|min:6',
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'nullable|min:6',
+            'nascimento' => 'nullable|date',
+            'naturalidade' => 'nullable|max:255',
+            'nacionalidade' => 'nullable|max:255',
+            'genero' => 'nullable|max:20',
+            'escolaridade' => 'nullable|max:100',
+            'raca' => 'nullable|max:50',
+            'civil' => 'nullable|max:50',
+            'calca' => 'nullable|max:10',
+            'camisa' => 'nullable|max:10',
+            'calcado' => 'nullable|max:10',
+            'nr10' => 'nullable|boolean',
+            'dependentes' => 'nullable|boolean',
+            'numeroDependentes' => 'nullable|integer|min:0',
+            'cpf' => 'required|size:14|unique:personal_documents,cpf',
+            'pis' => 'nullable|max:20|unique:personal_documents,pis_pasep',
+            'titulo' => 'nullable|max:20|unique:personal_documents,titulo_eleitor',
+            'zona' => 'nullable|integer|min:1',
+            'secao' => 'nullable|integer|min:1',
+            'cnh' => 'nullable|max:20|unique:personal_documents,cnh',
+            'catchn' => 'nullable|max:10',
+            'ctps' => 'nullable|max:20|unique:personal_documents,ctps',
+            'banco' => 'nullable|max:100',
+            'agencia' => 'nullable|max:20',
+            'tipo_conta' => 'nullable|max:50',
+            'numero_conta' => 'nullable|max:50',
+            'tipo_pix' => 'nullable|max:50',
+            'pix' => 'nullable|max:255',
+            'endereco' => 'nullable|max:255',
+            'numero' => 'nullable|max:20',
+            'complemento' => 'nullable|max:255',
+            'bairro' => 'nullable|max:255',
+            'cidade' => 'nullable|max:255',
+            'estado' => 'nullable|size:2',
+            'cep' => 'nullable|size:9',
+            'telefone' => 'nullable|max:20',
+            'remuneration_id' => 'nullable|exists:remunerations,id',
+            'role_id' => 'nullable|exists:roles,id',
+            'tipoContrato' => 'nullable|max:50',
+            'lotacao' => 'nullable|max:255',
+            'equipe' => 'nullable|max:255',
+            'cbo' => 'nullable|max:10',
+            'situacao' => 'nullable|max:50',
+            'disponibilidade' => 'nullable|max:50',
+            'aso' => 'nullable|date',
+            'admissao' => 'nullable|date',
+            'termino' => 'nullable|date|nullable',
+            'observacao' => 'nullable',
+            'matricula' => 'nullable|max:50|unique:e_socials,matricula',
+            'nocivos' => 'nullable|boolean',
+            'admissionais' => 'nullable|boolean',
+            'periodicos' => 'nullable|boolean',
+            'mudanca' => 'nullable|boolean',
+            'retorno' => 'nullable|boolean',
+            'demissional' => 'nullable|boolean',
+        ], [
+            'name.required' => 'O campo Nome é obrigatório.',
+            'name.max' => 'O campo Nome não pode ter mais de 255 caracteres.',
+            'email.required' => 'O campo E-mail é obrigatório.',
+            'email.email' => 'O campo E-mail deve ser um endereço de e-mail válido.',
+            'email.max' => 'O campo E-mail não pode ter mais de 255 caracteres.',
+            'email.unique' => 'Este E-mail já está cadastrado.',
+            'password.min' => 'O campo Senha deve ter pelo menos :min. dígitos',
+            'nascimento.date' => 'O campo Data de Nascimento deve ser uma data válida.',
+            'naturalidade.max' => 'O campo Naturalidade não pode ter mais de 255 caracteres.',
+            'nacionalidade.max' => 'O campo Nacionalidade não pode ter mais de 255 caracteres.',
+            'genero.max' => 'O campo Gênero não pode ter mais de 20 caracteres.',
+            'escolaridade.max' => 'O campo Escolaridade não pode ter mais de 100 caracteres.',
+            'raca.max' => 'O campo Raça não pode ter mais de 50 caracteres.',
+            'civil.max' => 'O campo Estado Civil não pode ter mais de 50 caracteres.',
+            'calca.max' => 'O campo Tamanho da Calça não pode ter mais de 10 caracteres.',
+            'camisa.max' => 'O campo Tamanho da Camisa não pode ter mais de 10 caracteres.',
+            'calcado.max' => 'O campo Tamanho do Calçado não pode ter mais de 10 caracteres.',
+            'nr10.boolean' => 'O campo NR10 deve ser verdadeiro ou falso.',
+            'dependentes.boolean' => 'O campo Dependentes deve ser verdadeiro ou falso.',
+            'numeroDependentes.integer' => 'O campo Número de Dependentes deve ser um número inteiro.',
+            'numeroDependentes.min' => 'O campo Número de Dependentes não pode ser negativo.',
+            'cpf.required' => 'O campo CPF é obrigatório.',
+            'cpf.size' => 'O campo CPF deve ter 14 caracteres.',
+            'cpf.unique' => 'Este CPF já está cadastrado.',
+            'pis.max' => 'O campo PIS/PASEP não pode ter mais de 20 caracteres.',
+            'pis.unique' => 'Este PIS/PASEP já está cadastrado.',
+            'titulo.max' => 'O campo Título de Eleitor não pode ter mais de 20 caracteres.',
+            'titulo.unique' => 'Este Título de Eleitor já está cadastrado.',
+            'zona.integer' => 'O campo Zona Eleitoral deve ser um número inteiro.',
+            'zona.min' => 'O campo Zona Eleitoral deve ser no mínimo 1.',
+            'secao.integer' => 'O campo Seção Eleitoral deve ser um número inteiro.',
+            'secao.min' => 'O campo Seção Eleitoral deve ser no mínimo 1.',
+            'cnh.max' => 'O campo CNH não pode ter mais de 20 caracteres.',
+            'cnh.unique' => 'Esta CNH já está cadastrada.',
+            'catchn.max' => 'O campo Categoria da CNH não pode ter mais de 10 caracteres.',
+            'ctps.max' => 'O campo CTPS não pode ter mais de 20 caracteres.',
+            'ctps.unique' => 'Esta CTPS já está cadastrada.',
+            'banco.max' => 'O campo Banco não pode ter mais de 100 caracteres.',
+            'agencia.max' => 'O campo Agência não pode ter mais de 20 caracteres.',
+            'tipo_conta.max' => 'O campo Tipo de Conta não pode ter mais de 50 caracteres.',
+            'numero_conta.max' => 'O campo Número da Conta não pode ter mais de 50 caracteres.',
+            'tipo_pix.max' => 'O campo Tipo de PIX não pode ter mais de 50 caracteres.',
+            'pix.max' => 'O campo Chave PIX não pode ter mais de 255 caracteres.',
+            'endereco.max' => 'O campo Endereço não pode ter mais de 255 caracteres.',
+            'numero.max' => 'O campo Número não pode ter mais de 20 caracteres.',
+            'complemento.max' => 'O campo Complemento não pode ter mais de 255 caracteres.',
+            'bairro.max' => 'O campo Bairro não pode ter mais de 255 caracteres.',
+            'cidade.max' => 'O campo Cidade não pode ter mais de 255 caracteres.',
+            'estado.size' => 'O campo Estado deve ter 2 caracteres.',
+            'cep.size' => 'O campo CEP deve ter 9 caracteres.',
+            'telefone.max' => 'O campo Telefone não pode ter mais de 20 caracteres.',
+            'remuneration_id.exists' => 'A Remuneração selecionada é inválida.',
+            'role_id.exists' => 'O Cargo selecionado é inválido.',
+            'tipoContrato.max' => 'O campo Tipo de Contrato não pode ter mais de 50 caracteres.',
+            'lotacao.max' => 'O campo Lotação não pode ter mais de 255 caracteres.',
+            'equipe.max' => 'O campo Equipe não pode ter mais de 255 caracteres.',
+            'cbo.max' => 'O campo CBO não pode ter mais de 10 caracteres.',
+            'situacao.max' => 'O campo Situação não pode ter mais de 50 caracteres.',
+            'disponibilidade.max' => 'O campo Disponibilidade não pode ter mais de 50 caracteres.',
+            'aso.date' => 'O campo ASO deve ser uma data válida.',
+            'admissao.date' => 'O campo Admissão deve ser uma data válida.',
+            'termino.date' => 'O campo Término deve ser uma data válida.',
+            'matricula.max' => 'O campo Matrícula (E-social) não pode ter mais de 50 caracteres.',
+            'matricula.unique' => 'Esta Matrícula (E-social) já está cadastrada.',
+            'nocivos.boolean' => 'O campo Agentes Nocivos (E-social) deve ser verdadeiro ou falso.',
+            'admissionais.boolean' => 'O campo Admissionais (E-social) deve ser verdadeiro ou falso.',
+            'periodicos.boolean' => 'O campo Periódicos (E-social) deve ser verdadeiro ou falso.',
+            'mudanca.boolean' => 'O campo Mudança de Função (E-social) deve ser verdadeiro ou falso.',
+            'retorno.boolean' => 'O campo Retorno ao Trabalho (E-social) deve ser verdadeiro ou falso.',
+            'demissional.boolean' => 'O campo Demissional (E-social) deve ser verdadeiro ou falso.',
         ]);
+        
+        // DB::listen(function ($query) {
+        //     Log::info("SQL: " . $query->sql);
+        //     Log::info("Bindings: " . print_r($query->bindings, true));
+        //     Log::info("Time: " . $query->time);
+        // });
 
         DB::beginTransaction(); // Inicia a transação
 
@@ -144,25 +276,13 @@ class UserController extends Controller
                 'user_id' => $user->id,
                 'matricula' => $request->matricula,
                 'nocivos' => $request->nocivos,
-                'admissional' => $request->admissionais,
+                'admissionais' => $request->admissionais,
                 'periodicos' => $request->periodicos,
                 'mudanca' => $request->mudanca,
                 'retorno' => $request->retorno,
                 'demissional' => $request->demissional,
 
             ]);
-
-            // Dependentes
-            if ($request->has('dependente')) {
-                foreach ($request->input('dependente') as $dependenteData) {
-                    Dependente::create([
-                        'user_id' => $user->id,
-                        'nome' => $dependenteData['nome'] ?? null,
-                        'cpf' => preg_replace('/[^0-9]/', '', $dependenteData['cpf']) ?? null,
-                        'nascimento' => $dependenteData['dataNascimento'] ?? null,
-                    ]);
-                }
-            }
 
             DB::commit(); // Se todas as operações foram bem-sucedidas, confirma a transação
 
@@ -206,25 +326,134 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:6',
-            'dependentes' => 'nullable|in:0,1',
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'nullable|min:6',
+            'nascimento' => 'nullable|date',
+            'naturalidade' => 'nullable|max:255',
+            'nacionalidade' => 'nullable|max:255',
+            'genero' => 'nullable|max:20',
+            'escolaridade' => 'nullable|max:100',
+            'raca' => 'nullable|max:50',
+            'civil' => 'nullable|max:50',
+            'calca' => 'nullable|max:10',
+            'camisa' => 'nullable|max:10',
+            'calcado' => 'nullable|max:10',
+            'nr10' => 'nullable|boolean',
+            'dependentes' => 'nullable|boolean',
             'numeroDependentes' => 'nullable|integer|min:0',
-            'dependentes.*.nome' => 'nullable|array',
-            'dependentes.*.nome.*' => 'nullable|string|max:255',
-            'dependentes.*.cpf' => 'nullable|array',
-            'dependentes.*.cpf.*' => 'nullable|string|max:14',
-            'dependentes.*.dataNascimento' => 'nullable|array',
-            'dependentes.*.dataNascimento.*' => 'nullable|date',
-            'novos_dependentes.*.nome' => 'nullable|array',
-            'novos_dependentes.*.nome.*' => 'nullable|string|max:255',
-            'novos_dependentes.*.cpf' => 'nullable|array',
-            'novos_dependentes.*.cpf.*' => 'nullable|string|max:14',
-            'novos_dependentes.*.dataNascimento' => 'nullable|array',
-            'novos_dependentes.*.dataNascimento.*' => 'nullable|date',
-            'remover_dependentes' => 'nullable|array',
-            'remover_dependentes.*' => 'nullable|integer|exists:dependentes,id,user_id,' . $user->id,
+            'cpf' => 'required|size:14|unique:personal_documents,cpf',
+            'pis' => 'nullable|max:20|unique:personal_documents,pis_pasep',
+            'titulo' => 'nullable|max:20|unique:personal_documents,titulo_eleitor',
+            'zona' => 'nullable|integer|min:1',
+            'secao' => 'nullable|integer|min:1',
+            'cnh' => 'nullable|max:20|unique:personal_documents,cnh',
+            'catchn' => 'nullable|max:10',
+            'ctps' => 'nullable|max:20|unique:personal_documents,ctps',
+            'banco' => 'nullable|max:100',
+            'agencia' => 'nullable|max:20',
+            'tipo_conta' => 'nullable|max:50',
+            'numero_conta' => 'nullable|max:50',
+            'tipo_pix' => 'nullable|max:50',
+            'pix' => 'nullable|max:255',
+            'endereco' => 'nullable|max:255',
+            'numero' => 'nullable|max:20',
+            'complemento' => 'nullable|max:255',
+            'bairro' => 'nullable|max:255',
+            'cidade' => 'nullable|max:255',
+            'estado' => 'nullable|size:2',
+            'cep' => 'nullable|size:9',
+            'telefone' => 'nullable|max:20',
+            'remuneration_id' => 'nullable|exists:remunerations,id',
+            'role_id' => 'nullable|exists:roles,id',
+            'tipoContrato' => 'nullable|max:50',
+            'lotacao' => 'nullable|max:255',
+            'equipe' => 'nullable|max:255',
+            'cbo' => 'nullable|max:10',
+            'situacao' => 'nullable|max:50',
+            'disponibilidade' => 'nullable|max:50',
+            'aso' => 'nullable|date',
+            'admissao' => 'nullable|date',
+            'termino' => 'nullable|date|nullable',
+            'observacao' => 'nullable',
+            'matricula' => 'nullable|max:50|unique:e_socials,matricula',
+            'nocivos' => 'nullable|boolean',
+            'admissionais' => 'nullable|boolean',
+            'periodicos' => 'nullable|boolean',
+            'mudanca' => 'nullable|boolean',
+            'retorno' => 'nullable|boolean',
+            'demissional' => 'nullable|boolean',
+        ], [
+            'name.required' => 'O campo Nome é obrigatório.',
+            'name.max' => 'O campo Nome não pode ter mais de 255 caracteres.',
+            'email.required' => 'O campo E-mail é obrigatório.',
+            'email.email' => 'O campo E-mail deve ser um endereço de e-mail válido.',
+            'email.max' => 'O campo E-mail não pode ter mais de 255 caracteres.',
+            'email.unique' => 'Este E-mail já está cadastrado.',
+            'password.min' => 'O campo Senha deve ter pelo menos :min. dígitos',
+            'nascimento.date' => 'O campo Data de Nascimento deve ser uma data válida.',
+            'naturalidade.max' => 'O campo Naturalidade não pode ter mais de 255 caracteres.',
+            'nacionalidade.max' => 'O campo Nacionalidade não pode ter mais de 255 caracteres.',
+            'genero.max' => 'O campo Gênero não pode ter mais de 20 caracteres.',
+            'escolaridade.max' => 'O campo Escolaridade não pode ter mais de 100 caracteres.',
+            'raca.max' => 'O campo Raça não pode ter mais de 50 caracteres.',
+            'civil.max' => 'O campo Estado Civil não pode ter mais de 50 caracteres.',
+            'calca.max' => 'O campo Tamanho da Calça não pode ter mais de 10 caracteres.',
+            'camisa.max' => 'O campo Tamanho da Camisa não pode ter mais de 10 caracteres.',
+            'calcado.max' => 'O campo Tamanho do Calçado não pode ter mais de 10 caracteres.',
+            'nr10.boolean' => 'O campo NR10 deve ser verdadeiro ou falso.',
+            'dependentes.boolean' => 'O campo Dependentes deve ser verdadeiro ou falso.',
+            'numeroDependentes.integer' => 'O campo Número de Dependentes deve ser um número inteiro.',
+            'numeroDependentes.min' => 'O campo Número de Dependentes não pode ser negativo.',
+            'cpf.required' => 'O campo CPF é obrigatório.',
+            'cpf.size' => 'O campo CPF deve ter 14 caracteres.',
+            'cpf.unique' => 'Este CPF já está cadastrado.',
+            'pis.max' => 'O campo PIS/PASEP não pode ter mais de 20 caracteres.',
+            'pis.unique' => 'Este PIS/PASEP já está cadastrado.',
+            'titulo.max' => 'O campo Título de Eleitor não pode ter mais de 20 caracteres.',
+            'titulo.unique' => 'Este Título de Eleitor já está cadastrado.',
+            'zona.integer' => 'O campo Zona Eleitoral deve ser um número inteiro.',
+            'zona.min' => 'O campo Zona Eleitoral deve ser no mínimo 1.',
+            'secao.integer' => 'O campo Seção Eleitoral deve ser um número inteiro.',
+            'secao.min' => 'O campo Seção Eleitoral deve ser no mínimo 1.',
+            'cnh.max' => 'O campo CNH não pode ter mais de 20 caracteres.',
+            'cnh.unique' => 'Esta CNH já está cadastrada.',
+            'catchn.max' => 'O campo Categoria da CNH não pode ter mais de 10 caracteres.',
+            'ctps.max' => 'O campo CTPS não pode ter mais de 20 caracteres.',
+            'ctps.unique' => 'Esta CTPS já está cadastrada.',
+            'banco.max' => 'O campo Banco não pode ter mais de 100 caracteres.',
+            'agencia.max' => 'O campo Agência não pode ter mais de 20 caracteres.',
+            'tipo_conta.max' => 'O campo Tipo de Conta não pode ter mais de 50 caracteres.',
+            'numero_conta.max' => 'O campo Número da Conta não pode ter mais de 50 caracteres.',
+            'tipo_pix.max' => 'O campo Tipo de PIX não pode ter mais de 50 caracteres.',
+            'pix.max' => 'O campo Chave PIX não pode ter mais de 255 caracteres.',
+            'endereco.max' => 'O campo Endereço não pode ter mais de 255 caracteres.',
+            'numero.max' => 'O campo Número não pode ter mais de 20 caracteres.',
+            'complemento.max' => 'O campo Complemento não pode ter mais de 255 caracteres.',
+            'bairro.max' => 'O campo Bairro não pode ter mais de 255 caracteres.',
+            'cidade.max' => 'O campo Cidade não pode ter mais de 255 caracteres.',
+            'estado.size' => 'O campo Estado deve ter 2 caracteres.',
+            'cep.size' => 'O campo CEP deve ter 9 caracteres.',
+            'telefone.max' => 'O campo Telefone não pode ter mais de 20 caracteres.',
+            'remuneration_id.exists' => 'A Remuneração selecionada é inválida.',
+            'role_id.exists' => 'O Cargo selecionado é inválido.',
+            'tipoContrato.max' => 'O campo Tipo de Contrato não pode ter mais de 50 caracteres.',
+            'lotacao.max' => 'O campo Lotação não pode ter mais de 255 caracteres.',
+            'equipe.max' => 'O campo Equipe não pode ter mais de 255 caracteres.',
+            'cbo.max' => 'O campo CBO não pode ter mais de 10 caracteres.',
+            'situacao.max' => 'O campo Situação não pode ter mais de 50 caracteres.',
+            'disponibilidade.max' => 'O campo Disponibilidade não pode ter mais de 50 caracteres.',
+            'aso.date' => 'O campo ASO deve ser uma data válida.',
+            'admissao.date' => 'O campo Admissão deve ser uma data válida.',
+            'termino.date' => 'O campo Término deve ser uma data válida.',
+            'matricula.max' => 'O campo Matrícula (E-social) não pode ter mais de 50 caracteres.',
+            'matricula.unique' => 'Esta Matrícula (E-social) já está cadastrada.',
+            'nocivos.boolean' => 'O campo Agentes Nocivos (E-social) deve ser verdadeiro ou falso.',
+            'admissionais.boolean' => 'O campo Admissionais (E-social) deve ser verdadeiro ou falso.',
+            'periodicos.boolean' => 'O campo Periódicos (E-social) deve ser verdadeiro ou falso.',
+            'mudanca.boolean' => 'O campo Mudança de Função (E-social) deve ser verdadeiro ou falso.',
+            'retorno.boolean' => 'O campo Retorno ao Trabalho (E-social) deve ser verdadeiro ou falso.',
+            'demissional.boolean' => 'O campo Demissional (E-social) deve ser verdadeiro ou falso.',
         ]);
 
         DB::beginTransaction();
@@ -246,7 +475,7 @@ class UserController extends Controller
                 'camisa' => $request->camisa,
                 'calcado' => $request->calcado,
                 'nr10' => $request->nr10,
-                'dependentes' => $request->dependentes,
+                'temdependentes' => $request->tem_dependentes,
                 'numeroDependentes' => $request->numeroDependentes,
             ]);
 
@@ -304,7 +533,7 @@ class UserController extends Controller
             $user->esocial()->update([
                 'matricula' => $request->matricula,
                 'nocivos' => $request->nocivos,
-                'admissional' => $request->admissionais,
+                'admissionais' => $request->admissionais,
                 'periodicos' => $request->periodicos,
                 'mudanca' => $request->mudanca,
                 'retorno' => $request->retorno,
@@ -316,6 +545,7 @@ class UserController extends Controller
                 foreach ($request->input('dependentes') as $dependenteId => $dependenteData) {
                     $dependente = $user->dependentes()->find($dependenteId);
                     if ($dependente) {
+                        $dependenteData['cpf'] = preg_replace('/[^0-9]/', '', $dependenteData['cpf'] ?? '');
                         $dependente->update($dependenteData);
                     }
                 }
@@ -324,13 +554,14 @@ class UserController extends Controller
             // Criar novos dependentes
             if ($request->has('novos_dependentes')) {
                 foreach ($request->input('novos_dependentes') as $dependenteData) {
-                    if (isset($dependenteData['nome']) || isset($dependenteData['dataNascimento']) || isset($dependenteData['cpf'])) {
+                    if (isset($dependenteData['name']) || isset($dependenteData['nascimento']) || isset($dependenteData['cpf'])) {
+                        $dependenteData['cpf'] = preg_replace('/[^0-9]/', '', $dependenteData['cpf'] ?? '');
                         $user->dependentes()->create($dependenteData);
                     }
                 }
             }
 
-            // Remover dependentes (se a lógica de remoção estiver implementada)
+            // Remover dependentes
             if ($request->has('remover_dependentes')) {
                 Dependente::whereIn('id', $request->input('remover_dependentes'))->delete();
             }

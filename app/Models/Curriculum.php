@@ -78,9 +78,4 @@ class Curriculum extends Model
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
-
-    public function dependentes()
-    {
-        return $this->hasMany(Dependente::class, 'curriculum_id');
-    }
 }

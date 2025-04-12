@@ -7,7 +7,6 @@
                 <img class="mb-4" src="{{ asset('images/meka.png') }}" alt="" width="200" height="100">
             </a>
             <h1 class="h3 mb-3 fw-normal">Área restrita</h1>
-            <x-alert />
 
             <form action="{{ route('login.process') }}" method="POST">
                 @csrf
@@ -37,3 +36,18 @@
         </div>
     </main>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            const errorMessage = "{{ session('error') }}";
+            console.log('Mensagem de erro da sessão:', errorMessage);
+            if (errorMessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro!',
+                    text: errorMessage,
+                });
+            }
+        });
+    </script>
+@endpush

@@ -99,3 +99,7 @@
     background-color: rgba(0, 0, 0, 0.1); /* Um cinza claro semi-transparente */
     color: #000; /* Opcional: mudar a cor do texto também */
 }
+.sem-borda {
+    border: none !important;
+    /* O !important pode ser necessário para sobrepor outros estilos */
+}

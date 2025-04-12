@@ -39,7 +39,7 @@
                 @include('layouts.esocial_edit')
                 {{-- e-social --}}
                 {{-- dependentes --}}
-                @include('layouts.dependentes')
+                @include('layouts.dependentes_edit')
                 {{-- dependentes --}}
                 {{-- botão --}}
                 <div class="row g-3">

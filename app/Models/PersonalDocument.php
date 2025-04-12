@@ -19,14 +19,15 @@ class PersonalDocument extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'user_id',
         'cpf',
         'pis_pasep',
         'titulo_eleitor',
         'zona', // ok
         'secao', // ok
         'cnh',
+        'catcnh',
         'ctps',
-        'user_id',
     ];
 
     /**
